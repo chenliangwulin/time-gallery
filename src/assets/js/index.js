@@ -3,15 +3,13 @@ import TimeGallery from './time-gallery'
 
 const app = {
 
-    path: 'assets/images/',
-
     init() {
         let height = window.innerHeight/window.innerWidth * 750;
         let gallery = new TimeGallery({
-            id: 'gallery-canvas',
-            width: 750,
-            height,
-            resourcesPath: this.path,
+            id: 'gallery-canvas',             // 定义画布的id（必选）
+            width: 750,                       // 定义画布的宽度，根据设计稿定义（必选）
+            height,                           // 定义画布的高度，目前是屏幕高度（必选）
+            resourcesPath: 'assets/images/',  // 定义资源文件的默认路劲（可选）
             resources: [
                 { src: 'scene_start_text.png', id: 'scene_start_text' },
 
@@ -50,11 +48,11 @@ const app = {
                 { src: 'scene_4_note_sprite.png', id: 'scene_4_note_sprite' },
                 { src: 'scene_5_note_sprite.png', id: 'scene_5_note_sprite' },
 
-            ],
-            sprites(_this) {
+            ],                 // 定义资源文件（必选）
+            sprites(ctx) {
                 return {
                     scene_1_notes: {
-                        images: [_this.getImage('scene_1_note_sprite')],
+                        images: [ctx.getImage('scene_1_note_sprite')],
                         frames: [
                             [0, 1032, 489, 103],
                             [0, 944, 489, 67],
@@ -81,7 +79,7 @@ const app = {
                         }
                     },
                     scene_2_notes: {
-                        images: [_this.getImage('scene_2_note_sprite')],
+                        images: [ctx.getImage('scene_2_note_sprite')],
                         frames: [
                             [423, 292, 14, 40],
                             [339, 274, 25, 57],
@@ -108,7 +106,7 @@ const app = {
                         }
                     },
                     scene_3_notes: {
-                        images: [_this.getImage('scene_3_note_sprite')],
+                        images: [ctx.getImage('scene_3_note_sprite')],
                         frames: [
                             [95, 368, 42, 32],
                             [103, 313, 16, 30],
@@ -131,7 +129,7 @@ const app = {
                         }
                     },
                     scene_4_notes: {
-                        images: [_this.getImage('scene_4_note_sprite')],
+                        images: [ctx.getImage('scene_4_note_sprite')],
                         frames: [
                             [0, 343, 16, 36],
                             [20, 457, 18, 34],
@@ -160,7 +158,7 @@ const app = {
                         }
                     },
                     scene_5_notes: {
-                        images: [_this.getImage('scene_5_note_sprite')],
+                        images: [ctx.getImage('scene_5_note_sprite')],
                         frames: [
                             [0, 190, 62, 82],
                             [64, 318, 64, 80],
@@ -183,7 +181,7 @@ const app = {
                         }
                     },
                     scene_1_text: {
-                        images:[_this.getImage('scene_1_text')],
+                        images:[ctx.getImage('scene_1_text')],
                         frames: [
                             [0, 0, 51, 286],
                             [51, 0, 51, 286],
@@ -194,7 +192,7 @@ const app = {
                         }
                     },
                     scene_2_text: {
-                        images:[_this.getImage('scene_2_text')],
+                        images:[ctx.getImage('scene_2_text')],
                         frames: [
                             [0, 0, 50, 286],
                             [50, 0, 42, 286],
@@ -209,7 +207,7 @@ const app = {
                         }
                     },
                     scene_3_text_1: {
-                        images:[_this.getImage('scene_3_text_1')],
+                        images:[ctx.getImage('scene_3_text_1')],
                         frames: [
                             [0, 0, 52, 258],
                             [52, 0, 40, 258],
@@ -224,7 +222,7 @@ const app = {
                         }
                     },
                     scene_3_text_2: {
-                        images:[_this.getImage('scene_3_text_2')],
+                        images:[ctx.getImage('scene_3_text_2')],
                         frames: [
                             [0, 0, 459, 65],
                             [0, 65, 459, 72],
@@ -237,7 +235,7 @@ const app = {
                         }
                     },
                     scene_4_text_1: {
-                        images:[_this.getImage('scene_4_text_1')],
+                        images:[ctx.getImage('scene_4_text_1')],
                         frames: [
                             [0, 0, 444, 52],
                             [0, 52, 444, 40],
@@ -252,7 +250,7 @@ const app = {
                         }
                     },
                     scene_4_text_2: {
-                        images:[_this.getImage('scene_4_text_2')],
+                        images:[ctx.getImage('scene_4_text_2')],
                         frames: [
                             [0, 0, 50, 482],
                             [50, 0, 40, 482],
@@ -267,7 +265,7 @@ const app = {
                         }
                     },
                     scene_4_text: {
-                        images:[_this.getImage('scene_4_text')],
+                        images:[ctx.getImage('scene_4_text')],
                         frames: [
                             [0, 0, 499, 114],
                             [0, 114, 499, 72],
@@ -280,7 +278,7 @@ const app = {
                         }
                     },
                     scene_5_text: {
-                        images:[_this.getImage('scene_5_text')],
+                        images:[ctx.getImage('scene_5_text')],
                         frames: [
                             [0, 0, 402, 32],
                             [0, 32, 402, 40],
@@ -297,7 +295,7 @@ const app = {
                         }
                     },
                     scene_6_text: {
-                        images:[_this.getImage('scene_6_text')],
+                        images:[ctx.getImage('scene_6_text')],
                         frames: [
                             [0, 0, 442, 34],
                             [0, 80, 442, 34],
@@ -312,15 +310,13 @@ const app = {
                         }
                     },
                 }
-            },
-            data: this.canvasData,
-            mapStartY: -(height - 272)/2,
-            // mapActiveY: 8000,
-            // mapEndY: 20000,
-            onInit() {
+            },               // 定义雪碧图或序列帧动画属性（可选）
+            data: this.canvasData,            // 定义画布数据（必选）
+            mapStartY: -(height - 272)/2,     // 定义画布开始的位置，默认是顶部 0（可选）
+            onInit() {                        // 定义初始时候的回调（可选）
                 console.log('初始化回调')
             },
-            onEnd() {
+            onEnd() {                         // 定义画布结束时候的回调（可选）
                 console.log('结束回调')
             }
         });
@@ -328,15 +324,19 @@ const app = {
         gallery.play();
     },
 
-    canvasData(canvas) {
-        let duration = canvas.height/2;
+    /** 创建长图数据
+    *** @ctx TimeGallery 实例自身, 方便调用自身定义的属性来创建数据
+    **/
+    canvasData(ctx) {
+        // 定义默认的动画长度，屏幕的高度
+        const duration = ctx.height/2;
         return [
             {
                 id: 'scene_start_text',
                 type: 'bitmap',
-                image: canvas.getImage('scene_start_text'),
+                image: ctx.getImage('scene_start_text'),
                 prop: {
-                    x: (canvas.width - canvas.getImage('scene_start_text').width)/2,
+                    x: (ctx.width - ctx.getImage('scene_start_text').width)/2,
                 },
             },
             {
@@ -348,7 +348,7 @@ const app = {
                     {
                         id: 'scene_1_bg',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_1_bg'),
+                        image: ctx.getImage('scene_1_bg'),
                         prop: {
                             y: 502,
                         }
@@ -357,7 +357,7 @@ const app = {
                         id: 'scene_1_role',
                         type: 'sprite',
                         sheet: {
-                            images:[canvas.getImage('scene_1_role')],//图片路径
+                            images:[ctx.getImage('scene_1_role')],//图片路径
                             frames: {
                                 height: 816,
                                 width: 600,
@@ -378,7 +378,7 @@ const app = {
                     {
                         id: 'scene_1_curve',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_1_curve'),
+                        image: ctx.getImage('scene_1_curve'),
                         prop: {
                             x: 434,
                             alpha: 0,
@@ -397,7 +397,7 @@ const app = {
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_text'],
+                                sheet: ctx.sprites['scene_1_text'],
                                 method: {
                                     gotoAndPlay:['text_1']
                                 },
@@ -415,12 +415,12 @@ const app = {
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_text'],
+                                sheet: ctx.sprites['scene_1_text'],
                                 method: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_1_text'].frames[1][0],
+                                    x: ctx.sprites['scene_1_text'].frames[1][0],
                                     y: 200,
                                     alpha: 0,
                                 },
@@ -441,182 +441,182 @@ const app = {
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: ctx.sprites['scene_1_notes'],
                                 method: {
                                     gotoAndPlay:['note_1']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[0][1],
+                                    y: ctx.sprites['scene_1_notes'].frames[0][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[0][1] - 200,
+                                    y: ctx.sprites['scene_1_notes'].frames[0][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: ctx.sprites['scene_1_notes'],
                                 method: {
                                     gotoAndPlay:['note_2']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[1][1],
+                                    y: ctx.sprites['scene_1_notes'].frames[1][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[1][1] - 200,
+                                    y: ctx.sprites['scene_1_notes'].frames[1][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: ctx.sprites['scene_1_notes'],
                                 method: {
                                     gotoAndPlay:['note_3']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[2][1],
+                                    y: ctx.sprites['scene_1_notes'].frames[2][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[2][1] - 200,
+                                    y: ctx.sprites['scene_1_notes'].frames[2][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: ctx.sprites['scene_1_notes'],
                                 method: {
                                     gotoAndPlay:['note_4']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[3][1],
+                                    y: ctx.sprites['scene_1_notes'].frames[3][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[3][1] - 200,
+                                    y: ctx.sprites['scene_1_notes'].frames[3][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: ctx.sprites['scene_1_notes'],
                                 method: {
                                     gotoAndPlay:['note_5']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[4][1],
+                                    y: ctx.sprites['scene_1_notes'].frames[4][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[4][1] - 200,
+                                    y: ctx.sprites['scene_1_notes'].frames[4][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: ctx.sprites['scene_1_notes'],
                                 method: {
                                     gotoAndPlay:['note_6']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[5][1],
+                                    y: ctx.sprites['scene_1_notes'].frames[5][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[5][1] - 200,
+                                    y: ctx.sprites['scene_1_notes'].frames[5][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: ctx.sprites['scene_1_notes'],
                                 method: {
                                     gotoAndPlay:['note_7']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[6][1],
+                                    y: ctx.sprites['scene_1_notes'].frames[6][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[6][1] - 200,
+                                    y: ctx.sprites['scene_1_notes'].frames[6][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: ctx.sprites['scene_1_notes'],
                                 method: {
                                     gotoAndPlay:['note_8']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[7][1],
+                                    y: ctx.sprites['scene_1_notes'].frames[7][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[7][1] - 200,
+                                    y: ctx.sprites['scene_1_notes'].frames[7][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: ctx.sprites['scene_1_notes'],
                                 method: {
                                     gotoAndPlay:['note_9']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[8][1],
+                                    y: ctx.sprites['scene_1_notes'].frames[8][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[8][1] - 200,
+                                    y: ctx.sprites['scene_1_notes'].frames[8][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: ctx.sprites['scene_1_notes'],
                                 method: {
                                     gotoAndPlay:['note_10']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[9][1],
+                                    y: ctx.sprites['scene_1_notes'].frames[9][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[9][1] - 200,
+                                    y: ctx.sprites['scene_1_notes'].frames[9][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                         ]
@@ -632,12 +632,12 @@ const app = {
                     {
                         id: 'scene_2_bg',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_2_bg'),
+                        image: ctx.getImage('scene_2_bg'),
                     },
                     {
                         id: 'scene_2_curve',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_2_curve'),
+                        image: ctx.getImage('scene_2_curve'),
                         prop: {
                             y: 22,
                             x: 10,
@@ -657,182 +657,182 @@ const app = {
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: ctx.sprites['scene_2_notes'],
                                 method: {
                                     gotoAndPlay:['note_1']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[0][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[0][1],
+                                    x: ctx.sprites['scene_2_notes'].frames[0][0],
+                                    y: ctx.sprites['scene_2_notes'].frames[0][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[0][0] - 50,
-                                    y: canvas.sprites['scene_2_notes'].frames[0][1] - 30,
+                                    x: ctx.sprites['scene_2_notes'].frames[0][0] - 50,
+                                    y: ctx.sprites['scene_2_notes'].frames[0][1] - 30,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: ctx.sprites['scene_2_notes'],
                                 method: {
                                     gotoAndPlay:['note_2']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[1][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[1][1],
+                                    x: ctx.sprites['scene_2_notes'].frames[1][0],
+                                    y: ctx.sprites['scene_2_notes'].frames[1][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[1][0] - 50,
-                                    y: canvas.sprites['scene_2_notes'].frames[1][1] - 20,
+                                    x: ctx.sprites['scene_2_notes'].frames[1][0] - 50,
+                                    y: ctx.sprites['scene_2_notes'].frames[1][1] - 20,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: ctx.sprites['scene_2_notes'],
                                 method: {
                                     gotoAndPlay:['note_3']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[2][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[2][1],
+                                    x: ctx.sprites['scene_2_notes'].frames[2][0],
+                                    y: ctx.sprites['scene_2_notes'].frames[2][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[2][0] - 30,
-                                    y: canvas.sprites['scene_2_notes'].frames[2][1] + 50,
+                                    x: ctx.sprites['scene_2_notes'].frames[2][0] - 30,
+                                    y: ctx.sprites['scene_2_notes'].frames[2][1] + 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: ctx.sprites['scene_2_notes'],
                                 method: {
                                     gotoAndPlay:['note_4']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[3][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[3][1],
+                                    x: ctx.sprites['scene_2_notes'].frames[3][0],
+                                    y: ctx.sprites['scene_2_notes'].frames[3][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[3][0] - 50,
-                                    y: canvas.sprites['scene_2_notes'].frames[3][1] + 30,
+                                    x: ctx.sprites['scene_2_notes'].frames[3][0] - 50,
+                                    y: ctx.sprites['scene_2_notes'].frames[3][1] + 30,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: ctx.sprites['scene_2_notes'],
                                 method: {
                                     gotoAndPlay:['note_5']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[4][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[4][1],
+                                    x: ctx.sprites['scene_2_notes'].frames[4][0],
+                                    y: ctx.sprites['scene_2_notes'].frames[4][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[4][0] - 100,
-                                    y: canvas.sprites['scene_2_notes'].frames[4][1] - 50,
+                                    x: ctx.sprites['scene_2_notes'].frames[4][0] - 100,
+                                    y: ctx.sprites['scene_2_notes'].frames[4][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: ctx.sprites['scene_2_notes'],
                                 method: {
                                     gotoAndPlay:['note_6']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[5][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[5][1],
+                                    x: ctx.sprites['scene_2_notes'].frames[5][0],
+                                    y: ctx.sprites['scene_2_notes'].frames[5][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[5][0] - 30,
-                                    y: canvas.sprites['scene_2_notes'].frames[5][1] - 100,
+                                    x: ctx.sprites['scene_2_notes'].frames[5][0] - 30,
+                                    y: ctx.sprites['scene_2_notes'].frames[5][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: ctx.sprites['scene_2_notes'],
                                 method: {
                                     gotoAndPlay:['note_7']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[6][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[6][1],
+                                    x: ctx.sprites['scene_2_notes'].frames[6][0],
+                                    y: ctx.sprites['scene_2_notes'].frames[6][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[6][0] - 30,
-                                    y: canvas.sprites['scene_2_notes'].frames[6][1] - 50,
+                                    x: ctx.sprites['scene_2_notes'].frames[6][0] - 30,
+                                    y: ctx.sprites['scene_2_notes'].frames[6][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: ctx.sprites['scene_2_notes'],
                                 method: {
                                     gotoAndPlay:['note_8']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[7][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[7][1],
+                                    x: ctx.sprites['scene_2_notes'].frames[7][0],
+                                    y: ctx.sprites['scene_2_notes'].frames[7][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[7][0] + 50,
-                                    y: canvas.sprites['scene_2_notes'].frames[7][1] - 50,
+                                    x: ctx.sprites['scene_2_notes'].frames[7][0] + 50,
+                                    y: ctx.sprites['scene_2_notes'].frames[7][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: ctx.sprites['scene_2_notes'],
                                 method: {
                                     gotoAndPlay:['note_9']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[8][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[8][1],
+                                    x: ctx.sprites['scene_2_notes'].frames[8][0],
+                                    y: ctx.sprites['scene_2_notes'].frames[8][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[8][0] + 50,
-                                    y: canvas.sprites['scene_2_notes'].frames[8][1] - 50,
+                                    x: ctx.sprites['scene_2_notes'].frames[8][0] + 50,
+                                    y: ctx.sprites['scene_2_notes'].frames[8][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: ctx.sprites['scene_2_notes'],
                                 method: {
                                     gotoAndPlay:['note_10']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[9][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[9][1],
+                                    x: ctx.sprites['scene_2_notes'].frames[9][0],
+                                    y: ctx.sprites['scene_2_notes'].frames[9][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[9][0] + 50,
-                                    y: canvas.sprites['scene_2_notes'].frames[9][1] - 50,
+                                    x: ctx.sprites['scene_2_notes'].frames[9][0] + 50,
+                                    y: ctx.sprites['scene_2_notes'].frames[9][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                         ]
@@ -840,7 +840,7 @@ const app = {
                     {
                         id: 'scene_2_piano',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_2_piano'),
+                        image: ctx.getImage('scene_2_piano'),
                         prop: {
                             y: 446,
                         },
@@ -849,7 +849,7 @@ const app = {
                         id: 'scene_2_role',
                         type: 'sprite',
                         sheet: {
-                            images:[canvas.getImage('scene_2_role')],//图片路径
+                            images:[ctx.getImage('scene_2_role')],//图片路径
                             frames: {
                                 width: 500,
                                 height: 618,
@@ -876,13 +876,13 @@ const app = {
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_text'],
+                                sheet: ctx.sprites['scene_2_text'],
                                 method: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
                                     y: 200,
-                                    x: canvas.sprites['scene_2_text'].frames[0][0],
+                                    x: ctx.sprites['scene_2_text'].frames[0][0],
                                     alpha: 0,
                                 },
                                 animation: {
@@ -894,12 +894,12 @@ const app = {
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_text'],
+                                sheet: ctx.sprites['scene_2_text'],
                                 method: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_text'].frames[1][0],
+                                    x: ctx.sprites['scene_2_text'].frames[1][0],
                                     y: 200,
                                     alpha: 0,
                                 },
@@ -912,12 +912,12 @@ const app = {
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_text'],
+                                sheet: ctx.sprites['scene_2_text'],
                                 method: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_text'].frames[2][0],
+                                    x: ctx.sprites['scene_2_text'].frames[2][0],
                                     y: 200,
                                     alpha: 0,
                                 },
@@ -930,12 +930,12 @@ const app = {
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_text'],
+                                sheet: ctx.sprites['scene_2_text'],
                                 method: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_text'].frames[3][0],
+                                    x: ctx.sprites['scene_2_text'].frames[3][0],
                                     y: 200,
                                     alpha: 0,
                                 },
@@ -959,12 +959,12 @@ const app = {
                     {
                         id: 'scene_3_bg',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_3_bg'),
+                        image: ctx.getImage('scene_3_bg'),
                     },
                     {
                         id: 'scene_3_curve',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_3_curve'),
+                        image: ctx.getImage('scene_3_curve'),
                         prop: {
                             x: 88,
                             y: 316,
@@ -984,146 +984,146 @@ const app = {
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_notes'],
+                                sheet: ctx.sprites['scene_3_notes'],
                                 method: {
                                     gotoAndPlay:['note_1']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_notes'].frames[0][0],
-                                    y: canvas.sprites['scene_3_notes'].frames[0][1],
+                                    x: ctx.sprites['scene_3_notes'].frames[0][0],
+                                    y: ctx.sprites['scene_3_notes'].frames[0][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_3_notes'].frames[0][0] - 20,
-                                    y: canvas.sprites['scene_3_notes'].frames[0][1] - 100,
+                                    x: ctx.sprites['scene_3_notes'].frames[0][0] - 20,
+                                    y: ctx.sprites['scene_3_notes'].frames[0][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_notes'],
+                                sheet: ctx.sprites['scene_3_notes'],
                                 method: {
                                     gotoAndPlay:['note_2']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_notes'].frames[1][0],
-                                    y: canvas.sprites['scene_3_notes'].frames[1][1],
+                                    x: ctx.sprites['scene_3_notes'].frames[1][0],
+                                    y: ctx.sprites['scene_3_notes'].frames[1][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_3_notes'].frames[1][0] - 20,
-                                    y: canvas.sprites['scene_3_notes'].frames[1][1] - 100,
+                                    x: ctx.sprites['scene_3_notes'].frames[1][0] - 20,
+                                    y: ctx.sprites['scene_3_notes'].frames[1][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_notes'],
+                                sheet: ctx.sprites['scene_3_notes'],
                                 method: {
                                     gotoAndPlay:['note_3']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_notes'].frames[2][0],
-                                    y: canvas.sprites['scene_3_notes'].frames[2][1],
+                                    x: ctx.sprites['scene_3_notes'].frames[2][0],
+                                    y: ctx.sprites['scene_3_notes'].frames[2][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_3_notes'].frames[2][0] - 20,
-                                    y: canvas.sprites['scene_3_notes'].frames[2][1] - 100,
+                                    x: ctx.sprites['scene_3_notes'].frames[2][0] - 20,
+                                    y: ctx.sprites['scene_3_notes'].frames[2][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_notes'],
+                                sheet: ctx.sprites['scene_3_notes'],
                                 method: {
                                     gotoAndPlay:['note_4']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_notes'].frames[3][0],
-                                    y: canvas.sprites['scene_3_notes'].frames[3][1],
+                                    x: ctx.sprites['scene_3_notes'].frames[3][0],
+                                    y: ctx.sprites['scene_3_notes'].frames[3][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_3_notes'].frames[3][0] - 30,
-                                    y: canvas.sprites['scene_3_notes'].frames[3][1] - 100,
+                                    x: ctx.sprites['scene_3_notes'].frames[3][0] - 30,
+                                    y: ctx.sprites['scene_3_notes'].frames[3][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_notes'],
+                                sheet: ctx.sprites['scene_3_notes'],
                                 method: {
                                     gotoAndPlay:['note_5']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_notes'].frames[4][0],
-                                    y: canvas.sprites['scene_3_notes'].frames[4][1],
+                                    x: ctx.sprites['scene_3_notes'].frames[4][0],
+                                    y: ctx.sprites['scene_3_notes'].frames[4][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_3_notes'].frames[4][0] - 30,
-                                    y: canvas.sprites['scene_3_notes'].frames[4][1] - 100,
+                                    x: ctx.sprites['scene_3_notes'].frames[4][0] - 30,
+                                    y: ctx.sprites['scene_3_notes'].frames[4][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_notes'],
+                                sheet: ctx.sprites['scene_3_notes'],
                                 method: {
                                     gotoAndPlay:['note_6']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_notes'].frames[5][0],
-                                    y: canvas.sprites['scene_3_notes'].frames[5][1],
+                                    x: ctx.sprites['scene_3_notes'].frames[5][0],
+                                    y: ctx.sprites['scene_3_notes'].frames[5][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_3_notes'].frames[5][0] - 10,
-                                    y: canvas.sprites['scene_3_notes'].frames[5][1] - 100,
+                                    x: ctx.sprites['scene_3_notes'].frames[5][0] - 10,
+                                    y: ctx.sprites['scene_3_notes'].frames[5][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_notes'],
+                                sheet: ctx.sprites['scene_3_notes'],
                                 method: {
                                     gotoAndPlay:['note_7']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_notes'].frames[6][0],
-                                    y: canvas.sprites['scene_3_notes'].frames[6][1],
+                                    x: ctx.sprites['scene_3_notes'].frames[6][0],
+                                    y: ctx.sprites['scene_3_notes'].frames[6][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_3_notes'].frames[6][0] - 20,
-                                    y: canvas.sprites['scene_3_notes'].frames[6][1] - 100,
+                                    x: ctx.sprites['scene_3_notes'].frames[6][0] - 20,
+                                    y: ctx.sprites['scene_3_notes'].frames[6][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_notes'],
+                                sheet: ctx.sprites['scene_3_notes'],
                                 method: {
                                     gotoAndPlay:['note_8']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_notes'].frames[7][0],
-                                    y: canvas.sprites['scene_3_notes'].frames[7][1],
+                                    x: ctx.sprites['scene_3_notes'].frames[7][0],
+                                    y: ctx.sprites['scene_3_notes'].frames[7][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_3_notes'].frames[7][0] - 30,
-                                    y: canvas.sprites['scene_3_notes'].frames[7][1] - 100,
+                                    x: ctx.sprites['scene_3_notes'].frames[7][0] - 30,
+                                    y: ctx.sprites['scene_3_notes'].frames[7][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                         ]
@@ -1132,7 +1132,7 @@ const app = {
                         id: 'scene_3_role',
                         type: 'sprite',
                         sheet: {
-                            images:[canvas.getImage('scene_3_role')],//图片路径
+                            images:[ctx.getImage('scene_3_role')],//图片路径
                             frames: {
                                 width: 750,
                                 height: 708,
@@ -1158,13 +1158,13 @@ const app = {
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_text_1'],
+                                sheet: ctx.sprites['scene_3_text_1'],
                                 method: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
                                     y: 200,
-                                    x: canvas.sprites['scene_3_text_1'].frames[0][0],
+                                    x: ctx.sprites['scene_3_text_1'].frames[0][0],
                                     alpha: 0,
                                 },
                                 animation: {
@@ -1176,12 +1176,12 @@ const app = {
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_text_1'],
+                                sheet: ctx.sprites['scene_3_text_1'],
                                 method: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_text_1'].frames[1][0],
+                                    x: ctx.sprites['scene_3_text_1'].frames[1][0],
                                     y: 200,
                                     alpha: 0,
                                 },
@@ -1194,12 +1194,12 @@ const app = {
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_text_1'],
+                                sheet: ctx.sprites['scene_3_text_1'],
                                 method: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_text_1'].frames[2][0],
+                                    x: ctx.sprites['scene_3_text_1'].frames[2][0],
                                     y: 200,
                                     alpha: 0,
                                 },
@@ -1212,12 +1212,12 @@ const app = {
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_text_1'],
+                                sheet: ctx.sprites['scene_3_text_1'],
                                 method: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_text_1'].frames[3][0],
+                                    x: ctx.sprites['scene_3_text_1'].frames[3][0],
                                     y: 200,
                                     alpha: 0,
                                 },
@@ -1238,7 +1238,7 @@ const app = {
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_text_2'],
+                                sheet: ctx.sprites['scene_3_text_2'],
                                 method: {
                                     gotoAndPlay:['text_1']
                                 },
@@ -1256,7 +1256,7 @@ const app = {
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_text_2'],
+                                sheet: ctx.sprites['scene_3_text_2'],
                                 method: {
                                     gotoAndPlay:['text_2']
                                 },
@@ -1275,7 +1275,7 @@ const app = {
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_text_2'],
+                                sheet: ctx.sprites['scene_3_text_2'],
                                 method: {
                                     gotoAndPlay:['text_3']
                                 },
@@ -1305,13 +1305,13 @@ const app = {
                     {
                         id: 'scene_4_bg',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_4_bg'),
+                        image: ctx.getImage('scene_4_bg'),
                     },
                     {
                         id: 'scene_4_role',
                         type: 'sprite',
                         sheet: {
-                            images:[canvas.getImage('scene_4_role')],//图片路径
+                            images:[ctx.getImage('scene_4_role')],//图片路径
                             frames: {
                                 width: 750,
                                 height: 1334,
@@ -1331,7 +1331,7 @@ const app = {
                     {
                         id: 'scene_4_curve',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_4_curve'),
+                        image: ctx.getImage('scene_4_curve'),
                         prop: {
                             x: 212,
                             y: 476,
@@ -1351,200 +1351,200 @@ const app = {
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: ctx.sprites['scene_4_notes'],
                                 method: {
                                     gotoAndPlay:['note_1']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[0][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[0][1],
+                                    x: ctx.sprites['scene_4_notes'].frames[0][0],
+                                    y: ctx.sprites['scene_4_notes'].frames[0][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[0][0] + 100,
-                                    y: canvas.sprites['scene_4_notes'].frames[0][1] - 30,
+                                    x: ctx.sprites['scene_4_notes'].frames[0][0] + 100,
+                                    y: ctx.sprites['scene_4_notes'].frames[0][1] - 30,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: ctx.sprites['scene_4_notes'],
                                 method: {
                                     gotoAndPlay:['note_2']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[1][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[1][1],
+                                    x: ctx.sprites['scene_4_notes'].frames[1][0],
+                                    y: ctx.sprites['scene_4_notes'].frames[1][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[1][0] + 100,
-                                    y: canvas.sprites['scene_4_notes'].frames[1][1] - 30,
+                                    x: ctx.sprites['scene_4_notes'].frames[1][0] + 100,
+                                    y: ctx.sprites['scene_4_notes'].frames[1][1] - 30,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: ctx.sprites['scene_4_notes'],
                                 method: {
                                     gotoAndPlay:['note_3']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[2][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[2][1],
+                                    x: ctx.sprites['scene_4_notes'].frames[2][0],
+                                    y: ctx.sprites['scene_4_notes'].frames[2][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[2][0] + 100,
-                                    y: canvas.sprites['scene_4_notes'].frames[2][1] - 50,
+                                    x: ctx.sprites['scene_4_notes'].frames[2][0] + 100,
+                                    y: ctx.sprites['scene_4_notes'].frames[2][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: ctx.sprites['scene_4_notes'],
                                 method: {
                                     gotoAndPlay:['note_4']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[3][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[3][1],
+                                    x: ctx.sprites['scene_4_notes'].frames[3][0],
+                                    y: ctx.sprites['scene_4_notes'].frames[3][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[3][0] + 100,
-                                    y: canvas.sprites['scene_4_notes'].frames[3][1] - 50,
+                                    x: ctx.sprites['scene_4_notes'].frames[3][0] + 100,
+                                    y: ctx.sprites['scene_4_notes'].frames[3][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: ctx.sprites['scene_4_notes'],
                                 method: {
                                     gotoAndPlay:['note_5']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[4][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[4][1],
+                                    x: ctx.sprites['scene_4_notes'].frames[4][0],
+                                    y: ctx.sprites['scene_4_notes'].frames[4][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[4][0] + 100,
-                                    y: canvas.sprites['scene_4_notes'].frames[4][1] - 50,
+                                    x: ctx.sprites['scene_4_notes'].frames[4][0] + 100,
+                                    y: ctx.sprites['scene_4_notes'].frames[4][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: ctx.sprites['scene_4_notes'],
                                 method: {
                                     gotoAndPlay:['note_6']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[5][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[5][1],
+                                    x: ctx.sprites['scene_4_notes'].frames[5][0],
+                                    y: ctx.sprites['scene_4_notes'].frames[5][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[5][0] + 100,
-                                    y: canvas.sprites['scene_4_notes'].frames[5][1] - 50,
+                                    x: ctx.sprites['scene_4_notes'].frames[5][0] + 100,
+                                    y: ctx.sprites['scene_4_notes'].frames[5][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: ctx.sprites['scene_4_notes'],
                                 method: {
                                     gotoAndPlay:['note_7']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[6][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[6][1],
+                                    x: ctx.sprites['scene_4_notes'].frames[6][0],
+                                    y: ctx.sprites['scene_4_notes'].frames[6][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[6][0] - 20,
-                                    y: canvas.sprites['scene_4_notes'].frames[6][1] - 100,
+                                    x: ctx.sprites['scene_4_notes'].frames[6][0] - 20,
+                                    y: ctx.sprites['scene_4_notes'].frames[6][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: ctx.sprites['scene_4_notes'],
                                 method: {
                                     gotoAndPlay:['note_8']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[7][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[7][1],
+                                    x: ctx.sprites['scene_4_notes'].frames[7][0],
+                                    y: ctx.sprites['scene_4_notes'].frames[7][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[7][0] - 100,
-                                    y: canvas.sprites['scene_4_notes'].frames[7][1] - 10,
+                                    x: ctx.sprites['scene_4_notes'].frames[7][0] - 100,
+                                    y: ctx.sprites['scene_4_notes'].frames[7][1] - 10,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: ctx.sprites['scene_4_notes'],
                                 method: {
                                     gotoAndPlay:['note_9']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[8][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[8][1],
+                                    x: ctx.sprites['scene_4_notes'].frames[8][0],
+                                    y: ctx.sprites['scene_4_notes'].frames[8][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[8][0] - 50,
-                                    y: canvas.sprites['scene_4_notes'].frames[8][1] - 50,
+                                    x: ctx.sprites['scene_4_notes'].frames[8][0] - 50,
+                                    y: ctx.sprites['scene_4_notes'].frames[8][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: ctx.sprites['scene_4_notes'],
                                 method: {
                                     gotoAndPlay:['note_10']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[9][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[9][1],
+                                    x: ctx.sprites['scene_4_notes'].frames[9][0],
+                                    y: ctx.sprites['scene_4_notes'].frames[9][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[9][0] + 10,
-                                    y: canvas.sprites['scene_4_notes'].frames[9][1] - 50,
+                                    x: ctx.sprites['scene_4_notes'].frames[9][0] + 10,
+                                    y: ctx.sprites['scene_4_notes'].frames[9][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: ctx.sprites['scene_4_notes'],
                                 method: {
                                     gotoAndPlay:['note_11']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[10][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[10][1],
+                                    x: ctx.sprites['scene_4_notes'].frames[10][0],
+                                    y: ctx.sprites['scene_4_notes'].frames[10][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[10][0] + 10,
-                                    y: canvas.sprites['scene_4_notes'].frames[10][1] - 50,
+                                    x: ctx.sprites['scene_4_notes'].frames[10][0] + 10,
+                                    y: ctx.sprites['scene_4_notes'].frames[10][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                         ]
@@ -1558,75 +1558,75 @@ const app = {
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_text_1'],
+                                sheet: ctx.sprites['scene_4_text_1'],
                                 method: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_4_text_1'].frames[0][1] + 200,
+                                    y: ctx.sprites['scene_4_text_1'].frames[0][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: 0,
-                                    y: canvas.sprites['scene_4_text_1'].frames[0][1],
+                                    y: ctx.sprites['scene_4_text_1'].frames[0][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_text_1'],
+                                sheet: ctx.sprites['scene_4_text_1'],
                                 method: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_4_text_1'].frames[1][1] + 200,
+                                    y: ctx.sprites['scene_4_text_1'].frames[1][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
                                     top: -100,
                                     x: 0,
-                                    y: canvas.sprites['scene_4_text_1'].frames[1][1],
+                                    y: ctx.sprites['scene_4_text_1'].frames[1][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_text_1'],
+                                sheet: ctx.sprites['scene_4_text_1'],
                                 method: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_4_text_1'].frames[2][1] + 200,
+                                    y: ctx.sprites['scene_4_text_1'].frames[2][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
                                     top: -200,
                                     x: 0,
-                                    y: canvas.sprites['scene_4_text_1'].frames[2][1],
+                                    y: ctx.sprites['scene_4_text_1'].frames[2][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_text_1'],
+                                sheet: ctx.sprites['scene_4_text_1'],
                                 method: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_4_text_1'].frames[3][1] + 200,
+                                    y: ctx.sprites['scene_4_text_1'].frames[3][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
                                     top: -200,
                                     x: 0,
-                                    y: canvas.sprites['scene_4_text_1'].frames[3][1],
+                                    y: ctx.sprites['scene_4_text_1'].frames[3][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
@@ -1642,12 +1642,12 @@ const app = {
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_text_2'],
+                                sheet: ctx.sprites['scene_4_text_2'],
                                 method: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_text_2'].frames[0][0],
+                                    x: ctx.sprites['scene_4_text_2'].frames[0][0],
                                     y: 200,
                                     alpha: 0,
                                 },
@@ -1660,12 +1660,12 @@ const app = {
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_text_2'],
+                                sheet: ctx.sprites['scene_4_text_2'],
                                 method: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_text_2'].frames[1][0],
+                                    x: ctx.sprites['scene_4_text_2'].frames[1][0],
                                     y: 200,
                                     alpha: 0,
                                 },
@@ -1678,13 +1678,13 @@ const app = {
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_text_2'],
+                                sheet: ctx.sprites['scene_4_text_2'],
                                 method: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_text_2'].frames[2][0],
-                                    y: canvas.sprites['scene_4_text_2'].frames[2][1] + 200,
+                                    x: ctx.sprites['scene_4_text_2'].frames[2][0],
+                                    y: ctx.sprites['scene_4_text_2'].frames[2][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
@@ -1696,12 +1696,12 @@ const app = {
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_text_2'],
+                                sheet: ctx.sprites['scene_4_text_2'],
                                 method: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_text_2'].frames[3][0],
+                                    x: ctx.sprites['scene_4_text_2'].frames[3][0],
                                     y: 200,
                                     alpha: 0,
                                 },
@@ -1724,13 +1724,13 @@ const app = {
                     {
                         id: 'scene_5_bg',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_5_bg'),
+                        image: ctx.getImage('scene_5_bg'),
                     },
                     {
                         id: 'scene_5_role',
                         type: 'sprite',
                         sheet: {
-                            images:[canvas.getImage('scene_5_role')],//图片路径
+                            images:[ctx.getImage('scene_5_role')],//图片路径
                             frames: {
                                 width: 750,
                                 height: 1334,
@@ -1750,7 +1750,7 @@ const app = {
                     {
                         id: 'scene_5_curve',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_5_curve'),
+                        image: ctx.getImage('scene_5_curve'),
                         prop: {
                             y: 474,
                             alpha: 0,
@@ -1769,147 +1769,147 @@ const app = {
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_notes'],
+                                sheet: ctx.sprites['scene_5_notes'],
                                 method: {
                                     gotoAndPlay:['note_1']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_5_notes'].frames[0][0],
-                                    y: canvas.sprites['scene_5_notes'].frames[0][1],
+                                    x: ctx.sprites['scene_5_notes'].frames[0][0],
+                                    y: ctx.sprites['scene_5_notes'].frames[0][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_5_notes'].frames[0][0] - 50,
-                                    y: canvas.sprites['scene_5_notes'].frames[0][1] - 100,
+                                    x: ctx.sprites['scene_5_notes'].frames[0][0] - 50,
+                                    y: ctx.sprites['scene_5_notes'].frames[0][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_notes'],
+                                sheet: ctx.sprites['scene_5_notes'],
                                 method: {
                                     gotoAndPlay:['note_2']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_5_notes'].frames[1][0],
-                                    y: canvas.sprites['scene_5_notes'].frames[1][1],
+                                    x: ctx.sprites['scene_5_notes'].frames[1][0],
+                                    y: ctx.sprites['scene_5_notes'].frames[1][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_5_notes'].frames[1][0] - 30,
-                                    y: canvas.sprites['scene_5_notes'].frames[1][1] - 100,
+                                    x: ctx.sprites['scene_5_notes'].frames[1][0] - 30,
+                                    y: ctx.sprites['scene_5_notes'].frames[1][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_notes'],
+                                sheet: ctx.sprites['scene_5_notes'],
                                 method: {
                                     gotoAndPlay:['note_3']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_5_notes'].frames[2][0],
-                                    y: canvas.sprites['scene_5_notes'].frames[2][1],
+                                    x: ctx.sprites['scene_5_notes'].frames[2][0],
+                                    y: ctx.sprites['scene_5_notes'].frames[2][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_5_notes'].frames[2][0] + 30,
-                                    y: canvas.sprites['scene_5_notes'].frames[2][1] - 30,
+                                    x: ctx.sprites['scene_5_notes'].frames[2][0] + 30,
+                                    y: ctx.sprites['scene_5_notes'].frames[2][1] - 30,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
 
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_notes'],
+                                sheet: ctx.sprites['scene_5_notes'],
                                 method: {
                                     gotoAndPlay:['note_4']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_5_notes'].frames[3][0],
-                                    y: canvas.sprites['scene_5_notes'].frames[3][1],
+                                    x: ctx.sprites['scene_5_notes'].frames[3][0],
+                                    y: ctx.sprites['scene_5_notes'].frames[3][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_5_notes'].frames[3][0] + 50,
-                                    y: canvas.sprites['scene_5_notes'].frames[3][1] - 100,
+                                    x: ctx.sprites['scene_5_notes'].frames[3][0] + 50,
+                                    y: ctx.sprites['scene_5_notes'].frames[3][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_notes'],
+                                sheet: ctx.sprites['scene_5_notes'],
                                 method: {
                                     gotoAndPlay:['note_5']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_5_notes'].frames[4][0],
-                                    y: canvas.sprites['scene_5_notes'].frames[4][1],
+                                    x: ctx.sprites['scene_5_notes'].frames[4][0],
+                                    y: ctx.sprites['scene_5_notes'].frames[4][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_5_notes'].frames[4][0] + 50,
-                                    y: canvas.sprites['scene_5_notes'].frames[4][1] - 100,
+                                    x: ctx.sprites['scene_5_notes'].frames[4][0] + 50,
+                                    y: ctx.sprites['scene_5_notes'].frames[4][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_notes'],
+                                sheet: ctx.sprites['scene_5_notes'],
                                 method: {
                                     gotoAndPlay:['note_6']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_5_notes'].frames[5][0],
-                                    y: canvas.sprites['scene_5_notes'].frames[5][1],
+                                    x: ctx.sprites['scene_5_notes'].frames[5][0],
+                                    y: ctx.sprites['scene_5_notes'].frames[5][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_5_notes'].frames[5][0] + 30,
-                                    y: canvas.sprites['scene_5_notes'].frames[5][1] - 100,
+                                    x: ctx.sprites['scene_5_notes'].frames[5][0] + 30,
+                                    y: ctx.sprites['scene_5_notes'].frames[5][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_notes'],
+                                sheet: ctx.sprites['scene_5_notes'],
                                 method: {
                                     gotoAndPlay:['note_7']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_5_notes'].frames[6][0],
-                                    y: canvas.sprites['scene_5_notes'].frames[6][1],
+                                    x: ctx.sprites['scene_5_notes'].frames[6][0],
+                                    y: ctx.sprites['scene_5_notes'].frames[6][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_5_notes'].frames[6][0] - 10,
-                                    y: canvas.sprites['scene_5_notes'].frames[6][1] - 100,
+                                    x: ctx.sprites['scene_5_notes'].frames[6][0] - 10,
+                                    y: ctx.sprites['scene_5_notes'].frames[6][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_notes'],
+                                sheet: ctx.sprites['scene_5_notes'],
                                 method: {
                                     gotoAndPlay:['note_8']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_5_notes'].frames[7][0],
-                                    y: canvas.sprites['scene_5_notes'].frames[7][1],
+                                    x: ctx.sprites['scene_5_notes'].frames[7][0],
+                                    y: ctx.sprites['scene_5_notes'].frames[7][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_5_notes'].frames[7][0] + 10,
-                                    y: canvas.sprites['scene_5_notes'].frames[7][1] - 50,
+                                    x: ctx.sprites['scene_5_notes'].frames[7][0] + 10,
+                                    y: ctx.sprites['scene_5_notes'].frames[7][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: ctx.height,
                                 },
                             },
                         ]
@@ -1923,90 +1923,90 @@ const app = {
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_text'],
+                                sheet: ctx.sprites['scene_5_text'],
                                 method: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_5_text'].frames[0][1],
+                                    y: ctx.sprites['scene_5_text'].frames[0][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: 0,
-                                    y: canvas.sprites['scene_5_text'].frames[0][1],
+                                    y: ctx.sprites['scene_5_text'].frames[0][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_text'],
+                                sheet: ctx.sprites['scene_5_text'],
                                 method: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_5_text'].frames[1][1],
+                                    y: ctx.sprites['scene_5_text'].frames[1][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: 0,
-                                    y: canvas.sprites['scene_5_text'].frames[1][1],
+                                    y: ctx.sprites['scene_5_text'].frames[1][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_text'],
+                                sheet: ctx.sprites['scene_5_text'],
                                 method: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_5_text'].frames[2][1],
+                                    y: ctx.sprites['scene_5_text'].frames[2][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: 0,
-                                    y: canvas.sprites['scene_5_text'].frames[2][1],
+                                    y: ctx.sprites['scene_5_text'].frames[2][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_text'],
+                                sheet: ctx.sprites['scene_5_text'],
                                 method: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_5_text'].frames[3][1],
+                                    y: ctx.sprites['scene_5_text'].frames[3][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: 0,
-                                    y: canvas.sprites['scene_5_text'].frames[3][1],
+                                    y: ctx.sprites['scene_5_text'].frames[3][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_text'],
+                                sheet: ctx.sprites['scene_5_text'],
                                 method: {
                                     gotoAndPlay:['text_5']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_5_text'].frames[4][1],
+                                    y: ctx.sprites['scene_5_text'].frames[4][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: 0,
-                                    y: canvas.sprites['scene_5_text'].frames[4][1],
+                                    y: ctx.sprites['scene_5_text'].frames[4][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
@@ -2024,7 +2024,7 @@ const app = {
                     {
                         id: 'scene_6_curve',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_6_curve'),
+                        image: ctx.getImage('scene_6_curve'),
                         prop: {
                             y: 172,
                         }
@@ -2032,69 +2032,69 @@ const app = {
                     {
                         id: 'scene_6_text_container',
                         prop: {
-                            x: (canvas.width - canvas.getImage('scene_6_text').width)/2,
+                            x: (ctx.width - ctx.getImage('scene_6_text').width)/2,
                         },
                         children:[
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_6_text'],
+                                sheet: ctx.sprites['scene_6_text'],
                                 method: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
-                                    y: canvas.sprites['scene_6_text'].frames[0][1] + 200,
+                                    y: ctx.sprites['scene_6_text'].frames[0][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    y: canvas.sprites['scene_6_text'].frames[0][1],
+                                    y: ctx.sprites['scene_6_text'].frames[0][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_6_text'],
+                                sheet: ctx.sprites['scene_6_text'],
                                 method: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
-                                    y: canvas.sprites['scene_6_text'].frames[1][1] + 200,
+                                    y: ctx.sprites['scene_6_text'].frames[1][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    y: canvas.sprites['scene_6_text'].frames[1][1],
+                                    y: ctx.sprites['scene_6_text'].frames[1][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_6_text'],
+                                sheet: ctx.sprites['scene_6_text'],
                                 method: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
-                                    y: canvas.sprites['scene_6_text'].frames[2][1] + 200,
+                                    y: ctx.sprites['scene_6_text'].frames[2][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    y: canvas.sprites['scene_6_text'].frames[2][1],
+                                    y: ctx.sprites['scene_6_text'].frames[2][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_6_text'],
+                                sheet: ctx.sprites['scene_6_text'],
                                 method: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
-                                    y: canvas.sprites['scene_6_text'].frames[3][1] + 200,
+                                    y: ctx.sprites['scene_6_text'].frames[3][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    y: canvas.sprites['scene_6_text'].frames[3][1],
+                                    y: ctx.sprites['scene_6_text'].frames[3][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
