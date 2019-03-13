@@ -18,7 +18,7 @@
 
 ## 使用
 
-**HTML
+HTML
 ```
 <body>
     <canvas id="gallery-canvas" style="width:100%"></canvas>
@@ -28,7 +28,7 @@
 <script src="easeljs.min.js"></script>
 <script src="time-gallery.min.js"></script>
 ```
-**JS
+JS
 ```
 var gallery = new TimeGallery({
     id: 'gallery-canvas',                                   // 定义画布的id（必选）
@@ -88,10 +88,56 @@ var gallery = new TimeGallery({
 
 gallery.play();
 ```
-这里我们定义了一个 ID 为 demo-container 的容器, 位于画布 x = 0，y = 0 的位置，容器内定义了一个为 Bitmap 的子类型，位于容器x = 100, y = 100的位置。
-把定义的数据传给 **data** 属性
+这里我们定义了一个 ID 为 demo-container 的容器, 位于画布 x: 0，y: 0 的位置，容器内定义了一个为 Bitmap 的子类型，位于 demo-container 容器 x: 100, y: 100的位置。
+
+把函数 **canvasData** 定义的数据目录传给 **data** 属性。
+
+这时候，你应该看到一张静态的图片在画面上。
 
 ## 数据类型
+数据类型分别有 **container, Bitmap, Text, Shape, sprite**，基本属性:
+```
+// 定义基本属性
+prop: {
+    x: 0,               // 基于父元素定义 X 位置 
+    y: 0,               // 基于父元素定义 Y 位置 
+    regX: 0,            // 定义元素 X 中心点
+    regY: 0,            // 定义元素 Y 中心点
+    scaleX: 1,          // 定义元素 Scale X
+    scaleY: 1,          // 定义元素 Scale Y
+    skewX: null,        // 定义元素 Skew X 
+    skewY: null,        // 定义元素 Skew Y
+    rotation: 0,        // 定义元素旋转度数
+    alpha: 1,           // 定义元素透明度（0-1）
+    visible: true,      // 定义元素是否可见
+},
+// 定义动画属性
+animation: {
+    startById: '',      // 与指定 ID 元素同步执行动画，不能与 afterById 共用，ID 元素必须已创建。
+    endById: '',        // 与指定 ID 元素同步结束动画，ID 元素必须已创建，动画开始位置必须小于指定 ID 元素的结束位置。
+    afterById: '',      // 在指定 ID 元素结束后执行动画，ID 元素必须已创建。
+    musicById: '',      // 当动画开始执行时候，播放指定 ID <audio> 
+    x: 0,               // 动画结束的 X 位置
+    y: 0,               // 动画结束的 Y 位置
+    top: 0,             // 调整动画执行位置，例如 top:-100, 则元素在执行动画的时候延迟100像素
+    scaleX: 1,          // 动画结束的 Scale X
+    scaleY: 1,          // 动画结束的 Scale Y
+    skewX: null,        // 动画结束的 Skew X 
+    skewY: null,        // 动画结束的 Skew Y
+    rotation: 0,        // 动画结束的旋转度数 
+    alpha: 1,           // 动画结束透明度
+    sprite: [],         // 动画组，根据执行进度按索引替换图片
+    duration: 0,        // 动画执行长度
+},
+// 定义事件
+event: {
+    type: 'click',
+    handle: function(e) {
+        console.log(e)
+    }
+}
+```
+
 
 
 
