@@ -95,9 +95,9 @@ gallery.play();
 这时候，你应该看到一张静态的图片在画面上。
 
 ## 数据类型
-数据类型分别有 **container, Bitmap, Text, Shape, sprite**，基本属性:
+数据类型分别有 **Container, Bitmap, Text, Shape, sprite**，以下常用基本属性:
 ```
-// 定义基本属性
+// 定义基础属性
 prop: {
     x: 0,               // 基于父元素定义 X 位置 
     y: 0,               // 基于父元素定义 Y 位置 
