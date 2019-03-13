@@ -24,7 +24,7 @@ const path = {
         root   : 'src/',
         html   : ['src/*.+(html|php)'],
         less   : ['src/assets/less/index.less'],
-        js     : ['src/assets/js/*.js'],
+        js     : ['src/assets/js/index.js'],
         images : ['src/assets/images/*.*'],
         lib    : ['src/assets/lib/**'],
         rev    : 'rev/*.json'
@@ -94,6 +94,9 @@ gulp.task('js:dev', function () {
                     }
                 ],
             },
+            plugins: [
+                new webpackUglifyJs()
+            ]
         }))
         .pipe(gulp.dest(path.output.js))
         .pipe(browserSync.reload({stream:true}));
