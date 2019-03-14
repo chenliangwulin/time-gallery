@@ -231,5 +231,24 @@ prop: {
 
 ```
 以上属性都是比较常用，更多属性可参考 http://www.createjs.cc/src/docs/easeljs/classes/Container.html
-- **可通过 prop 定义对象的 Properties, 如 prop: {name: 'name'}**
-- **可通过 method 定义对象 Methods 方法，通过 [] 传参，如method: {cache: [0, 0, 100, 100]}**
+- 可通过 prop 定义对象的 Properties, 如 prop: {name: 'name'}
+- 可通过 method 定义对象 Methods 方法，通过 [] 传参，如method: {cache: [0, 0, 100, 100]}
+
+## API
+```
+@Width: window.innerWidth       定义画布宽
+@Height: window.innerHeight     定义画布高
+@isState: falas                 是否启动 Stage.js 用于测试FPS, 依赖 stage.js 文件
+@isLog: falas                   是否打印 data 数据结构，方便了解
+@resourcesPath: ''              图片资源加载的默认路劲
+@resources: []                  图片资源列表
+@sprites: []                    定义 sprite 数据，在创建 sprite 类型对象时候可通过 ctx.sprites[key] 获取，适合创建多个与管理
+@data: []                       定义画布数据结构，通过遍历数据渲染画面
+@onInit: null                   渲染完成后的回调
+@onEnd: null                    滑动到最底后的回调
+@mapStartY: 0                   定义画布开始的位置
+@mapActiveY: 0                  定义画布当前停顿的位置，因为画布可能到时候会创建很长，为了方便测试，可通过定义此属性定义开始停顿的位置
+@mapEndY: 0                     画布结束的位置（取最后一个动画结束位置或长图的高度的最大值）
+@mapPlayY: window.innerHeight   定义画布执行动画的位置（默认元素出现在屏幕底部的位置时候就开始执行动画）
+@touchSpeed：1                  定义用户滑动速度，越大，滑动的速度越快
+```
