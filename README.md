@@ -232,7 +232,7 @@ prop: {
 ```
 以上属性都是比较常用，更多属性可参考 http://www.createjs.cc/src/docs/easeljs/classes/Container.html
 - 可通过 prop 定义对象的 Properties, 如 prop: {name: 'name'}
-- 可通过 method 定义对象 Methods 方法，通过 [] 传参，如method: {cache: [0, 0, 100, 100]}
+- 可通过 method 定义对象 Methods 方法，通过 [] 传参，如 method: {cache: [0, 0, 100, 100]}
 
 ## 实例化属性
 
@@ -242,7 +242,7 @@ prop: {
 - `isLog: falas`                  是否打印 data 数据结构，方便了解
 - `resourcesPath: ''`             图片资源加载的默认路劲
 - `resources: []`                 图片资源列表
-- `sprites: []`                   定义 sprite 数据，在创建 sprite 类型对象时候可通过 ctx.sprites[key] 获取，适合创建多个与管理
+- `sprites: []`                   定义 sprite 数据，在创建 sprite 类型对象时候可通过 `ctx.sprites[key]` 获取，适合创建多个与管理
 - `data: []`                      定义画布数据结构，通过遍历数据渲染画面
 - `onInit: null`                  渲染完成后的回调
 - `onEnd: null`                   滑动到最底后的回调
@@ -256,4 +256,8 @@ prop: {
 - `play()`                        开始动画
 - `stop()`                        停止动画
 - `replay()`                      重新开始
-- `getImage(id)`                  获取 resources 图片信息
+- `getImage(id)`                  获取 resources 图片相关信息
+
+## Example
+在这里，若有不明白地方，可参考 **example** 目录下的两个 **demo**, 经本人测试是可通过移动模式直接打开运行。
+**注意: 因本人没做 loading 加载提示，资源都是通过外链引入，所以打开运行后，会有一段空白渲染期**
