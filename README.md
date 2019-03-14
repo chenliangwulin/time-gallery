@@ -192,6 +192,7 @@ prop: {
 #### 精灵图 Sprite
 
 ```
+// 创建序列帧动画
 {
     type: 'sprite',
     sheet: {
@@ -207,14 +208,20 @@ prop: {
     }
 }
 
+// 模拟序列帧，创建一帧的雪碧图
 {
     type: 'sprite',
     sheet: {
         images:[ctx.getImage('demo')], // [图片路径]
-        frames: {'height': 292, 'width': 165, 'count': 64, 'regX': 0,  'regY': 0}, // 每帧的尺寸，count是总帧数
-        animations: {
-            run: [0, 5, 'jump', 0.05],  //[开始帧，结束帧，动画完成后的动作，速度]
-            jump: [26]
+        frames: [                      // [定义多组一帧的动作]
+            [0, 1032, 489, 103],       
+            [0, 944, 489, 67],
+            [0, 817, 489, 48],
+        ],
+        animations: {                  // 指定每组动作对应 frames 帧
+            sprite_1: [0],
+            sprite_2: [1],
+            sprite_3: [2],
         }
     },
     method: {
@@ -223,4 +230,6 @@ prop: {
 }
 
 ```
-
+以上属性都是比较常用，更多属性可参考 http://www.createjs.cc/src/docs/easeljs/classes/Container.html
+**可通过 prop 定义对象的 Properties, 如 prop: {name: 'name'}**
+**可通过 method 定义对象 Methods 方法，通过 [] 传参，如method: {cache: [0, 0, 100, 100]}**
