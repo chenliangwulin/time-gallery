@@ -12,9 +12,6 @@
 
 ## 案例参考
 
-![](http://news.gd.sina.com.cn/staff/zt2/works/images/qrcode/chunsheng.png)
-![](http://news.gd.sina.com.cn/staff/zt2/works/images/qrcode/picc_69.png)
-![](http://news.gd.sina.com.cn/staff/zt2/works/images/qrcode/nfdw.png)
 
 ## 使用
 
