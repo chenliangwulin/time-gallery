@@ -231,5 +231,5 @@ prop: {
 
 ```
 以上属性都是比较常用，更多属性可参考 http://www.createjs.cc/src/docs/easeljs/classes/Container.html
-**可通过 prop 定义对象的 Properties, 如 prop: {name: 'name'}**
-**可通过 method 定义对象 Methods 方法，通过 [] 传参，如method: {cache: [0, 0, 100, 100]}**
+- **可通过 prop 定义对象的 Properties, 如 prop: {name: 'name'}**
+- **可通过 method 定义对象 Methods 方法，通过 [] 传参，如method: {cache: [0, 0, 100, 100]}**
