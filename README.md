@@ -6,15 +6,22 @@
 
 因为后来很多同事问我拿源码开发类似的项目，所以就决定把源码分享出来一起学习。
 
-在这里不需要掌握 createJs，如果想做类似项目的朋友可直接使用。
+在这里不需要掌握 createJs，如果想做类似项目的朋友可直接引入文件使用。
 
 当然，如果熟悉 createJs 的朋友，可基于源码 **SRC** 扩展更多满足自己想要的功能。
 
-## 案例参考
+## 运行
+本人是以 gulp 作为构建工具开发, 操作如下：
+- `npm install --global gulp`
+- `npm install`
+- `gulp`
 
-![](http://news.gd.sina.com.cn/staff/zt2/works/images/qrcode/chunsheng.png?v=0.1)
-![](http://news.gd.sina.com.cn/staff/zt2/works/images/qrcode/picc_69.png?v=0.1)
-![](http://news.gd.sina.com.cn/staff/zt2/works/images/qrcode/nfdw.png?v=0.1)
+## 相关案例
+
+![](http://news.gd.sina.com.cn/staff/zt2/works/images/qrcode/shishangtianhe.png?v=0.2)
+![](http://news.gd.sina.com.cn/staff/zt2/works/images/qrcode/chunsheng.png?v=0.2)
+![](http://news.gd.sina.com.cn/staff/zt2/works/images/qrcode/picc_69.png?v=0.2)
+![](http://news.gd.sina.com.cn/staff/zt2/works/images/qrcode/nfdw.png?v=0.2)
 
 ## 使用
 
@@ -260,4 +267,4 @@ prop: {
 
 ## Example
 在这里，若有不明白地方，可参考 **example** 目录下的两个 **demo**, 经本人测试是可通过移动模式直接打开运行。
-**注意: 因本人没做 loading 加载提示，资源都是通过外链引入，所以打开运行后，会有一段空白渲染期**
+`注意: 因本人没做 loading 加载提示，资源都是通过外链引入，所以打开运行后，会有一段空白渲染期`
