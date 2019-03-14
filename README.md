@@ -49,7 +49,7 @@ gallery.play();
 ## 创建数据
 TimeGallery 是通过遍历 data 属性里定义的数据来创建对象，data 可接收自身(content上下文)作为参数。
 
-**可能当你往下看的时候，你可能会觉得贴的代码很多，有点复杂。其实你主要了解如何创建数据，数据有哪些类型与属性，然后练练手，你就大概知道怎样创建数据**
+**可能当你往下看的时候，你可能会觉得贴的代码很多，有点复杂。其实你主要了解如何创建数据，数据有哪些类型与属性，然后练练手，你就大概知道怎样创建数据。**
 
 ```
 // 定义画布数据
@@ -148,6 +148,79 @@ gallery.play();
 
 #### 类型 Container
 ```
+// 可理解是空的 DIV 容器，可多层封装
+{
+    type: 'container',  // 可不写，默认是 Container
+    children: [
+        // 定义类型
+    ]
+}
+```
+#### 图片 Bitmap
+```
+{
+    type: 'bitmap',
+    image: 'image.jpg',  // 建议通过 ctx.getImage(id) 获取 resources 定义的资源
+}
 ```
 
+#### 文字 Text
+```
+{
+    type: 'text',
+    prop: {
+         text: '你输入的文字内容',
+         font: 'normal 36px Arial',  // '样式 大小 字体'
+         color: '#000',
+    }
+}
+```
+#### 矢量图 Shape
+```
+type: 'shape',
+prop: {
+    width: 750,
+    height: 750,
+    y: 0,
+    graphics: {
+        beginFill: ['#e8340c'],    // [填充颜色]
+        drawRect: [0, 0, 750, 750] // 创建矩形 [填充坐标X，填充坐标Y，填充宽度，填充高度] 
+        // drawCircle: [0, 0, 25]; // 创建圆形 [填充坐标X，填充坐标Y，半径]
+    }
+}
+```
+#### 精灵图 Sprite
+
+```
+{
+    type: 'sprite',
+    sheet: {
+        images:[ctx.getImage('demo')], // [图片路径]
+        frames: {'height': 292, 'width': 165, 'count': 64, 'regX': 0,  'regY': 0}, // 每帧的尺寸，count是总帧数
+        animations: {
+            run: [0, 5, 'jump', 0.05],  //[开始帧，结束帧，动画完成后的动作，速度]
+            jump: [26]
+        }
+    },
+    method: {
+        gotoAndPlay: ['run'] // 执行 run 帧动画
+    }
+}
+
+{
+    type: 'sprite',
+    sheet: {
+        images:[ctx.getImage('demo')], // [图片路径]
+        frames: {'height': 292, 'width': 165, 'count': 64, 'regX': 0,  'regY': 0}, // 每帧的尺寸，count是总帧数
+        animations: {
+            run: [0, 5, 'jump', 0.05],  //[开始帧，结束帧，动画完成后的动作，速度]
+            jump: [26]
+        }
+    },
+    method: {
+        gotoAndPlay: ['run'] // 执行 run 帧动画
+    }
+}
+
+```
 
