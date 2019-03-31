@@ -1,8 +1,4 @@
-
-import TimeGallery from './time-gallery'
-
 const app = {
-
     init() {
         let height = window.innerHeight/window.innerWidth * 750;
         let gallery = new TimeGallery({
@@ -49,6 +45,7 @@ const app = {
                 { src: 'scene_5_note_sprite.png', id: 'scene_5_note_sprite' },
 
             ],                 // 定义资源文件（必选）
+            // direction: 'horizontal',
             sprites(ctx) {
                 return {
                     scene_1_notes: {
@@ -312,12 +309,23 @@ const app = {
                 }
             },               // 定义雪碧图或序列帧动画属性（可选）
             data: this.canvasData,            // 定义画布数据（必选）
-            mapStartY: -(height - 272)/2,     // 定义画布开始的位置，默认是顶部 0（可选）
+            mapStart: -(height - 272)/2,      // 定义画布开始的位置，默认是顶部 0（可选）
+            // autoPlay: true,
+            // autoSpeed: 2,
+            // onTickStart(ctx) {
+            //     console.log('Tick 开始回调')
+            // },
+            // onTickEnd(ctx) {
+            //     console.log('Tick 结束回调')
+            // },
             onInit() {                        // 定义初始时候的回调（可选）
                 console.log('初始化回调')
             },
             onEnd() {                         // 定义画布结束时候的回调（可选）
-                console.log('结束回调')
+                console.log('结束回调');
+                setTimeout(() => {
+                    gallery.replay();
+                }, 1000);
             }
         });
 

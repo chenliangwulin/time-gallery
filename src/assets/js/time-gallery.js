@@ -3,19 +3,25 @@
  *  @Height: 画布高
  *  @isState: 是否启动 Stage.js 测试FPS, 依赖 stage.js
  *  @isLog: 是否打印数据结构
+ *  @direction: 可设置水平(horizontal)或垂直(vertical)
  *  @resourcesPath: 图片资源加载的默认路劲
  *  @resources: 图片资源
  *  @sprites: 自定义雪碧图数据数组，方便创建数据的时候可随时调用雪碧图
  *  @data: 创建画布数据
  *  @onInit: 初始化后的回调
  *  @onEnd: 结束后的回调
- *  @mapStartY: 定义画布始点位置
- *  @mapActiveY: 定义画布当前的播放的位置（可方便测试）
- *  @mapEndY: 画布默认结束位置，默认是 mapPlayEndY 最大值或地图的高度
- *  @mapPlayY: 定义画布播放动画的位置（默认元素再屏幕底部的位置开始播放动画）
+ *  @onTickStart: 每一帧的开始前回调
+ *  @onTickEnd: 每一帧的结束后回调
+ *  @mapStart: 定义画布始点位置
+ *  @mapActive: 定义画布当前的播放的位置（可方便测试）
+ *  @mapEnd: 画布默认结束位置，默认是 animatePlayEnd 最大值或地图的高度
+ *  @mapPlay: 定义画布播放动画的位置（默认元素再屏幕底部的位置开始播放动画）
+ *  @touchSpeed: 定义用户滑动速度，越大，滑动的速度越快
+ *  @autoPlay: 是否自动播放
+ *  @autoSpeed: 自动播放速度
  */
 
-export default class TimeGallery {
+class TimeGallery {
 
     constructor (options) {
 
@@ -31,9 +37,18 @@ export default class TimeGallery {
         this._loadQueue = null;
         this._isLoading = false;
         this._isEnd = false;
+        this._dirGroup = {
+            horizontal: 'horizontal',
+            vertical: 'vertical'
+        };
 
+        this.isVertical = (options.direction || this._dirGroup.vertical) === this._dirGroup.vertical;
+        this.isMoving = false;
         this.isState = options.isState || false;
         this.isLog = options.isLog || false;
+
+        this.autoPlay = options.autoPlay || false;
+        this.autoSpeed = options.autoSpeed || 1;
 
         this.resourcesPath = options.resourcesPath || '';
         this.resources = options.resources || [];
@@ -42,26 +57,23 @@ export default class TimeGallery {
 
         this.onInit = options.onInit || null;
         this.onEnd = options.onEnd || null;
+        this.onTickStart = options.onTickStart || null;
+        this.onTickEnd = options.onTickEnd || null;
 
-        this.mapStartY = options.mapStartY || 0;
-        this.mapActiveY = options.mapActiveY || 0;
-        this.mapEndY = options.mapEndY || 0;
-        this.mapPlayY = options.mapPlayY || this.height;
-
-        this.touchSpeed = options.touchSpeed || 1;
+        this.mapStart = options.mapStart || 0;
+        this.mapActive = options.mapActive || 0;
+        this.mapEnd = options.mapEnd || 0;
+        this.mapPlay = options.mapPlay || (this.isVertical? this.height : this.width);
 
         this.objects = {};
-        this.animatorsGroup = [];      // 执行动画的数组
-        this.isMoving = false;         // 是否播放动画
+        this.animatorsGroup = [];              // 执行动画的数组
         this.touchData = {
-            startY: 0,			       // TouchStart 初始 Y 位置
-            moveY: 0,                  // TouchMove  初始 Y 距离
-            friction : 0.9,		       // 摩擦值
-            speed: this.touchSpeed,    // Touch 滑动速度
-            isInertance: false         // 惯性
+            touchstart: 0,			           // TouchStart 初始 Y 位置
+            touchmove: 0,                      // TouchMove  初始 Y 距离
+            friction : 0.9,		               // 摩擦值
+            speed: options.touchSpeed || 1,    // Touch 滑动速度
+            isInertance: false                 // 惯性
         };
-
-        this.title = new createjs.Bitmap();
 
         this.init();
     }
@@ -70,9 +82,7 @@ export default class TimeGallery {
         this._preload(this.resources, {
             path: this.resourcesPath,
             complete: () => {
-
                 if (typeof this.sprites === 'function') this.sprites = this.sprites(this);
-
                 if (typeof this.data === 'function') this.data = this.data(this);
 
                 const data = [
@@ -93,13 +103,24 @@ export default class TimeGallery {
                 });
 
                 this.map = this.objects['map'];
-                this.map.y = this.mapActiveY? -this.mapActiveY : -this.mapStartY;
 
-                if (!this.mapEndY) {
-                    let mapHeight = this.map.getBounds().height + this.map.getBounds().y - this.height;
-                    let maxMapPlayEndY = Math.max.apply(Math, this.animatorsGroup.map((item) => {return item.displayObject.animation.mapPlayEndY}))
+                let mapActive = this.mapActive? -this.mapActive : -this.mapStart;
 
-                    this.mapEndY = Math.max(mapHeight, maxMapPlayEndY);
+                if (this.isVertical) {
+                    this.map.y = mapActive
+                } else {
+                    this.map.x = mapActive;
+                }
+
+                if (!this.mapEnd) {
+                    let mapLong;
+                    if (this.isVertical) {
+                        mapLong = this.map.getBounds().height + this.map.getBounds().y - this.height;
+                    } else {
+                        mapLong = this.map.getBounds().width + this.map.getBounds().x - this.width;
+                    }
+                    let maxAnimatePlayEnd = Math.max.apply(Math, this.animatorsGroup.map((item) => {return item.displayObject.animation.animatePlayEnd}));
+                    this.mapEnd = Math.max(mapLong, maxAnimatePlayEnd);
                 }
 
                 // 初始化滑动事件
@@ -120,19 +141,19 @@ export default class TimeGallery {
     play() {
         createjs.Ticker.addEventListener('tick', this._onTick.bind(this));
     }
-
+    
     replay() {
         this._isEnd = false;
 
-        this.touchData = {
-            startY: 0,
-            moveY: 0,
-            friction : 0.92,
-            speed: this.touchSpeed,
-            isInertance: false
-        };
+        this.touchData.touchstart = 0;
+        this.touchData.touchmove = 0;
+        this.touchData.isInertance = false;
 
-        this.map.y = -this.mapStartY;
+        if (this.isVertical) {
+            this.map.y = -this.mapStart;
+        } else {
+            this.map.x = -this.mapStart;
+        }
 
         this.animatorsGroup.forEach((item) => {
             item.displayObject.animation.set(0);
@@ -152,42 +173,76 @@ export default class TimeGallery {
     }
 
     _onTick() {
+        if (!this._isLoading && this.map) {
 
-        if (!this._isLoading && this.isMoving) {
-            // 如果是惯性
-            if (this.touchData.isInertance) {
-                // 惯性减速
-                this.touchData.moveY *= this.touchData.friction;
+            if (this.autoPlay || this.isMoving) {
 
-                if (Math.abs(this.touchData.moveY) <= 1) {
-                    this.touchData.startY = 0;
-                    this.touchData.moveY = 0;
-                    this.touchData.isInertance = false;
-                    this.isMoving = false;
+                if (this.onTickStart) this.onTickStart(this);
+
+                let pos;
+
+                if (this.autoPlay) {
+                    if (this.isVertical) {
+                        this.map.y -= this.autoSpeed;
+                        pos = -this.map.y;
+                    } else {
+                        this.map.x -= this.autoSpeed;
+                        pos = -this.map.x;
+                    }
+                } else if (this.isMoving) {
+                    // 如果是惯性
+                    if (this.touchData.isInertance) {
+                        // 惯性减速
+                        this.touchData.touchmove *= this.touchData.friction;
+
+                        if (Math.abs(this.touchData.touchmove) <= 1) {
+                            this.touchData.touchstart = 0;
+                            this.touchData.touchmove = 0;
+                            this.touchData.isInertance = false;
+                            this.isMoving = false;
+                        }
+                    }
+
+                    // 根据滑动的位置记录动画执行
+                    if (this.isVertical) {
+                        this.map.y += this.touchData.touchmove * this.touchData.speed;
+                        pos = -this.map.y;
+                    } else {
+                        this.map.x += this.touchData.touchmove * this.touchData.speed;
+                        pos = -this.map.x;
+                    }
                 }
+
+                if (pos < this.mapStart) {
+                    if (this.isVertical) {
+                        this.map.y = -this.mapStart;
+                    } else {
+                        this.map.x = -this.mapStart;
+                    }
+                }
+
+                if (pos > this.mapEnd) {
+
+                    if (this._isEnd) return;
+
+                    this._isEnd = true;
+
+                    if (this.isVertical) {
+                        this.map.y = -this.mapEnd;
+                    } else {
+                        this.map.x = -this.mapEnd;
+                    }
+
+                    if (this.onEnd) {
+                        this.onEnd();
+                        return;
+                    }
+                }
+
+                this.mapActive = this.isVertical? -this.map.y : -this.map.x;
+
+                this._updateAnimators();
             }
-
-            // 根据滑动的位置记录动画执行
-            this.map.y += this.touchData.moveY * this.touchData.speed;
-
-            if (this.map.y > -this.mapStartY) {
-                this.map.y = -this.mapStartY;
-            }
-
-            if (this.map.y < -this.mapEndY) {
-
-                if (this._isEnd) return;
-
-                this._isEnd = true;
-
-                this.map.y = -this.mapEndY;
-
-                this.onEnd && this.onEnd();
-
-                return;
-            }
-
-            this._updateAnimators();
 
         }
 
@@ -197,24 +252,24 @@ export default class TimeGallery {
     }
 
     _updateAnimators() {
-
-        let y = -this.map.y;
+        let pos = this.isVertical? -this.map.y : -this.map.x;
 
         this.animatorsGroup.map((obj) => {
-
             let displayObject = obj.displayObject;
-            let mapPlayStartY = displayObject.animation.mapPlayStartY;
-            let mapPlayEndY   = displayObject.animation.mapPlayEndY;
+            let animatePlayStart = displayObject.animation.animatePlayStart;
+            let animatePlayEnd   = displayObject.animation.animatePlayEnd;
 
-            if (y >= mapPlayStartY && y < mapPlayEndY ) {
-                let duration = Math.abs(y - mapPlayStartY);
+            if (pos >= animatePlayStart && pos < animatePlayEnd ) {
+                let duration = Math.abs(pos - animatePlayStart);
                 displayObject.animation.update(duration);
-            } else if (y < mapPlayStartY) {
+            } else if (pos < animatePlayStart) {
                 displayObject.animation.update(0);
-            } else if (y > mapPlayEndY) {
-                displayObject.animation.update(mapPlayEndY - mapPlayStartY);
+            } else if (pos > animatePlayEnd) {
+                displayObject.animation.update(animatePlayEnd - animatePlayStart);
             }
         });
+
+        if (this.onTickEnd) this.onTickEnd(this);
 
         this._stage.update();
     }
@@ -223,18 +278,37 @@ export default class TimeGallery {
     _initTouchEvent() {
 
         this._stage.canvas.addEventListener('touchstart', (e) => {
-            this.touchData.startY = e.touches[0].clientY;
+
+            if (this.autoPlay) return;
+
+            if (this.isVertical) {
+                this.touchData.touchstart = e.touches[0].clientY;
+            } else {
+                this.touchData.touchstart = e.touches[0].clientX;
+            }
+
             this.touchData.isInertance = false;
             this.isMoving = false;
         });
 
         this._stage.canvas.addEventListener('touchmove', (e) => {
-            this.touchData.moveY = e.touches[0].clientY - this.touchData.startY;
-            this.touchData.startY = e.touches[0].clientY;
+
+            if (this.autoPlay) return;
+
+            if (this.isVertical) {
+                this.touchData.touchmove = e.touches[0].clientY - this.touchData.touchstart;
+                this.touchData.touchstart = e.touches[0].clientY;
+            } else {
+                this.touchData.touchmove = e.touches[0].clientX - this.touchData.touchstart;
+                this.touchData.touchstart = e.touches[0].clientX;
+            }
             this.isMoving = true;
         });
 
         this._stage.canvas.addEventListener('touchend', () => {
+
+            if (this.autoPlay) return;
+
             this.touchData.isInertance = true;
         });
 
@@ -418,7 +492,7 @@ export default class TimeGallery {
         afterById = null,
         musicById = null,
     } = {}) {
-        let mapY = displayObject.y + _initMapY(),        // 对象 Y 位置
+        let mapPos = (this.isVertical? displayObject.y : displayObject.x) + _initAnimatePosition(this),        // 对象位置
             startX = displayObject.x,                    // 动画 X 开始
             startY = displayObject.y,                    // 动画 Y 开始
             endX = x,                                    // 动画 X 结束
@@ -432,40 +506,40 @@ export default class TimeGallery {
             isMusic = false,
             isPlay = false;
 
-        let mapPlayStartY = 0;                          // 对象 Y 开始执行动画位置
-        let mapPlayEndY = 0;                            // 对象 Y 结束执行动画位置
+        let animatePlayStart = 0;                          // 对象开始执行动画位置
+        let animatePlayEnd = 0;                            // 对象结束执行动画位置
 
         if (startById) {
-            mapPlayStartY = this.objects[startById].animation.mapPlayStartY;
+            animatePlayStart = this.objects[startById].animation.animatePlayStart;
         } else if (afterById) {
-            mapPlayStartY = this.objects[afterById].animation.mapPlayEndY;
+            animatePlayStart = this.objects[afterById].animation.animatePlayEnd;
         } else {
-            if (mapY - top >= this.mapPlayY) {
-                mapPlayStartY = mapY - top - this.mapPlayY;
+            if (mapPos - top >= this.mapPlay) {
+                animatePlayStart = mapPos - top - this.mapPlay;
             } else {
-                mapPlayStartY = this.mapStartY;
+                animatePlayStart = this.mapStart;
             }
         }
 
-        if (endById && mapPlayStartY < this.objects[endById].animation.mapPlayEndY) {
-            mapPlayEndY = this.objects[endById].animation.mapPlayEndY;
-            duration = mapPlayEndY - mapPlayStartY;
+        if (endById && animatePlayStart < this.objects[endById].animation.animatePlayEnd) {
+            animatePlayEnd = this.objects[endById].animation.animatePlayEnd;
+            duration = animatePlayEnd - animatePlayStart;
         } else {
-            mapPlayEndY = mapPlayStartY + duration;
+            animatePlayEnd = animatePlayStart + duration;
         }
 
-        function _initMapY() {
-            let sumY = 0;
+        function _initAnimatePosition(ctx) {
+            let sum = 0;
 
             _countSumY(displayObject);
 
-            return sumY;
+            return sum;
 
             function _countSumY(displayObject) {
                 let parent = displayObject.parent;
 
                 if (parent && parent.parent !== null) {
-                    sumY += parent.y;
+                    sum += ctx.isVertical? parent.y : parent.x;
                     _countSumY(parent);
                 }
             }
@@ -493,8 +567,8 @@ export default class TimeGallery {
         }
 
         return {
-            mapPlayStartY,
-            mapPlayEndY,
+            animatePlayStart,
+            animatePlayEnd,
             update(rate) {
                 let progress = rate/duration;
 
@@ -534,7 +608,6 @@ export default class TimeGallery {
                 _animate(rate)
             },
             set(rate) {
-
                 if (isPlay) isPlay = false;
                 if (isMusic) isMusic = false;
 
