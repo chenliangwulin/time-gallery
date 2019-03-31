@@ -15,16 +15,15 @@ let gulp         = require('gulp'),                 //基础库
     notify       = require('gulp-notify'),          //异常错误提示
     plumber      = require('gulp-plumber'),		    //异常并不终止watch事件
     inlinesource = require('gulp-inline-source'),
-    webpack      = require('webpack-stream'),
-    webpackUglifyJs = require('uglifyjs-webpack-plugin'),
-    named        = require('vinyl-named');
+    babel        = require("gulp-babel"),
+    uglify       = require('gulp-uglify');          //js压缩
 
 const path = {
     input : {
         root   : 'src/',
         html   : ['src/*.+(html|php)'],
         less   : ['src/assets/less/index.less'],
-        js     : ['src/assets/js/index.js'],
+        js     : ['src/assets/js/*.js'],
         images : ['src/assets/images/*.*'],
         lib    : ['src/assets/lib/**'],
         rev    : 'rev/*.json'
@@ -62,82 +61,28 @@ gulp.task('html', function () {
         .pipe(browserSync.reload({stream:true}));
 });
 
-// js处理
+// js 处理
 gulp.task('js:dev', function () {
     return gulp.src(path.input.js)
-        .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
-        .pipe(named())
-        .pipe(webpack({
-            mode: 'none',
-            watch: false,
-            devtool: 'source-map',
-            module: {
-                rules: [
-                    {
-                        test: /\.js$/,
-                        exclude: /node_modules/,
-                        use: {
-                            loader: 'babel-loader',
-                            options: {
-                                presets: [
-                                    ["env", {
-                                        "modules": false,
-                                        "targets": {
-                                            "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
-                                        }
-                                    }],
-                                    "stage-2"
-                                ],
-                                plugins: ["transform-runtime"]
-                            }
-                        },
-                    }
-                ],
-            },
-            plugins: [
-                new webpackUglifyJs()
-            ]
+        .pipe(sourcemaps.init({loadMaps:true}))
+        .pipe(plumber({errorHandler:notify.onError('Error: <%= error.message %>')}))
+        .pipe(babel({
+            presets: ['es2015']
         }))
+        .pipe(rename({suffix:'.min'}))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(path.output.js))
         .pipe(browserSync.reload({stream:true}));
 });
 
-// js处理
 gulp.task('js', function () {
     return gulp.src(path.input.js)
-        .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
-        .pipe(named())
-        .pipe(webpack({
-            mode: 'none',
-            watch: false,
-            module: {
-                rules: [
-                    {
-                        test: /\.js$/,
-                        exclude: /node_modules/,
-                        use: {
-                            loader: 'babel-loader',
-                            options: {
-                                presets: [
-                                    ["env", {
-                                        "modules": false,
-                                        "targets": {
-                                            "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
-                                        }
-                                    }],
-                                    "stage-2"
-                                ],
-                                plugins: ["transform-runtime"]
-                            }
-                        },
-                    }
-                ],
-            },
-            plugins: [
-                new webpackUglifyJs()
-            ]
+        .pipe(plumber({errorHandler:notify.onError('Error: <%= error.message %>')}))
+        .pipe(babel({
+            presets: ['es2015']
         }))
-        // .pipe(rename({ suffix: '.min' }))
+        .pipe(rename({suffix:'.min'}))
+        .pipe(uglify())
         .pipe(gulp.dest(path.output.js))
 });
 
