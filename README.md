@@ -238,19 +238,24 @@ prop: {
 
 - `Width: window.innerWidth`      定义画布宽
 - `Height: window.innerHeight`    定义画布高
-- `isState: falas`                是否启动 Stage.js 用于测试FPS, 依赖 stage.js 文件
-- `isLog: falas`                  是否打印 data 数据结构，方便了解
+- `isState: false`                是否启动 Stage.js 用于测试FPS, 须引入 stage.js 文件
+- `isLog: false`                  是否打印 data 数据结构，方便了解
 - `resourcesPath: ''`             图片资源加载的默认路劲
 - `resources: []`                 图片资源列表
-- `sprites: []`                   定义 sprite 数据，在创建 sprite 类型对象时候可通过 ctx.sprites[key] 获取，适合创建多个与管理
+- `sprites: []`                   存放 sprite 数据，在创建 sprite 类型对象时候可通过 ctx.sprites[key] 获取，适合重复调用与统一管理
 - `data: []`                      定义画布数据结构，通过遍历数据渲染画面
+- `direction: vertical`           定义画布滑动方向，可设置水平(horizontal)或垂直(vertical)
 - `onInit: null`                  渲染完成后的回调
-- `onEnd: null`                   滑动到最底后的回调
-- `mapStartY: 0`                  定义画布开始的位置
-- `mapActiveY: 0`                 定义画布当前停顿的位置，因为画布可能到时候会创建很长，为了方便测试，可通过定义此属性定义开始停顿的位置
-- `mapEndY: 0`                    画布结束的位置（取最后一个动画结束位置或长图的高度的最大值）
-- `mapPlayY: window.innerHeight`  定义画布执行动画的位置（默认元素出现在屏幕底部的位置时候就开始执行动画）
-- `touchSpeed：1`                 定义用户滑动速度，越大，滑动的速度越快
+- `onEnd: null`                   滑动到最底后的回调，当回调执行后，画布动画则结束。
+- `onTickStart: null`             每一帧的开始前回调
+- `onTickEnd: null`               每一帧的结束后回调
+- `mapStart: 0`                   定义画布开始的位置
+- `mapActive: 0`                  定义或获取画布当前停顿的位置，因为画布可能到时候会创建很长，为了方便测试，可通过定义此属性定义开始停顿的位置
+- `mapEnd: 0`                     定义画布结束的位置（默认取最后一个动画结束位置或画布的高度/宽度中的最大值）
+- `mapPlay: 屏高或屏宽`            定义画布开始执行动画的位置（如垂直方向则元素从屏幕底部出现的时候执行动画，水平方向则屏幕右边）
+- `touchSpeed：1`                 设置用户滑动速度，越大，滑动的速度越快
+- `autoPlay：false`               设置自动播放
+- `autoSpeed：1`                  设置自动播放的速度
 
 ## API
 - `play()`                        开始动画
