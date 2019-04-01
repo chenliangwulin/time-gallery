@@ -189,7 +189,15 @@ class TimeGallery {
                         this.map.x -= this.autoSpeed;
                         pos = -this.map.x;
                     }
+
+                    if (this.touchData.touchmove !== 0) {
+                        this.touchData.touchstart = 0;
+                        this.touchData.touchmove = 0;
+                        this.touchData.isInertance = false;
+                        this.isMoving = false;
+                    }
                 } else if (this.isMoving) {
+
                     // 如果是惯性
                     if (this.touchData.isInertance) {
                         // 惯性减速
@@ -292,9 +300,6 @@ class TimeGallery {
         });
 
         this._stage.canvas.addEventListener('touchmove', (e) => {
-
-            if (this.autoPlay) return;
-
             if (this.isVertical) {
                 this.touchData.touchmove = e.touches[0].clientY - this.touchData.touchstart;
                 this.touchData.touchstart = e.touches[0].clientY;
@@ -306,16 +311,14 @@ class TimeGallery {
         });
 
         this._stage.canvas.addEventListener('touchend', () => {
-
             if (this.autoPlay) return;
-
             this.touchData.isInertance = true;
         });
 
     }
 
     _preload(loadManifest = [], { complete = () => {}, progress = () => {}, error = () => {}, path = ''} = {}) {
-        this.isLoading = true;
+        this._isLoading = true;
 
         this._loadQueue = new createjs.LoadQueue(true, path);
 
@@ -324,7 +327,7 @@ class TimeGallery {
         if (error) this._loadQueue.on('error', e => error(e));
 
         this._loadQueue.on('complete', e => {
-            this.isLoading = false;
+            this._isLoading = false;
             if (complete) complete(e);
         });
 
