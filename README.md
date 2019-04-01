@@ -47,7 +47,7 @@ gallery.play();
 这里我们就成功的创建了一个空白的画布，下一步我们需要建立数据。
 
 ## 创建数据
-TimeGallery 是通过遍历 data 属性里定义的数据来创建对象，data 可接收自身(content上下文)作为参数。
+TimeGallery 是通过遍历 data 属性里定义的数据来创建对象，data 可定义函数并接收 TimeGallery 实例作为参数。
 
 **可能当你往下看的时候，你可能会觉得贴的代码很多，有点复杂。其实你主要了解如何创建数据，数据有哪些类型与属性，然后练练手，你就大概知道怎样创建数据。**
 
@@ -242,13 +242,10 @@ prop: {
 - `isLog: false`                  是否打印 data 数据结构，方便了解
 - `resourcesPath: ''`             图片资源加载的默认路劲
 - `resources: []`                 图片资源列表
-- `sprites: []`                   存放 sprite 数据，在创建 sprite 类型对象时候可通过 ctx.sprites[key] 获取，适合重复调用与统一管理
+- `sprites: []`                   存放 sprite 数据，在创建 sprite 类型对象时候可通过 TimeGallery 实例获取，适合重复调用与统一管理
 - `data: []`                      定义画布数据结构，通过遍历数据渲染画面
 - `direction: vertical`           定义画布滑动方向，可设置水平(horizontal)或垂直(vertical)
-- `onInit: null`                  渲染完成后的回调
-- `onEnd: null`                   滑动到最底后的回调，当回调执行后，画布动画则结束。
-- `onTickStart: null`             每一帧的开始前回调
-- `onTickEnd: null`               每一帧的结束后回调
+
 - `mapStart: 0`                   定义画布开始的位置
 - `mapActive: 0`                  定义或获取画布当前停顿的位置，因为画布可能到时候会创建很长，为了方便测试，可通过定义此属性定义开始停顿的位置
 - `mapEnd: 0`                     定义画布结束的位置（默认取最后一个动画结束位置或画布的高度/宽度中的最大值）
@@ -256,6 +253,12 @@ prop: {
 - `touchSpeed：1`                 设置用户滑动速度，越大，滑动的速度越快
 - `autoPlay：false`               设置自动播放
 - `autoSpeed：1`                  设置自动播放的速度
+
+## 实例化回调函数
+- `onInit()`                      渲染完成后的回调
+- `onEnd()`                       滑动到最底后的回调，当回调执行后，画布动画则结束
+- `onTickStart(timeGallery)`      每一帧的开始前回调，可选 TimeGallery 实例作为参数
+- `onTickEnd(timeGallery)`        每一帧的结束后回调，可选 TimeGallery 实例作为参数
 
 ## API
 - `play()`                        开始动画
