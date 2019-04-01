@@ -1,7 +1,6 @@
 const app = {
     init() {
         let height = window.innerHeight/window.innerWidth * 750;
-        let isInitAutoPlay = false;
         let gallery = new TimeGallery({
             id: 'gallery-canvas',             // 定义画布的id（必选）
             width: 750,                       // 定义画布的宽度，根据设计稿定义（必选）
@@ -313,17 +312,9 @@ const app = {
             mapStart: -(height - 272)/2,      // 定义画布开始的位置，默认是顶部 0（可选）
             // autoPlay: true,
             // autoSpeed: 2,
-            onTickStart(ctx) {
-                if (!ctx.autoPlay && ctx.mapActive > 0 && ctx.mapActive < 200) {
-                    if (isInitAutoPlay) {
-                        ctx.autoSpeed *= -1;
-                    }
-                    isInitAutoPlay = true;
-                    ctx.autoPlay = true;
-                } else if (ctx.autoPlay && (ctx.mapActive < 0 || ctx.mapActive >= 200)) {
-                    ctx.autoPlay = false;
-                }
-            },
+            // onTickStart(ctx) {
+            //     console.log('Tick 开始回调')
+            // },
             // onTickEnd(ctx) {
             //     console.log('Tick 结束回调')
             // },
