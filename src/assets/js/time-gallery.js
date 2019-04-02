@@ -81,7 +81,8 @@ class TimeGallery {
     init() {
         this._preload(this.resources, {
             path: this.resourcesPath,
-            complete: () => {
+            onComplete: () => {
+
                 if (typeof this.sprites === 'function') this.sprites = this.sprites(this);
                 if (typeof this.data === 'function') this.data = this.data(this);
 
@@ -169,7 +170,7 @@ class TimeGallery {
     }
 
     getImage(id) {
-        return this._loadQueue.getResult(id);
+        return this._loadQueue[id];
     }
 
     _onTick() {
@@ -317,21 +318,78 @@ class TimeGallery {
 
     }
 
-    _preload(loadManifest = [], { complete = () => {}, progress = () => {}, error = () => {}, path = ''} = {}) {
+    _preload(manifest = [], { onComplete = () => {}, onProgress = () => {}, path = ''} = {}) {
+
         this._isLoading = true;
 
-        this._loadQueue = new createjs.LoadQueue(true, path);
+        let fileList = null;
 
-        if (progress) this._loadQueue.on('progress', e => progress(e));
+        if (Array.isArray(manifest)) {
+            if (manifest.length === 0) return;
+            fileList = manifest;
+        } else if (typeof(manifest) === 'string') {
+            fileList = [
+                {
+                    src: manifest,
+                    id: manifest
+                }
+            ];
+        } else if (typeof(manifest) === 'object') {
+            if (!manifest.id) {
+                manifest.id = manifest.src;
+            }
+            fileList = [manifest];
+        } else {
+            return false;
+        }
 
-        if (error) this._loadQueue.on('error', e => error(e));
+        let loadedNumber = 0;
+        let preloadNumber = fileList.length;
+        let images = {};
 
-        this._loadQueue.on('complete', e => {
-            this._isLoading = false;
-            if (complete) complete(e);
-        });
+        for (let i = 0; i < preloadNumber; i++) {
+            let image = new Image();
+            let file = fileList[i];
+            let fileType = typeof(file);
+            let src = '';
 
-        this._loadQueue.loadManifest(loadManifest);
+            if (fileType === 'object') {
+                src = file.src;
+            } else if (fileType === 'string') {
+                src = file;
+            }
+
+            image.src = path + src;
+            image.onload = () => {
+                if (file.id) {
+                    images[file.id] = image;
+                } else {
+                    images[src] = image;
+                }
+                loadedNumber++;
+
+                let progress = Math.floor(loadedNumber/preloadNumber * 100);
+                onProgress(progress);
+
+                if (progress >= 100) {
+                    this._isLoading = false;
+                    this._loadQueue = images;
+                    onComplete();
+                }
+            };
+        }
+
+        // 基于 PreloadJs
+        // this._loadQueue = new createjs.LoadQueue(true, path);
+        //
+        // if (progress) this._loadQueue.on('progress', e => onProgress(e));
+        //
+        // this._loadQueue.on('complete', e => {
+        //     this._isLoading = false;
+        //     if (onComplete) onComplete(e);
+        // });
+        //
+        // this._loadQueue.loadManifest(loadManifest);
     }
 
     _addObj(obj = {}) {

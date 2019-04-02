@@ -6,7 +6,7 @@ const app = {
             width: 750,                       // 定义画布的宽度，根据设计稿定义（必选）
             height,                           // 定义画布的高度，目前是屏幕高度（必选）
             resourcesPath: 'assets/images/',  // 定义资源文件的默认路劲（可选）
-            resources: [
+            resources: [                      // 定义资源文件（必选）
                 { src: 'scene_start_text.png', id: 'scene_start_text' },
 
                 { src: 'scene_1_text.png', id: 'scene_1_text' },
@@ -43,8 +43,7 @@ const app = {
                 { src: 'scene_3_note_sprite.png', id: 'scene_3_note_sprite' },
                 { src: 'scene_4_note_sprite.png', id: 'scene_4_note_sprite' },
                 { src: 'scene_5_note_sprite.png', id: 'scene_5_note_sprite' },
-
-            ],                 // 定义资源文件（必选）
+            ],
             // direction: 'horizontal',
             sprites(ctx) {
                 return {
