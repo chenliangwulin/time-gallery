@@ -24,7 +24,6 @@ HTML
     <canvas id="gallery-canvas" style="width:100%"></canvas>
 </body>
 
-<script src="preloadjs.min.js"></script>
 <script src="easeljs.min.js"></script>
 <script src="time-gallery.min.js"></script>
 ```
