@@ -1,5 +1,5 @@
 # time-gallery
-基于 createJs 实现长图加动画的效果，用户可通过上下滑动屏幕控制长图进度。
+基于 createJs 实现长图绘制加动画的效果，用户可通过上下滑动屏幕控制长图进度。
 
 ## 前言
 之前公司要开发一个长图加动画的H5项目，我看到很多类似的案例是基于白鹭来开发，但因为本人没接触过白鹭，于是自己就基于 createJs 扩展开发一个长图加动画的框架。
@@ -64,7 +64,7 @@ function canvasData(ctx) {
                 {
                     id: 'demo-bitmap',
                     type: 'bitmap',
-                    image: ctx.getImage('demo'),    
+                    image: ctx.getImage('demo'),
                     prop: {
                         x: 100，
                         y: 100，
@@ -240,7 +240,7 @@ prop: {
 - `isState: false`                是否启动 Stage.js 用于测试FPS, 须引入 stage.js 文件
 - `isLog: false`                  是否打印 data 数据结构，方便了解
 - `resourcesPath: ''`             图片资源加载的默认路劲
-- `resources: []`                 图片资源列表
+- `resources: []`                 图片资源列表，可 'name.png' 、['name.png', 'name-2.png'] 或 { id: 'name', src: 'name.png'}
 - `sprites: []`                   存放 sprite 数据，在创建 sprite 类型对象时候可通过 TimeGallery 实例获取，适合重复调用与统一管理
 - `data: []`                      定义画布数据结构，通过遍历数据渲染画面
 - `direction: vertical`           定义画布滑动方向，可设置水平(horizontal)或垂直(vertical)
