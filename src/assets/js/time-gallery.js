@@ -70,7 +70,7 @@ class TimeGallery {
         this.touchData = {
             touchstart: 0,			           // TouchStart 初始 Y 位置
             touchmove: 0,                      // TouchMove  初始 Y 距离
-            friction : 0.9,		               // 摩擦值
+            friction : 0.92,		           // 摩擦值
             speed: options.touchSpeed || 1,    // Touch 滑动速度
             isInertance: false                 // 惯性
         };
@@ -244,7 +244,7 @@ class TimeGallery {
 
                     if (this.onEnd) {
                         this.onEnd();
-                        return;
+                        this.stop();
                     }
                 }
 
@@ -253,10 +253,9 @@ class TimeGallery {
                 this._updateAnimators();
             }
 
-        }
-
-        if (this.isState) {
-            this.stats.update();
+            if (this.isState) {
+                this.stats.update();
+            }
         }
     }
 
