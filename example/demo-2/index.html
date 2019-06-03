@@ -24,13 +24,11 @@
     <canvas id="gallery-canvas"></canvas>
 </body>
 <script src="easeljs.min.js"></script>
-<script src="time-gallery.min.js"></script>
+<script src="time-gallery.2.0.0.min.js"></script>
 <script>
-
     var picc = new TimeGallery({
         id: 'gallery-canvas',
         width: 750,
-        height: window.innerHeight/window.innerWidth * 750,
         resourcesPath: 'http://n.sinaimg.cn/gd/1018/picc/69/',
         resources: [
             { src: 'start_touch_text.png', id: 'start_touch_text' },
@@ -129,24 +127,24 @@
             { src: 'scene_4_balloon.png', id: 'scene_4_balloon' },
         ],
         data: canvasData,
-        mapEnd: 20000,
-        onEnd : () => {
-            console.log('动画结束')
+        endTime: 20000,             // 自定义时间轴的结束时间
+        onEnd: function () {
+            console.log('结束回调')
         }
     });
 
     picc.play();
-    
-    function canvasData(ctx) {
-        let duration = ctx.height/2;
+   
+    function canvasData(gallery) {
+        let duration = gallery.height/2;
         return [
             {
                 id: 'start_touch_text',
                 type: 'bitmap',
-                image: ctx.getImage('start_touch_text'),
+                image: gallery.getImage('start_touch_text'),
                 prop: {
                     y: 230,
-                    x: (750 - ctx.getImage('start_touch_text').width)/2,
+                    x: (750 - gallery.getImage('start_touch_text').width)/2,
                 }
             },
             {
@@ -155,7 +153,7 @@
                     {
                         id: 'scene_1_bg',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_1_bg'),
+                        image: gallery.getImage('scene_1_bg'),
                         prop: {
                             y: 1045,
                         }
@@ -163,7 +161,7 @@
                     {
                         id: 'scene_3_bg',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_3_bg'),
+                        image: gallery.getImage('scene_3_bg'),
                         prop: {
                             y: 4734,
                         }
@@ -179,7 +177,7 @@
                     {
                         id: 'scene_1_balloon_1',
                         type: 'bitmap',
-                        image: ctx.getImage('gallery_balloon_1'),
+                        image: gallery.getImage('gallery_balloon_1'),
                         prop: {
                             x: 512,
                             y: 498,
@@ -187,14 +185,14 @@
                             scaleY: 0.8,
                         },
                         animation: {
-                            y: 498 - ctx.height,
-                            duration: ctx.height,
+                            y: 498 - gallery.height,
+                            duration: gallery.height,
                         }
                     },
                     {
                         id: 'scene_1_balloon_2',
                         type: 'bitmap',
-                        image: ctx.getImage('gallery_balloon_1'),
+                        image: gallery.getImage('gallery_balloon_1'),
                         prop: {
                             x: 48,
                             y: 566,
@@ -202,14 +200,14 @@
                             scaleY: 0.8,
                         },
                         animation: {
-                            y: 566 - ctx.height,
-                            duration: ctx.height,
+                            y: 566 - gallery.height,
+                            duration: gallery.height,
                         }
                     },
                     {
                         id: 'scene_1_balloon_3',
                         type: 'bitmap',
-                        image: ctx.getImage('gallery_balloon_2'),
+                        image: gallery.getImage('gallery_balloon_2'),
                         prop: {
                             x: 382,
                             y: 586,
@@ -217,27 +215,27 @@
                             scaleY: 0.85,
                         },
                         animation: {
-                            y: 586 - ctx.height,
-                            duration: ctx.height,
+                            y: 586 - gallery.height,
+                            duration: gallery.height,
                         }
                     },
                     {
                         id: 'scene_1_balloon_4',
                         type: 'bitmap',
-                        image: ctx.getImage('gallery_balloon_2'),
+                        image: gallery.getImage('gallery_balloon_2'),
                         prop: {
                             x: 74,
                             y: 734,
                         },
                         animation: {
-                            y: 734 - ctx.height,
-                            duration: ctx.height,
+                            y: 734 - gallery.height,
+                            duration: gallery.height,
                         }
                     },
                     {
                         id: 'scene_1_balloon_5',
                         type: 'bitmap',
-                        image: ctx.getImage('gallery_balloon_2'),
+                        image: gallery.getImage('gallery_balloon_2'),
                         prop: {
                             x: 646,
                             y: 846,
@@ -245,14 +243,14 @@
                             scaleY: 0.7,
                         },
                         animation: {
-                            y: 846 - ctx.height,
-                            duration: ctx.height,
+                            y: 846 - gallery.height,
+                            duration: gallery.height,
                         }
                     },
                     {
                         id: 'scene_1_balloon_6',
                         type: 'bitmap',
-                        image: ctx.getImage('gallery_balloon_1'),
+                        image: gallery.getImage('gallery_balloon_1'),
                         prop: {
                             x: 32,
                             y: 856,
@@ -260,27 +258,27 @@
                             scaleY: 0.7,
                         },
                         animation: {
-                            y: 856 - ctx.height,
-                            duration: ctx.height,
+                            y: 856 - gallery.height,
+                            duration: gallery.height,
                         }
                     },
                     {
                         id: 'scene_1_balloon_7',
                         type: 'bitmap',
-                        image: ctx.getImage('gallery_balloon_1'),
+                        image: gallery.getImage('gallery_balloon_1'),
                         prop: {
                             x: 406,
                             y: 856,
                         },
                         animation: {
-                            y: 856 - ctx.height,
-                            duration: ctx.height,
+                            y: 856 - gallery.height,
+                            duration: gallery.height,
                         }
                     },
                     {
                         id: 'scene_1_text',
                         type: 'bitmap',
-                        image: ctx.getImage('gallery_text_1'),
+                        image: gallery.getImage('gallery_text_1'),
                         prop: {
                             x: 504,
                             y: 990 + duration/2,
@@ -303,9 +301,9 @@
                     {
                         id: 'scene_2_text',
                         type: 'bitmap',
-                        image: ctx.getImage('gallery_text_2'),
+                        image: gallery.getImage('gallery_text_2'),
                         prop: {
-                            x: -ctx.getImage('gallery_text_2').width,
+                            x: -gallery.getImage('gallery_text_2').width,
                             y: 246,
                             alpha: 0,
                         },
@@ -318,9 +316,9 @@
                     {
                         id: 'scene_2_tree',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_tree_1'),
+                        image: gallery.getImage('scene_tree_1'),
                         prop: {
-                            x: -ctx.getImage('scene_tree_1').width,
+                            x: -gallery.getImage('scene_tree_1').width,
                             y: 640,
                         },
                         animation: {
@@ -331,12 +329,12 @@
                     {
                         id: 'scene_2_ribbon_1',
                         type: 'bitmap',
-                        image: ctx.getImage('ribbon_1'),
+                        image: gallery.getImage('ribbon_1'),
                         prop: {
                             x: 442,
                             y: 620,
-                            regX: ctx.getImage('ribbon_1').width/2,
-                            regY: ctx.getImage('ribbon_1').height/2,
+                            regX: gallery.getImage('ribbon_1').width/2,
+                            regY: gallery.getImage('ribbon_1').height/2,
                             rotation: 0,
                         },
                         animation: {
@@ -348,12 +346,12 @@
                     {
                         id: 'scene_2_ribbon_2',
                         type: 'bitmap',
-                        image: ctx.getImage('ribbon_2'),
+                        image: gallery.getImage('ribbon_2'),
                         prop: {
                             x: 322,
                             y: 678,
-                            regX: ctx.getImage('ribbon_2').width/2,
-                            regY: ctx.getImage('ribbon_2').height/2,
+                            regX: gallery.getImage('ribbon_2').width/2,
+                            regY: gallery.getImage('ribbon_2').height/2,
                             rotation: 0,
                         },
                         animation: {
@@ -365,72 +363,72 @@
                     {
                         id: 'scene_2_ribbon_3',
                         type: 'bitmap',
-                        image: ctx.getImage('ribbon_3'),
+                        image: gallery.getImage('ribbon_3'),
                         prop: {
                             x: 160,
                             y: 958,
-                            regX: ctx.getImage('ribbon_3').width/2,
-                            regY: ctx.getImage('ribbon_3').height/2,
+                            regX: gallery.getImage('ribbon_3').width/2,
+                            regY: gallery.getImage('ribbon_3').height/2,
                             rotation: 90,
                         },
                         animation: {
                             startById: 'scene_2_ribbon_1',
                             y: 1258,
                             rotation: 0,
-                            duration: ctx.height * 2
+                            duration: gallery.height * 2
                         }
                     },
                     {
                         id: 'scene_2_ribbon_4',
                         type: 'bitmap',
-                        image: ctx.getImage('ribbon_4'),
+                        image: gallery.getImage('ribbon_4'),
                         prop: {
                             x: 384,
                             y: 932,
-                            regX: ctx.getImage('ribbon_4').width/2,
-                            regY: ctx.getImage('ribbon_4').height/2,
+                            regX: gallery.getImage('ribbon_4').width/2,
+                            regY: gallery.getImage('ribbon_4').height/2,
                             rotation: 120,
                         },
                         animation: {
                             startById: 'scene_2_ribbon_1',
                             y: 1232,
                             rotation: 0,
-                            duration: ctx.height * 2
+                            duration: gallery.height * 2
                         }
                     },
                     {
                         id: 'scene_2_ribbon_5',
                         type: 'bitmap',
-                        image: ctx.getImage('ribbon_5'),
+                        image: gallery.getImage('ribbon_5'),
                         prop: {
                             x: 532,
                             y: 946,
-                            regX: ctx.getImage('ribbon_5').width/2,
-                            regY: ctx.getImage('ribbon_5').height/2,
+                            regX: gallery.getImage('ribbon_5').width/2,
+                            regY: gallery.getImage('ribbon_5').height/2,
                             rotation: 70,
                         },
                         animation: {
                             startById: 'scene_2_ribbon_1',
                             y: 1246,
                             rotation: 0,
-                            duration: ctx.height * 2
+                            duration: gallery.height * 2
                         }
                     },
                     {
                         id: 'scene_2_cutting',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_2_cutting_1'),
+                        image: gallery.getImage('scene_2_cutting_1'),
                         prop: {
                             x: 244,
                             y: 924,
                         },
                         animation: {
-                            top: -ctx.height/3,
+                            top: -gallery.height/3,
                             sprite: [
-                                ctx.getImage('scene_2_cutting_1'),
-                                ctx.getImage('scene_2_cutting_2'),
-                                ctx.getImage('scene_2_cutting_3'),
-                                ctx.getImage('scene_2_cutting_4'),
+                                gallery.getImage('scene_2_cutting_1'),
+                                gallery.getImage('scene_2_cutting_2'),
+                                gallery.getImage('scene_2_cutting_3'),
+                                gallery.getImage('scene_2_cutting_4'),
                             ],
                             duration,
                         }
@@ -438,22 +436,22 @@
                     {
                         id: 'scene_2_silk_2',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_2_silk_2'),
+                        image: gallery.getImage('scene_2_silk_2'),
                         prop: {
                             x: 750,
                             y: 1144,
                         },
                         animation: {
-                            x: 750 - ctx.getImage('scene_2_silk_2').width,
+                            x: 750 - gallery.getImage('scene_2_silk_2').width,
                             duration
                         }
                     },
                     {
                         id: 'scene_2_silk_1',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_2_silk_1'),
+                        image: gallery.getImage('scene_2_silk_1'),
                         prop: {
-                            x: -ctx.getImage('scene_2_silk_1').width,
+                            x: -gallery.getImage('scene_2_silk_1').width,
                             y: 966,
                         },
                         animation: {
@@ -464,9 +462,9 @@
                     {
                         id: 'scene_2_silk_3',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_2_silk_3'),
+                        image: gallery.getImage('scene_2_silk_3'),
                         prop: {
-                            x: -ctx.getImage('scene_2_silk_3').width,
+                            x: -gallery.getImage('scene_2_silk_3').width,
                             y: 1774,
                         },
                         animation: {
@@ -477,22 +475,22 @@
                     {
                         id: 'scene_2_silk_7',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_2_silk_7'),
+                        image: gallery.getImage('scene_2_silk_7'),
                         prop: {
                             x: 750,
                             y: 1690,
                         },
                         animation: {
-                            x: 750 - ctx.getImage('scene_2_silk_7').width,
+                            x: 750 - gallery.getImage('scene_2_silk_7').width,
                             duration
                         }
                     },
                     {
                         id: 'scene_2_silk_6',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_2_silk_6'),
+                        image: gallery.getImage('scene_2_silk_6'),
                         prop: {
-                            x: -ctx.getImage('scene_2_silk_6').width,
+                            x: -gallery.getImage('scene_2_silk_6').width,
                             y: 1628,
                         },
                         animation: {
@@ -503,22 +501,22 @@
                     {
                         id: 'scene_2_silk_5',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_2_silk_5'),
+                        image: gallery.getImage('scene_2_silk_5'),
                         prop: {
                             x: 750,
                             y: 1430,
                         },
                         animation: {
-                            x: 750 - ctx.getImage('scene_2_silk_5').width,
+                            x: 750 - gallery.getImage('scene_2_silk_5').width,
                             duration
                         }
                     },
                     {
                         id: 'scene_2_silk_4',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_2_silk_4'),
+                        image: gallery.getImage('scene_2_silk_4'),
                         prop: {
-                            x: -ctx.getImage('scene_2_silk_4').width,
+                            x: -gallery.getImage('scene_2_silk_4').width,
                             y: 1176,
                         },
                         animation: {
@@ -537,25 +535,25 @@
                     {
                         id: 'scene_3_hammer',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_3_hammer'),
+                        image: gallery.getImage('scene_3_hammer'),
                         prop: {
-                            x: 254 + ctx.getImage('scene_3_hammer').width/2,
-                            y: 480 + ctx.getImage('scene_3_hammer').height/2,
+                            x: 254 + gallery.getImage('scene_3_hammer').width/2,
+                            y: 480 + gallery.getImage('scene_3_hammer').height/2,
                             rotation: -60,
-                            regX: ctx.getImage('scene_3_hammer').width/2,
-                            regY: ctx.getImage('scene_3_hammer').height/2,
+                            regX: gallery.getImage('scene_3_hammer').width/2,
+                            regY: gallery.getImage('scene_3_hammer').height/2,
                         },
                         animation: {
-                            x: 354 + ctx.getImage('scene_3_hammer').width/2,
-                            y: 580 + ctx.getImage('scene_3_hammer').height/2,
+                            x: 354 + gallery.getImage('scene_3_hammer').width/2,
+                            y: 580 + gallery.getImage('scene_3_hammer').height/2,
                             rotation: 0,
-                            duration: ctx.height/3,
+                            duration: gallery.height/3,
                         }
                     },
                     {
                         id: 'scene_3_text_1',
                         type: 'bitmap',
-                        image: ctx.getImage('gallery_text_3'),
+                        image: gallery.getImage('gallery_text_3'),
                         prop: {
                             x: 0,
                             y: 402,
@@ -565,13 +563,13 @@
                             afterById: 'scene_3_hammer',
                             x: 65,
                             alpha: 1,
-                            duration: ctx.height/3,
+                            duration: gallery.height/3,
                         }
                     },
                     {
                         id: 'scene_3_up',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_3_up'),
+                        image: gallery.getImage('scene_3_up'),
                         prop: {
                             x: -68,
                             y: 524,
@@ -583,13 +581,13 @@
                             x: 68,
                             y: 474,
                             alpha: 1,
-                            duration: ctx.height/3,
+                            duration: gallery.height/3,
                         }
                     },
                     {
                         id: 'scene_3_text_2',
                         type: 'bitmap',
-                        image: ctx.getImage('gallery_text_4'),
+                        image: gallery.getImage('gallery_text_4'),
                         prop: {
                             x: 34,
                             y: 1074,
@@ -604,7 +602,7 @@
                     {
                         id: 'scene_3_text_3',
                         type: 'bitmap',
-                        image: ctx.getImage('gallery_text_5'),
+                        image: gallery.getImage('gallery_text_5'),
                         prop: {
                             x: 116,
                             y: 1642,
@@ -625,7 +623,7 @@
                             {
                                 id: 'scene_3_hand_1',
                                 type: 'bitmap',
-                                image: ctx.getImage('scene_3_hand_1'),
+                                image: gallery.getImage('scene_3_hand_1'),
                                 prop: {
                                     x: 5,
                                     y: 96,
@@ -640,7 +638,7 @@
                             {
                                 id: 'scene_3_hand_2',
                                 type: 'bitmap',
-                                image: ctx.getImage('scene_3_hand_2'),
+                                image: gallery.getImage('scene_3_hand_2'),
                                 prop: {
                                     x: 58,
                                     y: -80,
@@ -657,7 +655,7 @@
                             {
                                 id: 'scene_3_hand_3',
                                 type: 'bitmap',
-                                image: ctx.getImage('scene_3_hand_3'),
+                                image: gallery.getImage('scene_3_hand_3'),
                                 prop: {
                                     x: 396,
                                     y: -100,
@@ -674,7 +672,7 @@
                             {
                                 id: 'scene_3_hand_4',
                                 type: 'bitmap',
-                                image: ctx.getImage('scene_3_hand_4'),
+                                image: gallery.getImage('scene_3_hand_4'),
                                 prop: {
                                     x: 444,
                                     y: -38,
@@ -693,7 +691,7 @@
                     {
                         id: 'scene_3_text_4',
                         type: 'bitmap',
-                        image: ctx.getImage('gallery_text_6'),
+                        image: gallery.getImage('gallery_text_6'),
                         prop: {
                             x: 528,
                             y: 1970,
@@ -708,7 +706,7 @@
                     {
                         id: 'scene_3_build_1',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_3_build_1'),
+                        image: gallery.getImage('scene_3_build_1'),
                         prop: {
                             x: 750,
                             y: 2044,
@@ -722,7 +720,7 @@
                     {
                         id: 'scene_3_text_5',
                         type: 'bitmap',
-                        image: ctx.getImage('gallery_text_6'),
+                        image: gallery.getImage('gallery_text_6'),
                         prop: {
                             x: 750,
                             y: 2978,
@@ -737,9 +735,9 @@
                     {
                         id: 'scene_3_build_2',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_3_build_2'),
+                        image: gallery.getImage('scene_3_build_2'),
                         prop: {
-                            x: -ctx.getImage('scene_3_build_2').width,
+                            x: -gallery.getImage('scene_3_build_2').width,
                             y: 2580,
                         },
                         animation: {
@@ -750,13 +748,13 @@
                     {
                         id: 'scene_3_build_3',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_3_build_3'),
+                        image: gallery.getImage('scene_3_build_3'),
                         prop: {
                             x: 750,
                             y: 3128,
                         },
                         animation: {
-                            top: -ctx.height/3,
+                            top: -gallery.height/3,
                             x: 266,
                             duration
                         }
@@ -764,22 +762,22 @@
                     {
                         id: 'scene_3_airship',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_3_airship'),
+                        image: gallery.getImage('scene_3_airship'),
                         prop: {
                             x: 750,
                             y: 3236,
                         },
                         animation: {
-                            x: -ctx.getImage('scene_3_airship').width,
-                            duration: ctx.height
+                            x: -gallery.getImage('scene_3_airship').width,
+                            duration: gallery.height
                         }
                     },
                     {
                         id: 'scene_3_text_6',
                         type: 'bitmap',
-                        image: ctx.getImage('gallery_text_7'),
+                        image: gallery.getImage('gallery_text_7'),
                         prop: {
-                            x: -ctx.getImage('gallery_text_7').width,
+                            x: -gallery.getImage('gallery_text_7').width,
                             y: 3612,
                             alpha: 0
                         },
@@ -793,9 +791,9 @@
                     {
                         id: 'scene_3_tree_1',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_tree_2'),
+                        image: gallery.getImage('scene_tree_2'),
                         prop: {
-                            x: -ctx.getImage('scene_tree_2').width,
+                            x: -gallery.getImage('scene_tree_2').width,
                             y: 2002,
                         },
                         animation: {
@@ -806,22 +804,22 @@
                     {
                         id: 'scene_3_tree_2',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_tree_3'),
+                        image: gallery.getImage('scene_tree_3'),
                         prop: {
                             x: 750,
                             y: 2343,
                         },
                         animation: {
-                            x: 750 - ctx.getImage('scene_tree_3').width,
+                            x: 750 - gallery.getImage('scene_tree_3').width,
                             duration
                         }
                     },
                     {
                         id: 'scene_3_tree_3',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_tree_4'),
+                        image: gallery.getImage('scene_tree_4'),
                         prop: {
-                            x: -ctx.getImage('scene_tree_4').width,
+                            x: -gallery.getImage('scene_tree_4').width,
                             y: 3068,
                         },
                         animation: {
@@ -832,22 +830,22 @@
                     {
                         id: 'scene_3_tree_4',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_tree_5'),
+                        image: gallery.getImage('scene_tree_5'),
                         prop: {
                             x: 750,
                             y: 3406,
                         },
                         animation: {
-                            x: 750 - ctx.getImage('scene_tree_5').width,
+                            x: 750 - gallery.getImage('scene_tree_5').width,
                             duration
                         }
                     },
                     {
                         id: 'scene_3_left_hand',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_3_left_hand'),
+                        image: gallery.getImage('scene_3_left_hand'),
                         prop: {
-                            x: -ctx.getImage('scene_3_left_hand').width,
+                            x: -gallery.getImage('scene_3_left_hand').width,
                             y: 3891
                         },
                         animation: {
@@ -858,13 +856,13 @@
                     {
                         id: 'scene_3_right_hand',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_3_right_hand'),
+                        image: gallery.getImage('scene_3_right_hand'),
                         prop: {
                             x: 750,
                             y: 3879
                         },
                         animation: {
-                            x: 750 - ctx.getImage('scene_3_right_hand').width,
+                            x: 750 - gallery.getImage('scene_3_right_hand').width,
                             duration
                         }
                     },
@@ -877,39 +875,39 @@
                             {
                                 id: 'scene_3_heart_scale_wrap',
                                 prop: {
-                                    x: (ctx.width - ctx.getImage('scene_3_heart').width)/2 + ctx.getImage('scene_3_heart').width/2,
-                                    y: ctx.getImage('scene_3_heart').height/2,
+                                    x: (gallery.width - gallery.getImage('scene_3_heart').width)/2 + gallery.getImage('scene_3_heart').width/2,
+                                    y: gallery.getImage('scene_3_heart').height/2,
                                     scaleX: 1,
                                     scaleY: 1,
-                                    regX: ctx.getImage('scene_3_heart').width/2,
-                                    regY: ctx.getImage('scene_3_heart').height/2,
+                                    regX: gallery.getImage('scene_3_heart').width/2,
+                                    regY: gallery.getImage('scene_3_heart').height/2,
                                 },
                                 animation: {
                                     afterById: 'scene_3_left_hand',
                                     scaleX: 50,
                                     scaleY: 50,
-                                    duration: ctx.height
+                                    duration: gallery.height
                                 },
                                 children: [
                                     {
                                         id: 'scene_3_heart',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_3_heart'),
+                                        image: gallery.getImage('scene_3_heart'),
                                     },
                                 ]
                             },
                             {
                                 id: 'scene_3_heart_text',
                                 type: 'bitmap',
-                                image: ctx.getImage('scene_3_heart_text'),
+                                image: gallery.getImage('scene_3_heart_text'),
                                 prop: {
-                                    x: (ctx.width - ctx.getImage('scene_3_heart').width)/2,
+                                    x: (gallery.width - gallery.getImage('scene_3_heart').width)/2,
                                     y: 0,
                                 },
                                 animation: {
                                     afterById: 'scene_3_left_hand',
                                     alpha: 0,
-                                    duration: ctx.height/3
+                                    duration: gallery.height/3
                                 }
                             }
                         ]
@@ -929,7 +927,7 @@
                         },
                         animation: {
                             // startById: 'scene_4_rocket',
-                            top: -ctx.height/2 - 338,
+                            top: -gallery.height/2 - 338,
                             y: 10662 * 2,
                             duration: 10662,
                         },
@@ -947,20 +945,20 @@
                                     {
                                         id: 'scene_4_bg',
                                         type: 'shape',
+                                        graphics: {
+                                            beginFill: ['#e8340c'],
+                                            drawRect: [0, 0, 750, 7486 + gallery.height]
+                                        },
                                         prop: {
                                             width: 750,
-                                            height: 7486 + ctx.height,
-                                            y: -7486 + ctx.height,
-                                            graphics: {
-                                                beginFill: ['#e8340c'],
-                                                drawRect: [0, 0, 750, 7486 + ctx.height]
-                                            }
+                                            height: 7486 + gallery.height,
+                                            y: -7486 + gallery.height,
                                         },
                                     },
                                     {
                                         id: 'scene_4_bg_build_1',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_bg_build_1'),
+                                        image: gallery.getImage('scene_4_bg_build_1'),
                                         prop: {
                                             y: 458,
                                         }
@@ -968,11 +966,11 @@
                                     {
                                         id: 'scene_4_map_wrap',
                                         prop: {
-                                            x: ctx.width/2,
+                                            x: gallery.width/2,
                                             y: -3276,
                                             scaleX: 1,
                                             scaleY: 1,
-                                            regX: ctx.width/2,
+                                            regX: gallery.width/2,
                                         },
                                         animation: {
                                             top: -3332 * 2 - duration,
@@ -985,7 +983,7 @@
                                             {
                                                 id: 'scene_4_map',
                                                 type: 'bitmap',
-                                                image: ctx.getImage('scene_4_map'),
+                                                image: gallery.getImage('scene_4_map'),
                                                 prop: {
                                                     x: 33,
                                                 }
@@ -993,7 +991,7 @@
                                             {
                                                 id: 'scene_4_map_light',
                                                 type: 'bitmap',
-                                                image: ctx.getImage('scene_4_map_light_1'),
+                                                image: gallery.getImage('scene_4_map_light_1'),
                                                 prop: {
                                                     x: 206,
                                                     y: -56,
@@ -1001,14 +999,14 @@
                                                 animation: {
                                                     top: -3332 * 2,
                                                     sprite: [
-                                                        ctx.getImage('scene_4_map_light_1'),
-                                                        ctx.getImage('scene_4_map_light_2'),
-                                                        ctx.getImage('scene_4_map_light_3'),
-                                                        ctx.getImage('scene_4_map_light_4'),
-                                                        ctx.getImage('scene_4_map_light_5'),
-                                                        ctx.getImage('scene_4_map_light_6'),
-                                                        ctx.getImage('scene_4_map_light_7'),
-                                                        ctx.getImage('scene_4_map_light_8'),
+                                                        gallery.getImage('scene_4_map_light_1'),
+                                                        gallery.getImage('scene_4_map_light_2'),
+                                                        gallery.getImage('scene_4_map_light_3'),
+                                                        gallery.getImage('scene_4_map_light_4'),
+                                                        gallery.getImage('scene_4_map_light_5'),
+                                                        gallery.getImage('scene_4_map_light_6'),
+                                                        gallery.getImage('scene_4_map_light_7'),
+                                                        gallery.getImage('scene_4_map_light_8'),
                                                     ],
                                                     duration,
                                                 }
@@ -1022,15 +1020,15 @@
                     {
                         id: 'scene_4_rocket',
                         type: 'bitmap',
-                        image: ctx.getImage('scene_4_rocket'),
+                        image: gallery.getImage('scene_4_rocket'),
                         prop: {
                             x: 88,
                             scaleX: 1,
                             scaleY: 1,
                         },
                         animation: {
-                            top: -ctx.height/2 - 338,
-                            x: ctx.width/2,
+                            top: -gallery.height/2 - 338,
+                            x: gallery.width/2,
                             y: 3124,
                             scaleX: 0,
                             scaleY: 0,
@@ -1058,27 +1056,27 @@
                                     {
                                         id: 'scene_4_cloud_1',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_1'),
+                                        image: gallery.getImage('scene_4_cloud_1'),
                                         prop: {
                                             x: 750,
                                             y: -362,
                                         },
                                         animation: {
-                                            top: -362 * 2 - ctx.height/2,
-                                            x: 750 - ctx.getImage('scene_4_cloud_1').width,
+                                            top: -362 * 2 - gallery.height/2,
+                                            x: 750 - gallery.getImage('scene_4_cloud_1').width,
                                             duration,
                                         }
                                     },
                                     {
                                         id: 'scene_4_cloud_2',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_2'),
+                                        image: gallery.getImage('scene_4_cloud_2'),
                                         prop: {
-                                            x: - ctx.getImage('scene_4_cloud_2').width,
+                                            x: - gallery.getImage('scene_4_cloud_2').width,
                                             y: -1390,
                                         },
                                         animation: {
-                                            top: -1390 * 2 - ctx.height/2,
+                                            top: -1390 * 2 - gallery.height/2,
                                             x: 0,
                                             duration,
                                         }
@@ -1086,13 +1084,13 @@
                                     {
                                         id: 'scene_4_cloud_3',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_1'),
+                                        image: gallery.getImage('scene_4_cloud_1'),
                                         prop: {
                                             x: 750,
                                             y: -1516,
                                         },
                                         animation: {
-                                            top: -1516 * 2 - ctx.height/2,
+                                            top: -1516 * 2 - gallery.height/2,
                                             x: 750 - 201,
                                             duration,
                                         }
@@ -1100,27 +1098,27 @@
                                     {
                                         id: 'scene_4_cloud_4',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_3'),
+                                        image: gallery.getImage('scene_4_cloud_3'),
                                         prop: {
                                             x: 750,
                                             y: -2174,
                                         },
                                         animation: {
-                                            top: -2174 * 2 - ctx.height/2,
-                                            x: 750 - ctx.getImage('scene_4_cloud_3').width,
+                                            top: -2174 * 2 - gallery.height/2,
+                                            x: 750 - gallery.getImage('scene_4_cloud_3').width,
                                             duration,
                                         }
                                     },
                                     {
                                         id: 'scene_4_cloud_5',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_4'),
+                                        image: gallery.getImage('scene_4_cloud_4'),
                                         prop: {
-                                            x: -ctx.getImage('scene_4_cloud_4').width,
+                                            x: -gallery.getImage('scene_4_cloud_4').width,
                                             y: -2372,
                                         },
                                         animation: {
-                                            top: -2372 * 2 - ctx.height/2,
+                                            top: -2372 * 2 - gallery.height/2,
                                             x: 0,
                                             duration,
                                         }
@@ -1128,7 +1126,7 @@
                                     {
                                         id: 'scene_4_cloud_6',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_3'),
+                                        image: gallery.getImage('scene_4_cloud_3'),
                                         prop: {
                                             x: 750,
                                             y: -2532,
@@ -1136,7 +1134,7 @@
                                             scaleY: 0.88,
                                         },
                                         animation: {
-                                            top: -2532 * 2 - ctx.height/2,
+                                            top: -2532 * 2 - gallery.height/2,
                                             x: 750 - 260,
                                             duration,
                                         }
@@ -1144,9 +1142,9 @@
                                     {
                                         id: 'scene_4_cloud_7',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_4'),
+                                        image: gallery.getImage('scene_4_cloud_4'),
                                         prop: {
-                                            x: 750 + ctx.getImage('scene_4_cloud_4').width,
+                                            x: 750 + gallery.getImage('scene_4_cloud_4').width,
                                             y: -2924,
                                             scaleX: 0.8,
                                             scaleY: 0.8,
@@ -1154,7 +1152,7 @@
                                             skewX: 360,
                                         },
                                         animation: {
-                                            top: -2924 * 2 - ctx.height/2,
+                                            top: -2924 * 2 - gallery.height/2,
                                             x: 800,
                                             duration,
                                         }
@@ -1162,9 +1160,9 @@
                                     {
                                         id: 'scene_4_cloud_8',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_6'),
+                                        image: gallery.getImage('scene_4_cloud_6'),
                                         prop: {
-                                            x: -ctx.getImage('scene_4_cloud_6').width,
+                                            x: -gallery.getImage('scene_4_cloud_6').width,
                                             y: -3286,
                                         },
                                         animation: {
@@ -1176,9 +1174,9 @@
                                     {
                                         id: 'scene_4_cloud_9',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_4'),
+                                        image: gallery.getImage('scene_4_cloud_4'),
                                         prop: {
-                                            x: 750 + ctx.getImage('scene_4_cloud_4').width,
+                                            x: 750 + gallery.getImage('scene_4_cloud_4').width,
                                             y: -3436,
                                             scaleX: 0.7,
                                             scaleY: 0.7,
@@ -1186,7 +1184,7 @@
                                             skewX: 360,
                                         },
                                         animation: {
-                                            top: -3436 * 2 - ctx.height/2,
+                                            top: -3436 * 2 - gallery.height/2,
                                             x: 760,
                                             duration,
                                         }
@@ -1194,7 +1192,7 @@
                                     {
                                         id: 'scene_4_cloud_10',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_3'),
+                                        image: gallery.getImage('scene_4_cloud_3'),
                                         prop: {
                                             x: 750,
                                             y: -3682,
@@ -1202,7 +1200,7 @@
                                             scaleY: 0.9,
                                         },
                                         animation: {
-                                            top: -3682 * 2 - ctx.height/2,
+                                            top: -3682 * 2 - gallery.height/2,
                                             x: 750 - 260,
                                             duration,
                                         }
@@ -1210,32 +1208,32 @@
                                     {
                                         id: 'scene_4_cloud_11',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_5'),
+                                        image: gallery.getImage('scene_4_cloud_5'),
                                         prop: {
-                                            x: -ctx.getImage('scene_4_cloud_5').width,
+                                            x: -gallery.getImage('scene_4_cloud_5').width,
                                             y: -3670,
                                             scaleX: 0.9,
                                             scaleY: 0.9,
                                         },
                                         animation: {
-                                            top: -3670 * 2 - ctx.height/2,
-                                            x: -ctx.getImage('scene_4_cloud_5').width + 175,
+                                            top: -3670 * 2 - gallery.height/2,
+                                            x: -gallery.getImage('scene_4_cloud_5').width + 175,
                                             duration,
                                         }
                                     },
                                     {
                                         id: 'scene_4_cloud_12',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_5'),
+                                        image: gallery.getImage('scene_4_cloud_5'),
                                         prop: {
-                                            x: -ctx.getImage('scene_4_cloud_5').width,
+                                            x: -gallery.getImage('scene_4_cloud_5').width,
                                             y: -3670,
                                             scaleX: 0.9,
                                             scaleY: 0.9,
                                         },
                                         animation: {
-                                            top: -3670 * 2 - ctx.height/2,
-                                            x: -ctx.getImage('scene_4_cloud_5').width + 175,
+                                            top: -3670 * 2 - gallery.height/2,
+                                            x: -gallery.getImage('scene_4_cloud_5').width + 175,
                                             duration,
                                         }
                                     },
@@ -1243,9 +1241,9 @@
                                     {
                                         id: 'scene_4_cloud_13',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_7'),
+                                        image: gallery.getImage('scene_4_cloud_7'),
                                         prop: {
-                                            x: -ctx.getImage('scene_4_cloud_7').width,
+                                            x: -gallery.getImage('scene_4_cloud_7').width,
                                             y: -4046,
                                         },
                                         animation: {
@@ -1257,41 +1255,41 @@
                                     {
                                         id: 'scene_4_cloud_15',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_9'),
+                                        image: gallery.getImage('scene_4_cloud_9'),
                                         prop: {
-                                            x: ctx.width,
+                                            x: gallery.width,
                                             y: -4166,
                                         },
                                         animation: {
                                             top: -4166 * 2,
-                                            x: ctx.width - ctx.getImage('scene_4_cloud_9').width,
+                                            x: gallery.width - gallery.getImage('scene_4_cloud_9').width,
                                             duration,
                                         }
                                     },
                                     {
                                         id: 'scene_4_cloud_14',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_8'),
+                                        image: gallery.getImage('scene_4_cloud_8'),
                                         prop: {
-                                            x: ctx.width,
+                                            x: gallery.width,
                                             y: -4186,
                                         },
                                         animation: {
-                                            top: -4186 * 2 - ctx.height/2,
-                                            x: ctx.width - ctx.getImage('scene_4_cloud_8').width,
+                                            top: -4186 * 2 - gallery.height/2,
+                                            x: gallery.width - gallery.getImage('scene_4_cloud_8').width,
                                             duration,
                                         }
                                     },
                                     {
                                         id: 'scene_4_cloud_16',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_10'),
+                                        image: gallery.getImage('scene_4_cloud_10'),
                                         prop: {
-                                            x: -ctx.getImage('scene_4_cloud_10').width,
+                                            x: -gallery.getImage('scene_4_cloud_10').width,
                                             y: -4336,
                                         },
                                         animation: {
-                                            top: -4336 * 2 - ctx.height/2,
+                                            top: -4336 * 2 - gallery.height/2,
                                             x: 0,
                                             duration,
                                         }
@@ -1299,71 +1297,71 @@
                                     {
                                         id: 'scene_4_cloud_17',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_11'),
+                                        image: gallery.getImage('scene_4_cloud_11'),
                                         prop: {
-                                            x: ctx.width,
+                                            x: gallery.width,
                                             y: -4446,
                                         },
                                         animation: {
-                                            top: -4446 * 2 - ctx.height/2,
-                                            x: ctx.width - ctx.getImage('scene_4_cloud_11').width,
+                                            top: -4446 * 2 - gallery.height/2,
+                                            x: gallery.width - gallery.getImage('scene_4_cloud_11').width,
                                             duration,
                                         }
                                     },
                                     {
                                         id: 'scene_4_cloud_18',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_12'),
+                                        image: gallery.getImage('scene_4_cloud_12'),
                                         prop: {
-                                            x: -ctx.getImage('scene_4_cloud_12').width,
+                                            x: -gallery.getImage('scene_4_cloud_12').width,
                                             y: -4492,
                                         },
                                         animation: {
-                                            top: -4492 * 2 - ctx.height/2,
+                                            top: -4492 * 2 - gallery.height/2,
                                             x: 0,
                                             duration,
                                         }
                                     },
 
                                     {
-                                        id: 'scene_4_cloud_18',
+                                        id: 'scene_4_cloud_19',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_7'),
+                                        image: gallery.getImage('scene_4_cloud_7'),
                                         prop: {
-                                            x: -ctx.getImage('scene_4_cloud_7').width,
+                                            x: -gallery.getImage('scene_4_cloud_7').width,
                                             y: -4982,
                                         },
                                         animation: {
-                                            top: -4982 * 2 - ctx.height/2,
-                                            x: -(ctx.getImage('scene_4_cloud_7').width - 404),
-                                            duration,
-                                        }
-                                    },
-                                    {
-                                        id: 'scene_4_cloud_19',
-                                        type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_13'),
-                                        prop: {
-                                            x: ctx.width,
-                                            y: -5266,
-                                        },
-                                        animation: {
-                                            top: -5266 * 2 - ctx.height/2,
-                                            x: ctx.width - ctx.getImage('scene_4_cloud_13').width,
+                                            top: -4982 * 2 - gallery.height/2,
+                                            x: -(gallery.getImage('scene_4_cloud_7').width - 404),
                                             duration,
                                         }
                                     },
                                     {
                                         id: 'scene_4_cloud_20',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_cloud_7'),
+                                        image: gallery.getImage('scene_4_cloud_13'),
                                         prop: {
-                                            x: -ctx.getImage('scene_4_cloud_7').width,
+                                            x: gallery.width,
+                                            y: -5266,
+                                        },
+                                        animation: {
+                                            top: -5266 * 2 - gallery.height/2,
+                                            x: gallery.width - gallery.getImage('scene_4_cloud_13').width,
+                                            duration,
+                                        }
+                                    },
+                                    {
+                                        id: 'scene_4_cloud_21',
+                                        type: 'bitmap',
+                                        image: gallery.getImage('scene_4_cloud_7'),
+                                        prop: {
+                                            x: -gallery.getImage('scene_4_cloud_7').width,
                                             y: -5386,
                                         },
                                         animation: {
-                                            top: -5386 * 2 - ctx.height/2,
-                                            x: -(ctx.getImage('scene_4_cloud_7').width - 168),
+                                            top: -5386 * 2 - gallery.height/2,
+                                            x: -(gallery.getImage('scene_4_cloud_7').width - 168),
                                             duration,
                                         }
                                     },
@@ -1371,7 +1369,7 @@
                                     {
                                         id: 'scene_4_text_1',
                                         type: 'bitmap',
-                                        image: ctx.getImage('gallery_text_9'),
+                                        image: gallery.getImage('gallery_text_9'),
                                         prop: {
                                             x: 290,
                                             y: 30,
@@ -1386,13 +1384,13 @@
                                     {
                                         id: 'scene_4_text_2',
                                         type: 'bitmap',
-                                        image: ctx.getImage('gallery_text_10'),
+                                        image: gallery.getImage('gallery_text_10'),
                                         prop: {
-                                            x: -ctx.getImage('gallery_text_10').width,
+                                            x: -gallery.getImage('gallery_text_10').width,
                                             y: -704,
                                         },
                                         animation: {
-                                            top: -704 * 2 - ctx.height/2,
+                                            top: -704 * 2 - gallery.height/2,
                                             x: 0,
                                             duration,
                                         }
@@ -1400,27 +1398,27 @@
                                     {
                                         id: 'scene_4_text_3',
                                         type: 'bitmap',
-                                        image: ctx.getImage('gallery_text_11'),
+                                        image: gallery.getImage('gallery_text_11'),
                                         prop: {
                                             x: 750,
                                             y: -1106,
                                         },
                                         animation: {
-                                            top: -1106 * 2 - ctx.height/2,
-                                            x: 750 - ctx.getImage('gallery_text_11').width,
+                                            top: -1106 * 2 - gallery.height/2,
+                                            x: 750 - gallery.getImage('gallery_text_11').width,
                                             duration,
                                         }
                                     },
                                     {
                                         id: 'scene_4_text_4',
                                         type: 'bitmap',
-                                        image: ctx.getImage('gallery_text_12'),
+                                        image: gallery.getImage('gallery_text_12'),
                                         prop: {
-                                            x: -ctx.getImage('gallery_text_12').width,
+                                            x: -gallery.getImage('gallery_text_12').width,
                                             y: -1876,
                                         },
                                         animation: {
-                                            top: -1876 * 2 - ctx.height/2,
+                                            top: -1876 * 2 - gallery.height/2,
                                             x: 0,
                                             duration,
                                         }
@@ -1428,14 +1426,14 @@
                                     {
                                         id: 'scene_4_text_5',
                                         type: 'bitmap',
-                                        image: ctx.getImage('gallery_text_13'),
+                                        image: gallery.getImage('gallery_text_13'),
                                         prop: {
                                             x: 116,
                                             y: -3384,
                                             alpha: 0,
                                         },
                                         animation: {
-                                            top: -3484 * 2 - ctx.height/2,
+                                            top: -3484 * 2 - gallery.height/2,
                                             y: -3484,
                                             alpha: 1,
                                             duration,
@@ -1444,7 +1442,7 @@
                                     {
                                         id: 'scene_4_text_6',
                                         type: 'bitmap',
-                                        image: ctx.getImage('gallery_text_14'),
+                                        image: gallery.getImage('gallery_text_14'),
                                         prop: {
                                             x: 352,
                                             y: -4678,
@@ -1461,39 +1459,39 @@
                                     {
                                         id: 'scene_4_plane',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_plane_1'),
+                                        image: gallery.getImage('scene_4_plane_1'),
                                         prop: {
                                             y: -3192,
-                                            x: -ctx.getImage('scene_4_plane_1').width/2,
+                                            x: -gallery.getImage('scene_4_plane_1').width/2,
                                             scaleX: 0.7,
                                             scaleY: 0.7,
-                                            regX: ctx.getImage('scene_4_plane_1').width/2,
+                                            regX: gallery.getImage('scene_4_plane_1').width/2,
                                         },
                                         animation: {
-                                            top: -3192 * 2 - ctx.height/2,
+                                            top: -3192 * 2 - gallery.height/2,
                                             y: -6510,
-                                            x: ctx.width/2,
+                                            x: gallery.width/2,
                                             sprite: [
-                                                ctx.getImage('scene_4_plane_1'),
-                                                ctx.getImage('scene_4_plane_2'),
-                                                ctx.getImage('scene_4_plane_3'),
-                                                ctx.getImage('scene_4_plane_4'),
-                                                ctx.getImage('scene_4_plane_1'),
-                                                ctx.getImage('scene_4_plane_2'),
-                                                ctx.getImage('scene_4_plane_3'),
-                                                ctx.getImage('scene_4_plane_4'),
-                                                ctx.getImage('scene_4_plane_1'),
-                                                ctx.getImage('scene_4_plane_2'),
-                                                ctx.getImage('scene_4_plane_3'),
-                                                ctx.getImage('scene_4_plane_4'),
-                                                ctx.getImage('scene_4_plane_1'),
-                                                ctx.getImage('scene_4_plane_2'),
-                                                ctx.getImage('scene_4_plane_3'),
-                                                ctx.getImage('scene_4_plane_4'),
-                                                ctx.getImage('scene_4_plane_1'),
-                                                ctx.getImage('scene_4_plane_2'),
-                                                ctx.getImage('scene_4_plane_3'),
-                                                ctx.getImage('scene_4_plane_4'),
+                                                gallery.getImage('scene_4_plane_1'),
+                                                gallery.getImage('scene_4_plane_2'),
+                                                gallery.getImage('scene_4_plane_3'),
+                                                gallery.getImage('scene_4_plane_4'),
+                                                gallery.getImage('scene_4_plane_1'),
+                                                gallery.getImage('scene_4_plane_2'),
+                                                gallery.getImage('scene_4_plane_3'),
+                                                gallery.getImage('scene_4_plane_4'),
+                                                gallery.getImage('scene_4_plane_1'),
+                                                gallery.getImage('scene_4_plane_2'),
+                                                gallery.getImage('scene_4_plane_3'),
+                                                gallery.getImage('scene_4_plane_4'),
+                                                gallery.getImage('scene_4_plane_1'),
+                                                gallery.getImage('scene_4_plane_2'),
+                                                gallery.getImage('scene_4_plane_3'),
+                                                gallery.getImage('scene_4_plane_4'),
+                                                gallery.getImage('scene_4_plane_1'),
+                                                gallery.getImage('scene_4_plane_2'),
+                                                gallery.getImage('scene_4_plane_3'),
+                                                gallery.getImage('scene_4_plane_4'),
                                             ],
                                             duration: 3218,
                                         }
@@ -1501,7 +1499,7 @@
                                     {
                                         id: 'scene_4_transit_cloud',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_transit_cloud'),
+                                        image: gallery.getImage('scene_4_transit_cloud'),
                                         prop: {
                                             y: -6458,
                                         }
@@ -1510,7 +1508,7 @@
                                     {
                                         id: 'scene_4_balloon_1',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_balloon'),
+                                        image: gallery.getImage('scene_4_balloon'),
                                         prop: {
                                             x: 548,
                                             y: -8058,
@@ -1518,15 +1516,15 @@
                                             scaleY: 0.6,
                                         },
                                         animation: {
-                                            top: -8408 * 2 - ctx.height/3,
-                                            y: -8058 - ctx.height * 3,
-                                            duration: ctx.height * 1.1
+                                            top: -8408 * 2 - gallery.height/3,
+                                            y: -8058 - gallery.height * 3,
+                                            duration: gallery.height * 1.1
                                         }
                                     },
                                     {
                                         id: 'scene_4_balloon_2',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_balloon'),
+                                        image: gallery.getImage('scene_4_balloon'),
                                         prop: {
                                             x: 146,
                                             y: -8108,
@@ -1534,15 +1532,15 @@
                                             scaleY: 0.4,
                                         },
                                         animation: {
-                                            top: -8408 * 2 - ctx.height/3,
-                                            y: -8108 - ctx.height * 3,
-                                            duration: ctx.height * 1.2
+                                            top: -8408 * 2 - gallery.height/3,
+                                            y: -8108 - gallery.height * 3,
+                                            duration: gallery.height * 1.2
                                         }
                                     },
                                     {
                                         id: 'scene_4_balloon_3',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_balloon'),
+                                        image: gallery.getImage('scene_4_balloon'),
                                         prop: {
                                             x: 284,
                                             y: -8208,
@@ -1550,29 +1548,29 @@
                                             scaleY: 0.85,
                                         },
                                         animation: {
-                                            top: -8408 * 2 - ctx.height/3,
-                                            y: -8208 - ctx.height * 3,
-                                            duration: ctx.height * 1.15
+                                            top: -8408 * 2 - gallery.height/3,
+                                            y: -8208 - gallery.height * 3,
+                                            duration: gallery.height * 1.15
                                         }
                                     },
                                     {
                                         id: 'scene_4_balloon_4',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_balloon'),
+                                        image: gallery.getImage('scene_4_balloon'),
                                         prop: {
                                             x: 408,
                                             y: -8408,
                                         },
                                         animation: {
-                                            top: -8408 * 2 - ctx.height/3,
-                                            y: -8408 - ctx.height * 3,
-                                            duration: ctx.height * 1.3
+                                            top: -8408 * 2 - gallery.height/3,
+                                            y: -8408 - gallery.height * 3,
+                                            duration: gallery.height * 1.3
                                         }
                                     },
                                     {
                                         id: 'scene_4_balloon_5',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_balloon'),
+                                        image: gallery.getImage('scene_4_balloon'),
                                         prop: {
                                             x: 102,
                                             y: -8308,
@@ -1580,16 +1578,16 @@
                                             scaleY: 0.3,
                                         },
                                         animation: {
-                                            top: -8408 * 2 - ctx.height/2,
-                                            y: -8308 - ctx.height * 3,
-                                            duration: ctx.height * 1.25
+                                            top: -8408 * 2 - gallery.height/2,
+                                            y: -8308 - gallery.height * 3,
+                                            duration: gallery.height * 1.25
                                         }
                                     },
 
                                     {
                                         id: 'scene_4_newspaper_4',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_newspaper_4'),
+                                        image: gallery.getImage('scene_4_newspaper_4'),
                                         prop: {
                                             y: -7552,
                                             x: -500,
@@ -1598,13 +1596,13 @@
                                             top: -7452 * 2,
                                             y: -7388,
                                             x: 78,
-                                            duration: ctx.height
+                                            duration: gallery.height
                                         }
                                     },
                                     {
                                         id: 'scene_4_newspaper_5',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_newspaper_5'),
+                                        image: gallery.getImage('scene_4_newspaper_5'),
                                         prop: {
                                             y: -8158,
                                             x: 390,
@@ -1613,13 +1611,13 @@
                                             top: -8058 * 2,
                                             y: -8058,
                                             x: -300,
-                                            duration: ctx.height
+                                            duration: gallery.height
                                         }
                                     },
                                     {
                                         id: 'scene_4_newspaper_6',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_newspaper_6'),
+                                        image: gallery.getImage('scene_4_newspaper_6'),
                                         prop: {
                                             y: -8058,
                                             x: -100,
@@ -1628,13 +1626,13 @@
                                             top: -8058 * 2,
                                             y: -7958,
                                             x: 400,
-                                            duration: ctx.height
+                                            duration: gallery.height
                                         }
                                     },
                                     {
                                         id: 'scene_4_newspaper_3',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_newspaper_3'),
+                                        image: gallery.getImage('scene_4_newspaper_3'),
                                         prop: {
                                             y: -7188,
                                             x: 678,
@@ -1643,13 +1641,13 @@
                                             top: -7064 * 2,
                                             y: -6988,
                                             x: 378,
-                                            duration: ctx.height
+                                            duration: gallery.height
                                         }
                                     },
                                     {
                                         id: 'scene_4_newspaper_2',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_newspaper_2'),
+                                        image: gallery.getImage('scene_4_newspaper_2'),
                                         prop: {
                                             y: -7296,
                                             x: 384,
@@ -1658,13 +1656,13 @@
                                             top: -7246 * 2,
                                             y: -6996,
                                             x: -300,
-                                            duration: ctx.height
+                                            duration: gallery.height
                                         }
                                     },
                                     {
                                         id: 'scene_4_newspaper_1',
                                         type: 'bitmap',
-                                        image: ctx.getImage('scene_4_newspaper_1'),
+                                        image: gallery.getImage('scene_4_newspaper_1'),
                                         prop: {
                                             y: -7064,
                                             x: -100,
@@ -1673,21 +1671,21 @@
                                             top: -7064 * 2,
                                             y: -6864,
                                             x: 224,
-                                            duration: ctx.height
+                                            duration: gallery.height
                                         }
                                     },
 
                                     {
                                         id: 'scene_4_text_7',
                                         type: 'bitmap',
-                                        image: ctx.getImage('gallery_text_15'),
+                                        image: gallery.getImage('gallery_text_15'),
                                         prop: {
                                             y: -7270,
                                             x: 750,
                                             alpha: 0,
                                         },
                                         animation: {
-                                            top: -7470 * 2 + ctx.height/3,
+                                            top: -7470 * 2 + gallery.height/3,
                                             x: 425,
                                             alpha: 1,
                                             duration,

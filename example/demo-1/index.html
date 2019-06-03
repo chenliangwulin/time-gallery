@@ -20,10 +20,10 @@
     <canvas id="gallery-canvas" style="width: 100%"></canvas>
 </body>
 <script src="easeljs.min.js"></script>
-<script src="time-gallery.min.js"></script>
+<script src="time-gallery.2.0.0.min.js"></script>
 <script>
     var height = window.innerHeight/window.innerWidth * 750;
-    var gallery = new TimeGallery({
+    var timeGallery = new TimeGallery({
         id: 'gallery-canvas',                                   
         width: 750,                                             
         height: height,                                         
@@ -67,11 +67,12 @@
             { src: 'scene_5_note_sprite.png', id: 'scene_5_note_sprite' },
 
         ],
-        mapStart: -(height - 272)/2,
-        sprites(ctx) {
+        delayTime: (height - 272)/2,
+        autoUpdate: true,               // 自动更新，保持序列帧一直在刷帧状态
+        sprites(gallery) {
             return {
                 scene_1_notes: {
-                    images: [ctx.getImage('scene_1_note_sprite')],
+                    images: [gallery.getImage('scene_1_note_sprite')],
                     frames: [
                         [0, 1032, 489, 103],
                         [0, 944, 489, 67],
@@ -98,7 +99,7 @@
                     }
                 },
                 scene_2_notes: {
-                    images: [ctx.getImage('scene_2_note_sprite')],
+                    images: [gallery.getImage('scene_2_note_sprite')],
                     frames: [
                         [423, 292, 14, 40],
                         [339, 274, 25, 57],
@@ -125,7 +126,7 @@
                     }
                 },
                 scene_3_notes: {
-                    images: [ctx.getImage('scene_3_note_sprite')],
+                    images: [gallery.getImage('scene_3_note_sprite')],
                     frames: [
                         [95, 368, 42, 32],
                         [103, 313, 16, 30],
@@ -148,7 +149,7 @@
                     }
                 },
                 scene_4_notes: {
-                    images: [ctx.getImage('scene_4_note_sprite')],
+                    images: [gallery.getImage('scene_4_note_sprite')],
                     frames: [
                         [0, 343, 16, 36],
                         [20, 457, 18, 34],
@@ -177,7 +178,7 @@
                     }
                 },
                 scene_5_notes: {
-                    images: [ctx.getImage('scene_5_note_sprite')],
+                    images: [gallery.getImage('scene_5_note_sprite')],
                     frames: [
                         [0, 190, 62, 82],
                         [64, 318, 64, 80],
@@ -200,7 +201,7 @@
                     }
                 },
                 scene_1_text: {
-                    images:[ctx.getImage('scene_1_text')],
+                    images:[gallery.getImage('scene_1_text')],
                     frames: [
                         [0, 0, 51, 286],
                         [51, 0, 51, 286],
@@ -211,7 +212,7 @@
                     }
                 },
                 scene_2_text: {
-                    images:[ctx.getImage('scene_2_text')],
+                    images:[gallery.getImage('scene_2_text')],
                     frames: [
                         [0, 0, 50, 286],
                         [50, 0, 42, 286],
@@ -226,7 +227,7 @@
                     }
                 },
                 scene_3_text_1: {
-                    images:[ctx.getImage('scene_3_text_1')],
+                    images:[gallery.getImage('scene_3_text_1')],
                     frames: [
                         [0, 0, 52, 258],
                         [52, 0, 40, 258],
@@ -241,7 +242,7 @@
                     }
                 },
                 scene_3_text_2: {
-                    images:[ctx.getImage('scene_3_text_2')],
+                    images:[gallery.getImage('scene_3_text_2')],
                     frames: [
                         [0, 0, 459, 65],
                         [0, 65, 459, 72],
@@ -254,7 +255,7 @@
                     }
                 },
                 scene_4_text_1: {
-                    images:[ctx.getImage('scene_4_text_1')],
+                    images:[gallery.getImage('scene_4_text_1')],
                     frames: [
                         [0, 0, 444, 52],
                         [0, 52, 444, 40],
@@ -269,7 +270,7 @@
                     }
                 },
                 scene_4_text_2: {
-                    images:[ctx.getImage('scene_4_text_2')],
+                    images:[gallery.getImage('scene_4_text_2')],
                     frames: [
                         [0, 0, 50, 482],
                         [50, 0, 40, 482],
@@ -284,7 +285,7 @@
                     }
                 },
                 scene_4_text: {
-                    images:[ctx.getImage('scene_4_text')],
+                    images:[gallery.getImage('scene_4_text')],
                     frames: [
                         [0, 0, 499, 114],
                         [0, 114, 499, 72],
@@ -297,7 +298,7 @@
                     }
                 },
                 scene_5_text: {
-                    images:[ctx.getImage('scene_5_text')],
+                    images:[gallery.getImage('scene_5_text')],
                     frames: [
                         [0, 0, 402, 32],
                         [0, 32, 402, 40],
@@ -314,7 +315,7 @@
                     }
                 },
                 scene_6_text: {
-                    images:[ctx.getImage('scene_6_text')],
+                    images:[gallery.getImage('scene_6_text')],
                     frames: [
                         [0, 0, 442, 34],
                         [0, 80, 442, 34],
@@ -331,25 +332,25 @@
             }
         },
         data: canvasData,
-        onInit() {
+        onInit: function() {
             console.log('渲染成功')
         },
-        onEnd() {
+        onEnd: function() {
             console.log('结束回调')
         }
     });
 
-    gallery.play();
+    timeGallery.play();
 
-    function canvasData(canvas) {
-        let duration = canvas.height/2;
+    function canvasData(gallery) {
+        let duration = gallery.height/2;
         return [
             {
                 id: 'scene_start_text',
                 type: 'bitmap',
-                image: canvas.getImage('scene_start_text'),
+                image: gallery.getImage('scene_start_text'),
                 prop: {
-                    x: (canvas.width - canvas.getImage('scene_start_text').width)/2,
+                    x: (gallery.width - gallery.getImage('scene_start_text').width)/2,
                 },
             },
             {
@@ -361,7 +362,7 @@
                     {
                         id: 'scene_1_bg',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_1_bg'),
+                        image: gallery.getImage('scene_1_bg'),
                         prop: {
                             y: 502,
                         }
@@ -370,7 +371,7 @@
                         id: 'scene_1_role',
                         type: 'sprite',
                         sheet: {
-                            images:[canvas.getImage('scene_1_role')],//图片路径
+                            images:[gallery.getImage('scene_1_role')],//图片路径
                             frames: {
                                 height: 816,
                                 width: 600,
@@ -391,7 +392,7 @@
                     {
                         id: 'scene_1_curve',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_1_curve'),
+                        image: gallery.getImage('scene_1_curve'),
                         prop: {
                             x: 434,
                             alpha: 0,
@@ -410,7 +411,7 @@
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_text'],
+                                sheet: gallery.getSprite('scene_1_text'),
                                 method: {
                                     gotoAndPlay:['text_1']
                                 },
@@ -420,7 +421,7 @@
                                     alpha: 0,
                                 },
                                 animation: {
-                                    top: -200,
+                                    delay: 200,
                                     y: 0,
                                     alpha: 1,
                                     duration: 200,
@@ -428,12 +429,12 @@
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_text'],
+                                sheet: gallery.getSprite('scene_1_text'),
                                 method: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_1_text'].frames[1][0],
+                                    x: gallery.getSprite('scene_1_text').frames[1][0],
                                     y: 200,
                                     alpha: 0,
                                 },
@@ -454,182 +455,182 @@
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: gallery.getSprite('scene_1_notes'),
                                 method: {
                                     gotoAndPlay:['note_1']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[0][1],
+                                    y: gallery.getSprite('scene_1_notes').frames[0][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[0][1] - 200,
+                                    y: gallery.getSprite('scene_1_notes').frames[0][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: gallery.getSprite('scene_1_notes'),
                                 method: {
                                     gotoAndPlay:['note_2']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[1][1],
+                                    y: gallery.getSprite('scene_1_notes').frames[1][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[1][1] - 200,
+                                    y: gallery.getSprite('scene_1_notes').frames[1][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: gallery.getSprite('scene_1_notes'),
                                 method: {
                                     gotoAndPlay:['note_3']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[2][1],
+                                    y: gallery.getSprite('scene_1_notes').frames[2][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[2][1] - 200,
+                                    y: gallery.getSprite('scene_1_notes').frames[2][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: gallery.getSprite('scene_1_notes'),
                                 method: {
                                     gotoAndPlay:['note_4']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[3][1],
+                                    y: gallery.getSprite('scene_1_notes').frames[3][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[3][1] - 200,
+                                    y: gallery.getSprite('scene_1_notes').frames[3][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: gallery.getSprite('scene_1_notes'),
                                 method: {
                                     gotoAndPlay:['note_5']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[4][1],
+                                    y: gallery.getSprite('scene_1_notes').frames[4][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[4][1] - 200,
+                                    y: gallery.getSprite('scene_1_notes').frames[4][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: gallery.getSprite('scene_1_notes'),
                                 method: {
                                     gotoAndPlay:['note_6']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[5][1],
+                                    y: gallery.getSprite('scene_1_notes').frames[5][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[5][1] - 200,
+                                    y: gallery.getSprite('scene_1_notes').frames[5][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: gallery.getSprite('scene_1_notes'),
                                 method: {
                                     gotoAndPlay:['note_7']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[6][1],
+                                    y: gallery.getSprite('scene_1_notes').frames[6][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[6][1] - 200,
+                                    y: gallery.getSprite('scene_1_notes').frames[6][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: gallery.getSprite('scene_1_notes'),
                                 method: {
                                     gotoAndPlay:['note_8']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[7][1],
+                                    y: gallery.getSprite('scene_1_notes').frames[7][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[7][1] - 200,
+                                    y: gallery.getSprite('scene_1_notes').frames[7][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: gallery.getSprite('scene_1_notes'),
                                 method: {
                                     gotoAndPlay:['note_9']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[8][1],
+                                    y: gallery.getSprite('scene_1_notes').frames[8][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[8][1] - 200,
+                                    y: gallery.getSprite('scene_1_notes').frames[8][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_1_notes'],
+                                sheet: gallery.getSprite('scene_1_notes'),
                                 method: {
                                     gotoAndPlay:['note_10']
                                 },
                                 prop: {
                                     x: 0,
-                                    y: canvas.sprites['scene_1_notes'].frames[9][1],
+                                    y: gallery.getSprite('scene_1_notes').frames[9][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: -30,
-                                    y: canvas.sprites['scene_1_notes'].frames[9][1] - 200,
+                                    y: gallery.getSprite('scene_1_notes').frames[9][1] - 200,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                         ]
@@ -645,12 +646,12 @@
                     {
                         id: 'scene_2_bg',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_2_bg'),
+                        image: gallery.getImage('scene_2_bg'),
                     },
                     {
                         id: 'scene_2_curve',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_2_curve'),
+                        image: gallery.getImage('scene_2_curve'),
                         prop: {
                             y: 22,
                             x: 10,
@@ -670,182 +671,182 @@
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: gallery.getSprite('scene_2_notes'),
                                 method: {
                                     gotoAndPlay:['note_1']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[0][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[0][1],
+                                    x: gallery.getSprite('scene_2_notes').frames[0][0],
+                                    y: gallery.getSprite('scene_2_notes').frames[0][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[0][0] - 50,
-                                    y: canvas.sprites['scene_2_notes'].frames[0][1] - 30,
+                                    x: gallery.getSprite('scene_2_notes').frames[0][0] - 50,
+                                    y: gallery.getSprite('scene_2_notes').frames[0][1] - 30,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: gallery.getSprite('scene_2_notes'),
                                 method: {
                                     gotoAndPlay:['note_2']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[1][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[1][1],
+                                    x: gallery.getSprite('scene_2_notes').frames[1][0],
+                                    y: gallery.getSprite('scene_2_notes').frames[1][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[1][0] - 50,
-                                    y: canvas.sprites['scene_2_notes'].frames[1][1] - 20,
+                                    x: gallery.getSprite('scene_2_notes').frames[1][0] - 50,
+                                    y: gallery.getSprite('scene_2_notes').frames[1][1] - 20,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: gallery.getSprite('scene_2_notes'),
                                 method: {
                                     gotoAndPlay:['note_3']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[2][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[2][1],
+                                    x: gallery.getSprite('scene_2_notes').frames[2][0],
+                                    y: gallery.getSprite('scene_2_notes').frames[2][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[2][0] - 30,
-                                    y: canvas.sprites['scene_2_notes'].frames[2][1] + 50,
+                                    x: gallery.getSprite('scene_2_notes').frames[2][0] - 30,
+                                    y: gallery.getSprite('scene_2_notes').frames[2][1] + 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: gallery.getSprite('scene_2_notes'),
                                 method: {
                                     gotoAndPlay:['note_4']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[3][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[3][1],
+                                    x: gallery.getSprite('scene_2_notes').frames[3][0],
+                                    y: gallery.getSprite('scene_2_notes').frames[3][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[3][0] - 50,
-                                    y: canvas.sprites['scene_2_notes'].frames[3][1] + 30,
+                                    x: gallery.getSprite('scene_2_notes').frames[3][0] - 50,
+                                    y: gallery.getSprite('scene_2_notes').frames[3][1] + 30,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: gallery.getSprite('scene_2_notes'),
                                 method: {
                                     gotoAndPlay:['note_5']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[4][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[4][1],
+                                    x: gallery.getSprite('scene_2_notes').frames[4][0],
+                                    y: gallery.getSprite('scene_2_notes').frames[4][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[4][0] - 100,
-                                    y: canvas.sprites['scene_2_notes'].frames[4][1] - 50,
+                                    x: gallery.getSprite('scene_2_notes').frames[4][0] - 100,
+                                    y: gallery.getSprite('scene_2_notes').frames[4][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: gallery.getSprite('scene_2_notes'),
                                 method: {
                                     gotoAndPlay:['note_6']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[5][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[5][1],
+                                    x: gallery.getSprite('scene_2_notes').frames[5][0],
+                                    y: gallery.getSprite('scene_2_notes').frames[5][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[5][0] - 30,
-                                    y: canvas.sprites['scene_2_notes'].frames[5][1] - 100,
+                                    x: gallery.getSprite('scene_2_notes').frames[5][0] - 30,
+                                    y: gallery.getSprite('scene_2_notes').frames[5][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: gallery.getSprite('scene_2_notes'),
                                 method: {
                                     gotoAndPlay:['note_7']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[6][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[6][1],
+                                    x: gallery.getSprite('scene_2_notes').frames[6][0],
+                                    y: gallery.getSprite('scene_2_notes').frames[6][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[6][0] - 30,
-                                    y: canvas.sprites['scene_2_notes'].frames[6][1] - 50,
+                                    x: gallery.getSprite('scene_2_notes').frames[6][0] - 30,
+                                    y: gallery.getSprite('scene_2_notes').frames[6][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: gallery.getSprite('scene_2_notes'),
                                 method: {
                                     gotoAndPlay:['note_8']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[7][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[7][1],
+                                    x: gallery.getSprite('scene_2_notes').frames[7][0],
+                                    y: gallery.getSprite('scene_2_notes').frames[7][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[7][0] + 50,
-                                    y: canvas.sprites['scene_2_notes'].frames[7][1] - 50,
+                                    x: gallery.getSprite('scene_2_notes').frames[7][0] + 50,
+                                    y: gallery.getSprite('scene_2_notes').frames[7][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: gallery.getSprite('scene_2_notes'),
                                 method: {
                                     gotoAndPlay:['note_9']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[8][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[8][1],
+                                    x: gallery.getSprite('scene_2_notes').frames[8][0],
+                                    y: gallery.getSprite('scene_2_notes').frames[8][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[8][0] + 50,
-                                    y: canvas.sprites['scene_2_notes'].frames[8][1] - 50,
+                                    x: gallery.getSprite('scene_2_notes').frames[8][0] + 50,
+                                    y: gallery.getSprite('scene_2_notes').frames[8][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_notes'],
+                                sheet: gallery.getSprite('scene_2_notes'),
                                 method: {
                                     gotoAndPlay:['note_10']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_notes'].frames[9][0],
-                                    y: canvas.sprites['scene_2_notes'].frames[9][1],
+                                    x: gallery.getSprite('scene_2_notes').frames[9][0],
+                                    y: gallery.getSprite('scene_2_notes').frames[9][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_2_notes'].frames[9][0] + 50,
-                                    y: canvas.sprites['scene_2_notes'].frames[9][1] - 50,
+                                    x: gallery.getSprite('scene_2_notes').frames[9][0] + 50,
+                                    y: gallery.getSprite('scene_2_notes').frames[9][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                         ]
@@ -853,7 +854,7 @@
                     {
                         id: 'scene_2_piano',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_2_piano'),
+                        image: gallery.getImage('scene_2_piano'),
                         prop: {
                             y: 446,
                         },
@@ -862,7 +863,7 @@
                         id: 'scene_2_role',
                         type: 'sprite',
                         sheet: {
-                            images:[canvas.getImage('scene_2_role')],//图片路径
+                            images:[gallery.getImage('scene_2_role')],//图片路径
                             frames: {
                                 width: 500,
                                 height: 618,
@@ -889,17 +890,17 @@
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_text'],
+                                sheet: gallery.getSprite('scene_2_text'),
                                 method: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
                                     y: 200,
-                                    x: canvas.sprites['scene_2_text'].frames[0][0],
+                                    x: gallery.getSprite('scene_2_text').frames[0][0],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    top: -300,
+                                    delay: 300,
                                     y: 0,
                                     alpha: 1,
                                     duration: 200,
@@ -907,17 +908,17 @@
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_text'],
+                                sheet: gallery.getSprite('scene_2_text'),
                                 method: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_text'].frames[1][0],
+                                    x: gallery.getSprite('scene_2_text').frames[1][0],
                                     y: 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    top: -200,
+                                    delay: 200,
                                     y: 0,
                                     alpha: 1,
                                     duration: 200,
@@ -925,17 +926,17 @@
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_text'],
+                                sheet: gallery.getSprite('scene_2_text'),
                                 method: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_text'].frames[2][0],
+                                    x: gallery.getSprite('scene_2_text').frames[2][0],
                                     y: 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    top: -100,
+                                    delay: 100,
                                     y: 0,
                                     alpha: 1,
                                     duration: 200,
@@ -943,12 +944,12 @@
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_2_text'],
+                                sheet: gallery.getSprite('scene_2_text'),
                                 method: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_2_text'].frames[3][0],
+                                    x: gallery.getSprite('scene_2_text').frames[3][0],
                                     y: 200,
                                     alpha: 0,
                                 },
@@ -972,12 +973,12 @@
                     {
                         id: 'scene_3_bg',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_3_bg'),
+                        image: gallery.getImage('scene_3_bg'),
                     },
                     {
                         id: 'scene_3_curve',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_3_curve'),
+                        image: gallery.getImage('scene_3_curve'),
                         prop: {
                             x: 88,
                             y: 316,
@@ -997,146 +998,146 @@
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_notes'],
+                                sheet: gallery.getSprite('scene_3_notes'),
                                 method: {
                                     gotoAndPlay:['note_1']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_notes'].frames[0][0],
-                                    y: canvas.sprites['scene_3_notes'].frames[0][1],
+                                    x: gallery.getSprite('scene_3_notes').frames[0][0],
+                                    y: gallery.getSprite('scene_3_notes').frames[0][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_3_notes'].frames[0][0] - 20,
-                                    y: canvas.sprites['scene_3_notes'].frames[0][1] - 100,
+                                    x: gallery.getSprite('scene_3_notes').frames[0][0] - 20,
+                                    y: gallery.getSprite('scene_3_notes').frames[0][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_notes'],
+                                sheet: gallery.getSprite('scene_3_notes'),
                                 method: {
                                     gotoAndPlay:['note_2']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_notes'].frames[1][0],
-                                    y: canvas.sprites['scene_3_notes'].frames[1][1],
+                                    x: gallery.getSprite('scene_3_notes').frames[1][0],
+                                    y: gallery.getSprite('scene_3_notes').frames[1][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_3_notes'].frames[1][0] - 20,
-                                    y: canvas.sprites['scene_3_notes'].frames[1][1] - 100,
+                                    x: gallery.getSprite('scene_3_notes').frames[1][0] - 20,
+                                    y: gallery.getSprite('scene_3_notes').frames[1][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_notes'],
+                                sheet: gallery.getSprite('scene_3_notes'),
                                 method: {
                                     gotoAndPlay:['note_3']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_notes'].frames[2][0],
-                                    y: canvas.sprites['scene_3_notes'].frames[2][1],
+                                    x: gallery.getSprite('scene_3_notes').frames[2][0],
+                                    y: gallery.getSprite('scene_3_notes').frames[2][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_3_notes'].frames[2][0] - 20,
-                                    y: canvas.sprites['scene_3_notes'].frames[2][1] - 100,
+                                    x: gallery.getSprite('scene_3_notes').frames[2][0] - 20,
+                                    y: gallery.getSprite('scene_3_notes').frames[2][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_notes'],
+                                sheet: gallery.getSprite('scene_3_notes'),
                                 method: {
                                     gotoAndPlay:['note_4']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_notes'].frames[3][0],
-                                    y: canvas.sprites['scene_3_notes'].frames[3][1],
+                                    x: gallery.getSprite('scene_3_notes').frames[3][0],
+                                    y: gallery.getSprite('scene_3_notes').frames[3][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_3_notes'].frames[3][0] - 30,
-                                    y: canvas.sprites['scene_3_notes'].frames[3][1] - 100,
+                                    x: gallery.getSprite('scene_3_notes').frames[3][0] - 30,
+                                    y: gallery.getSprite('scene_3_notes').frames[3][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_notes'],
+                                sheet: gallery.getSprite('scene_3_notes'),
                                 method: {
                                     gotoAndPlay:['note_5']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_notes'].frames[4][0],
-                                    y: canvas.sprites['scene_3_notes'].frames[4][1],
+                                    x: gallery.getSprite('scene_3_notes').frames[4][0],
+                                    y: gallery.getSprite('scene_3_notes').frames[4][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_3_notes'].frames[4][0] - 30,
-                                    y: canvas.sprites['scene_3_notes'].frames[4][1] - 100,
+                                    x: gallery.getSprite('scene_3_notes').frames[4][0] - 30,
+                                    y: gallery.getSprite('scene_3_notes').frames[4][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_notes'],
+                                sheet: gallery.getSprite('scene_3_notes'),
                                 method: {
                                     gotoAndPlay:['note_6']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_notes'].frames[5][0],
-                                    y: canvas.sprites['scene_3_notes'].frames[5][1],
+                                    x: gallery.getSprite('scene_3_notes').frames[5][0],
+                                    y: gallery.getSprite('scene_3_notes').frames[5][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_3_notes'].frames[5][0] - 10,
-                                    y: canvas.sprites['scene_3_notes'].frames[5][1] - 100,
+                                    x: gallery.getSprite('scene_3_notes').frames[5][0] - 10,
+                                    y: gallery.getSprite('scene_3_notes').frames[5][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_notes'],
+                                sheet: gallery.getSprite('scene_3_notes'),
                                 method: {
                                     gotoAndPlay:['note_7']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_notes'].frames[6][0],
-                                    y: canvas.sprites['scene_3_notes'].frames[6][1],
+                                    x: gallery.getSprite('scene_3_notes').frames[6][0],
+                                    y: gallery.getSprite('scene_3_notes').frames[6][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_3_notes'].frames[6][0] - 20,
-                                    y: canvas.sprites['scene_3_notes'].frames[6][1] - 100,
+                                    x: gallery.getSprite('scene_3_notes').frames[6][0] - 20,
+                                    y: gallery.getSprite('scene_3_notes').frames[6][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_notes'],
+                                sheet: gallery.getSprite('scene_3_notes'),
                                 method: {
                                     gotoAndPlay:['note_8']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_notes'].frames[7][0],
-                                    y: canvas.sprites['scene_3_notes'].frames[7][1],
+                                    x: gallery.getSprite('scene_3_notes').frames[7][0],
+                                    y: gallery.getSprite('scene_3_notes').frames[7][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_3_notes'].frames[7][0] - 30,
-                                    y: canvas.sprites['scene_3_notes'].frames[7][1] - 100,
+                                    x: gallery.getSprite('scene_3_notes').frames[7][0] - 30,
+                                    y: gallery.getSprite('scene_3_notes').frames[7][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                         ]
@@ -1145,7 +1146,7 @@
                         id: 'scene_3_role',
                         type: 'sprite',
                         sheet: {
-                            images:[canvas.getImage('scene_3_role')],//图片路径
+                            images:[gallery.getImage('scene_3_role')],//图片路径
                             frames: {
                                 width: 750,
                                 height: 708,
@@ -1171,17 +1172,17 @@
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_text_1'],
+                                sheet: gallery.getSprite('scene_3_text_1'),
                                 method: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
                                     y: 200,
-                                    x: canvas.sprites['scene_3_text_1'].frames[0][0],
+                                    x: gallery.getSprite('scene_3_text_1').frames[0][0],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    top: -300,
+                                    delay: 300,
                                     y: 0,
                                     alpha: 1,
                                     duration: 200,
@@ -1189,17 +1190,17 @@
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_text_1'],
+                                sheet: gallery.getSprite('scene_3_text_1'),
                                 method: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_text_1'].frames[1][0],
+                                    x: gallery.getSprite('scene_3_text_1').frames[1][0],
                                     y: 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    top: -200,
+                                    delay: 200,
                                     y: 0,
                                     alpha: 1,
                                     duration: 200,
@@ -1207,17 +1208,17 @@
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_text_1'],
+                                sheet: gallery.getSprite('scene_3_text_1'),
                                 method: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_text_1'].frames[2][0],
+                                    x: gallery.getSprite('scene_3_text_1').frames[2][0],
                                     y: 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    top: -100,
+                                    delay: 100,
                                     y: 0,
                                     alpha: 1,
                                     duration: 200,
@@ -1225,12 +1226,12 @@
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_text_1'],
+                                sheet: gallery.getSprite('scene_3_text_1'),
                                 method: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_3_text_1'].frames[3][0],
+                                    x: gallery.getSprite('scene_3_text_1').frames[3][0],
                                     y: 200,
                                     alpha: 0,
                                 },
@@ -1251,7 +1252,7 @@
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_text_2'],
+                                sheet: gallery.getSprite('scene_3_text_2'),
                                 method: {
                                     gotoAndPlay:['text_1']
                                 },
@@ -1269,7 +1270,7 @@
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_text_2'],
+                                sheet: gallery.getSprite('scene_3_text_2'),
                                 method: {
                                     gotoAndPlay:['text_2']
                                 },
@@ -1279,7 +1280,7 @@
                                     alpha: 0,
                                 },
                                 animation: {
-                                    top: -100,
+                                    delay: 100,
                                     x: 0,
                                     y: 40,
                                     alpha: 1,
@@ -1288,7 +1289,7 @@
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_3_text_2'],
+                                sheet: gallery.getSprite('scene_3_text_2'),
                                 method: {
                                     gotoAndPlay:['text_3']
                                 },
@@ -1298,7 +1299,7 @@
                                     alpha: 0,
                                 },
                                 animation: {
-                                    top: -200,
+                                    delay: 200,
                                     x: 0,
                                     y: 78,
                                     alpha: 1,
@@ -1318,13 +1319,13 @@
                     {
                         id: 'scene_4_bg',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_4_bg'),
+                        image: gallery.getImage('scene_4_bg'),
                     },
                     {
                         id: 'scene_4_role',
                         type: 'sprite',
                         sheet: {
-                            images:[canvas.getImage('scene_4_role')],//图片路径
+                            images:[gallery.getImage('scene_4_role')],//图片路径
                             frames: {
                                 width: 750,
                                 height: 1334,
@@ -1344,7 +1345,7 @@
                     {
                         id: 'scene_4_curve',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_4_curve'),
+                        image: gallery.getImage('scene_4_curve'),
                         prop: {
                             x: 212,
                             y: 476,
@@ -1364,200 +1365,200 @@
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: gallery.getSprite('scene_4_notes'),
                                 method: {
                                     gotoAndPlay:['note_1']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[0][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[0][1],
+                                    x: gallery.getSprite('scene_4_notes').frames[0][0],
+                                    y: gallery.getSprite('scene_4_notes').frames[0][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[0][0] + 100,
-                                    y: canvas.sprites['scene_4_notes'].frames[0][1] - 30,
+                                    x: gallery.getSprite('scene_4_notes').frames[0][0] + 100,
+                                    y: gallery.getSprite('scene_4_notes').frames[0][1] - 30,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: gallery.getSprite('scene_4_notes'),
                                 method: {
                                     gotoAndPlay:['note_2']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[1][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[1][1],
+                                    x: gallery.getSprite('scene_4_notes').frames[1][0],
+                                    y: gallery.getSprite('scene_4_notes').frames[1][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[1][0] + 100,
-                                    y: canvas.sprites['scene_4_notes'].frames[1][1] - 30,
+                                    x: gallery.getSprite('scene_4_notes').frames[1][0] + 100,
+                                    y: gallery.getSprite('scene_4_notes').frames[1][1] - 30,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: gallery.getSprite('scene_4_notes'),
                                 method: {
                                     gotoAndPlay:['note_3']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[2][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[2][1],
+                                    x: gallery.getSprite('scene_4_notes').frames[2][0],
+                                    y: gallery.getSprite('scene_4_notes').frames[2][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[2][0] + 100,
-                                    y: canvas.sprites['scene_4_notes'].frames[2][1] - 50,
+                                    x: gallery.getSprite('scene_4_notes').frames[2][0] + 100,
+                                    y: gallery.getSprite('scene_4_notes').frames[2][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: gallery.getSprite('scene_4_notes'),
                                 method: {
                                     gotoAndPlay:['note_4']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[3][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[3][1],
+                                    x: gallery.getSprite('scene_4_notes').frames[3][0],
+                                    y: gallery.getSprite('scene_4_notes').frames[3][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[3][0] + 100,
-                                    y: canvas.sprites['scene_4_notes'].frames[3][1] - 50,
+                                    x: gallery.getSprite('scene_4_notes').frames[3][0] + 100,
+                                    y: gallery.getSprite('scene_4_notes').frames[3][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: gallery.getSprite('scene_4_notes'),
                                 method: {
                                     gotoAndPlay:['note_5']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[4][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[4][1],
+                                    x: gallery.getSprite('scene_4_notes').frames[4][0],
+                                    y: gallery.getSprite('scene_4_notes').frames[4][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[4][0] + 100,
-                                    y: canvas.sprites['scene_4_notes'].frames[4][1] - 50,
+                                    x: gallery.getSprite('scene_4_notes').frames[4][0] + 100,
+                                    y: gallery.getSprite('scene_4_notes').frames[4][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: gallery.getSprite('scene_4_notes'),
                                 method: {
                                     gotoAndPlay:['note_6']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[5][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[5][1],
+                                    x: gallery.getSprite('scene_4_notes').frames[5][0],
+                                    y: gallery.getSprite('scene_4_notes').frames[5][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[5][0] + 100,
-                                    y: canvas.sprites['scene_4_notes'].frames[5][1] - 50,
+                                    x: gallery.getSprite('scene_4_notes').frames[5][0] + 100,
+                                    y: gallery.getSprite('scene_4_notes').frames[5][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: gallery.getSprite('scene_4_notes'),
                                 method: {
                                     gotoAndPlay:['note_7']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[6][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[6][1],
+                                    x: gallery.getSprite('scene_4_notes').frames[6][0],
+                                    y: gallery.getSprite('scene_4_notes').frames[6][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[6][0] - 20,
-                                    y: canvas.sprites['scene_4_notes'].frames[6][1] - 100,
+                                    x: gallery.getSprite('scene_4_notes').frames[6][0] - 20,
+                                    y: gallery.getSprite('scene_4_notes').frames[6][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: gallery.getSprite('scene_4_notes'),
                                 method: {
                                     gotoAndPlay:['note_8']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[7][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[7][1],
+                                    x: gallery.getSprite('scene_4_notes').frames[7][0],
+                                    y: gallery.getSprite('scene_4_notes').frames[7][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[7][0] - 100,
-                                    y: canvas.sprites['scene_4_notes'].frames[7][1] - 10,
+                                    x: gallery.getSprite('scene_4_notes').frames[7][0] - 100,
+                                    y: gallery.getSprite('scene_4_notes').frames[7][1] - 10,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: gallery.getSprite('scene_4_notes'),
                                 method: {
                                     gotoAndPlay:['note_9']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[8][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[8][1],
+                                    x: gallery.getSprite('scene_4_notes').frames[8][0],
+                                    y: gallery.getSprite('scene_4_notes').frames[8][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[8][0] - 50,
-                                    y: canvas.sprites['scene_4_notes'].frames[8][1] - 50,
+                                    x: gallery.getSprite('scene_4_notes').frames[8][0] - 50,
+                                    y: gallery.getSprite('scene_4_notes').frames[8][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: gallery.getSprite('scene_4_notes'),
                                 method: {
                                     gotoAndPlay:['note_10']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[9][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[9][1],
+                                    x: gallery.getSprite('scene_4_notes').frames[9][0],
+                                    y: gallery.getSprite('scene_4_notes').frames[9][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[9][0] + 10,
-                                    y: canvas.sprites['scene_4_notes'].frames[9][1] - 50,
+                                    x: gallery.getSprite('scene_4_notes').frames[9][0] + 10,
+                                    y: gallery.getSprite('scene_4_notes').frames[9][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_notes'],
+                                sheet: gallery.getSprite('scene_4_notes'),
                                 method: {
                                     gotoAndPlay:['note_11']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_notes'].frames[10][0],
-                                    y: canvas.sprites['scene_4_notes'].frames[10][1],
+                                    x: gallery.getSprite('scene_4_notes').frames[10][0],
+                                    y: gallery.getSprite('scene_4_notes').frames[10][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_4_notes'].frames[10][0] + 10,
-                                    y: canvas.sprites['scene_4_notes'].frames[10][1] - 50,
+                                    x: gallery.getSprite('scene_4_notes').frames[10][0] + 10,
+                                    y: gallery.getSprite('scene_4_notes').frames[10][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                         ]
@@ -1571,75 +1572,75 @@
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_text_1'],
+                                sheet: gallery.getSprite('scene_4_text_1'),
                                 method: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_4_text_1'].frames[0][1] + 200,
+                                    y: gallery.getSprite('scene_4_text_1').frames[0][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: 0,
-                                    y: canvas.sprites['scene_4_text_1'].frames[0][1],
+                                    y: gallery.getSprite('scene_4_text_1').frames[0][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_text_1'],
+                                sheet: gallery.getSprite('scene_4_text_1'),
                                 method: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_4_text_1'].frames[1][1] + 200,
+                                    y: gallery.getSprite('scene_4_text_1').frames[1][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    top: -100,
+                                    delay: 100,
                                     x: 0,
-                                    y: canvas.sprites['scene_4_text_1'].frames[1][1],
+                                    y: gallery.getSprite('scene_4_text_1').frames[1][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_text_1'],
+                                sheet: gallery.getSprite('scene_4_text_1'),
                                 method: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_4_text_1'].frames[2][1] + 200,
+                                    y: gallery.getSprite('scene_4_text_1').frames[2][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    top: -200,
+                                    delay: 200,
                                     x: 0,
-                                    y: canvas.sprites['scene_4_text_1'].frames[2][1],
+                                    y: gallery.getSprite('scene_4_text_1').frames[2][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_text_1'],
+                                sheet: gallery.getSprite('scene_4_text_1'),
                                 method: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_4_text_1'].frames[3][1] + 200,
+                                    y: gallery.getSprite('scene_4_text_1').frames[3][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    top: -200,
+                                    delay: 200,
                                     x: 0,
-                                    y: canvas.sprites['scene_4_text_1'].frames[3][1],
+                                    y: gallery.getSprite('scene_4_text_1').frames[3][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
@@ -1655,17 +1656,17 @@
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_text_2'],
+                                sheet: gallery.getSprite('scene_4_text_2'),
                                 method: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_text_2'].frames[0][0],
+                                    x: gallery.getSprite('scene_4_text_2').frames[0][0],
                                     y: 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    top: -300,
+                                    delay: 300,
                                     y: 0,
                                     alpha: 1,
                                     duration: 200,
@@ -1673,17 +1674,17 @@
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_text_2'],
+                                sheet: gallery.getSprite('scene_4_text_2'),
                                 method: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_text_2'].frames[1][0],
+                                    x: gallery.getSprite('scene_4_text_2').frames[1][0],
                                     y: 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    top: -200,
+                                    delay: 200,
                                     y: 0,
                                     alpha: 1,
                                     duration: 200,
@@ -1691,17 +1692,17 @@
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_text_2'],
+                                sheet: gallery.getSprite('scene_4_text_2'),
                                 method: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_text_2'].frames[2][0],
-                                    y: canvas.sprites['scene_4_text_2'].frames[2][1] + 200,
+                                    x: gallery.getSprite('scene_4_text_2').frames[2][0],
+                                    y: gallery.getSprite('scene_4_text_2').frames[2][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    top: -100,
+                                    delay: 100,
                                     y: 0,
                                     alpha: 1,
                                     duration: 200,
@@ -1709,12 +1710,12 @@
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_4_text_2'],
+                                sheet: gallery.getSprite('scene_4_text_2'),
                                 method: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_4_text_2'].frames[3][0],
+                                    x: gallery.getSprite('scene_4_text_2').frames[3][0],
                                     y: 200,
                                     alpha: 0,
                                 },
@@ -1737,13 +1738,13 @@
                     {
                         id: 'scene_5_bg',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_5_bg'),
+                        image: gallery.getImage('scene_5_bg'),
                     },
                     {
                         id: 'scene_5_role',
                         type: 'sprite',
                         sheet: {
-                            images:[canvas.getImage('scene_5_role')],//图片路径
+                            images:[gallery.getImage('scene_5_role')],//图片路径
                             frames: {
                                 width: 750,
                                 height: 1334,
@@ -1763,7 +1764,7 @@
                     {
                         id: 'scene_5_curve',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_5_curve'),
+                        image: gallery.getImage('scene_5_curve'),
                         prop: {
                             y: 474,
                             alpha: 0,
@@ -1782,147 +1783,147 @@
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_notes'],
+                                sheet: gallery.getSprite('scene_5_notes'),
                                 method: {
                                     gotoAndPlay:['note_1']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_5_notes'].frames[0][0],
-                                    y: canvas.sprites['scene_5_notes'].frames[0][1],
+                                    x: gallery.getSprite('scene_5_notes').frames[0][0],
+                                    y: gallery.getSprite('scene_5_notes').frames[0][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_5_notes'].frames[0][0] - 50,
-                                    y: canvas.sprites['scene_5_notes'].frames[0][1] - 100,
+                                    x: gallery.getSprite('scene_5_notes').frames[0][0] - 50,
+                                    y: gallery.getSprite('scene_5_notes').frames[0][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_notes'],
+                                sheet: gallery.getSprite('scene_5_notes'),
                                 method: {
                                     gotoAndPlay:['note_2']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_5_notes'].frames[1][0],
-                                    y: canvas.sprites['scene_5_notes'].frames[1][1],
+                                    x: gallery.getSprite('scene_5_notes').frames[1][0],
+                                    y: gallery.getSprite('scene_5_notes').frames[1][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_5_notes'].frames[1][0] - 30,
-                                    y: canvas.sprites['scene_5_notes'].frames[1][1] - 100,
+                                    x: gallery.getSprite('scene_5_notes').frames[1][0] - 30,
+                                    y: gallery.getSprite('scene_5_notes').frames[1][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_notes'],
+                                sheet: gallery.getSprite('scene_5_notes'),
                                 method: {
                                     gotoAndPlay:['note_3']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_5_notes'].frames[2][0],
-                                    y: canvas.sprites['scene_5_notes'].frames[2][1],
+                                    x: gallery.getSprite('scene_5_notes').frames[2][0],
+                                    y: gallery.getSprite('scene_5_notes').frames[2][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_5_notes'].frames[2][0] + 30,
-                                    y: canvas.sprites['scene_5_notes'].frames[2][1] - 30,
+                                    x: gallery.getSprite('scene_5_notes').frames[2][0] + 30,
+                                    y: gallery.getSprite('scene_5_notes').frames[2][1] - 30,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
 
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_notes'],
+                                sheet: gallery.getSprite('scene_5_notes'),
                                 method: {
                                     gotoAndPlay:['note_4']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_5_notes'].frames[3][0],
-                                    y: canvas.sprites['scene_5_notes'].frames[3][1],
+                                    x: gallery.getSprite('scene_5_notes').frames[3][0],
+                                    y: gallery.getSprite('scene_5_notes').frames[3][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_5_notes'].frames[3][0] + 50,
-                                    y: canvas.sprites['scene_5_notes'].frames[3][1] - 100,
+                                    x: gallery.getSprite('scene_5_notes').frames[3][0] + 50,
+                                    y: gallery.getSprite('scene_5_notes').frames[3][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_notes'],
+                                sheet: gallery.getSprite('scene_5_notes'),
                                 method: {
                                     gotoAndPlay:['note_5']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_5_notes'].frames[4][0],
-                                    y: canvas.sprites['scene_5_notes'].frames[4][1],
+                                    x: gallery.getSprite('scene_5_notes').frames[4][0],
+                                    y: gallery.getSprite('scene_5_notes').frames[4][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_5_notes'].frames[4][0] + 50,
-                                    y: canvas.sprites['scene_5_notes'].frames[4][1] - 100,
+                                    x: gallery.getSprite('scene_5_notes').frames[4][0] + 50,
+                                    y: gallery.getSprite('scene_5_notes').frames[4][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_notes'],
+                                sheet: gallery.getSprite('scene_5_notes'),
                                 method: {
                                     gotoAndPlay:['note_6']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_5_notes'].frames[5][0],
-                                    y: canvas.sprites['scene_5_notes'].frames[5][1],
+                                    x: gallery.getSprite('scene_5_notes').frames[5][0],
+                                    y: gallery.getSprite('scene_5_notes').frames[5][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_5_notes'].frames[5][0] + 30,
-                                    y: canvas.sprites['scene_5_notes'].frames[5][1] - 100,
+                                    x: gallery.getSprite('scene_5_notes').frames[5][0] + 30,
+                                    y: gallery.getSprite('scene_5_notes').frames[5][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_notes'],
+                                sheet: gallery.getSprite('scene_5_notes'),
                                 method: {
                                     gotoAndPlay:['note_7']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_5_notes'].frames[6][0],
-                                    y: canvas.sprites['scene_5_notes'].frames[6][1],
+                                    x: gallery.getSprite('scene_5_notes').frames[6][0],
+                                    y: gallery.getSprite('scene_5_notes').frames[6][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_5_notes'].frames[6][0] - 10,
-                                    y: canvas.sprites['scene_5_notes'].frames[6][1] - 100,
+                                    x: gallery.getSprite('scene_5_notes').frames[6][0] - 10,
+                                    y: gallery.getSprite('scene_5_notes').frames[6][1] - 100,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_notes'],
+                                sheet: gallery.getSprite('scene_5_notes'),
                                 method: {
                                     gotoAndPlay:['note_8']
                                 },
                                 prop: {
-                                    x: canvas.sprites['scene_5_notes'].frames[7][0],
-                                    y: canvas.sprites['scene_5_notes'].frames[7][1],
+                                    x: gallery.getSprite('scene_5_notes').frames[7][0],
+                                    y: gallery.getSprite('scene_5_notes').frames[7][1],
                                     alpha: 0,
                                 },
                                 animation: {
-                                    x: canvas.sprites['scene_5_notes'].frames[7][0] + 10,
-                                    y: canvas.sprites['scene_5_notes'].frames[7][1] - 50,
+                                    x: gallery.getSprite('scene_5_notes').frames[7][0] + 10,
+                                    y: gallery.getSprite('scene_5_notes').frames[7][1] - 50,
                                     alpha: 1,
-                                    duration: canvas.height,
+                                    duration: gallery.height,
                                 },
                             },
                         ]
@@ -1936,90 +1937,90 @@
                         children: [
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_text'],
+                                sheet: gallery.getSprite('scene_5_text'),
                                 method: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_5_text'].frames[0][1],
+                                    y: gallery.getSprite('scene_5_text').frames[0][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: 0,
-                                    y: canvas.sprites['scene_5_text'].frames[0][1],
+                                    y: gallery.getSprite('scene_5_text').frames[0][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_text'],
+                                sheet: gallery.getSprite('scene_5_text'),
                                 method: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_5_text'].frames[1][1],
+                                    y: gallery.getSprite('scene_5_text').frames[1][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: 0,
-                                    y: canvas.sprites['scene_5_text'].frames[1][1],
+                                    y: gallery.getSprite('scene_5_text').frames[1][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_text'],
+                                sheet: gallery.getSprite('scene_5_text'),
                                 method: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_5_text'].frames[2][1],
+                                    y: gallery.getSprite('scene_5_text').frames[2][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: 0,
-                                    y: canvas.sprites['scene_5_text'].frames[2][1],
+                                    y: gallery.getSprite('scene_5_text').frames[2][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_text'],
+                                sheet: gallery.getSprite('scene_5_text'),
                                 method: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_5_text'].frames[3][1],
+                                    y: gallery.getSprite('scene_5_text').frames[3][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: 0,
-                                    y: canvas.sprites['scene_5_text'].frames[3][1],
+                                    y: gallery.getSprite('scene_5_text').frames[3][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_5_text'],
+                                sheet: gallery.getSprite('scene_5_text'),
                                 method: {
                                     gotoAndPlay:['text_5']
                                 },
                                 prop: {
                                     x: 200,
-                                    y: canvas.sprites['scene_5_text'].frames[4][1],
+                                    y: gallery.getSprite('scene_5_text').frames[4][1],
                                     alpha: 0,
                                 },
                                 animation: {
                                     x: 0,
-                                    y: canvas.sprites['scene_5_text'].frames[4][1],
+                                    y: gallery.getSprite('scene_5_text').frames[4][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
@@ -2037,7 +2038,7 @@
                     {
                         id: 'scene_6_curve',
                         type: 'bitmap',
-                        image: canvas.getImage('scene_6_curve'),
+                        image: gallery.getImage('scene_6_curve'),
                         prop: {
                             y: 172,
                         }
@@ -2045,69 +2046,69 @@
                     {
                         id: 'scene_6_text_container',
                         prop: {
-                            x: (canvas.width - canvas.getImage('scene_6_text').width)/2,
+                            x: (gallery.width - gallery.getImage('scene_6_text').width)/2,
                         },
                         children:[
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_6_text'],
+                                sheet: gallery.getSprite('scene_6_text'),
                                 method: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
-                                    y: canvas.sprites['scene_6_text'].frames[0][1] + 200,
+                                    y: gallery.getSprite('scene_6_text').frames[0][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    y: canvas.sprites['scene_6_text'].frames[0][1],
+                                    y: gallery.getSprite('scene_6_text').frames[0][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_6_text'],
+                                sheet: gallery.getSprite('scene_6_text'),
                                 method: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
-                                    y: canvas.sprites['scene_6_text'].frames[1][1] + 200,
+                                    y: gallery.getSprite('scene_6_text').frames[1][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    y: canvas.sprites['scene_6_text'].frames[1][1],
+                                    y: gallery.getSprite('scene_6_text').frames[1][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_6_text'],
+                                sheet: gallery.getSprite('scene_6_text'),
                                 method: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
-                                    y: canvas.sprites['scene_6_text'].frames[2][1] + 200,
+                                    y: gallery.getSprite('scene_6_text').frames[2][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    y: canvas.sprites['scene_6_text'].frames[2][1],
+                                    y: gallery.getSprite('scene_6_text').frames[2][1],
                                     alpha: 1,
                                     duration: 200,
                                 },
                             },
                             {
                                 type: 'sprite',
-                                sheet: canvas.sprites['scene_6_text'],
+                                sheet: gallery.getSprite('scene_6_text'),
                                 method: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
-                                    y: canvas.sprites['scene_6_text'].frames[3][1] + 200,
+                                    y: gallery.getSprite('scene_6_text').frames[3][1] + 200,
                                     alpha: 0,
                                 },
                                 animation: {
-                                    y: canvas.sprites['scene_6_text'].frames[3][1],
+                                    y: gallery.getSprite('scene_6_text').frames[3][1],
                                     alpha: 1,
                                     duration: 200,
                                 },

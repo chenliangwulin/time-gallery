@@ -1,0 +1,714 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<!--申明当前页面的编码集-->
+	<meta charset="utf-8">
+	<!--网页标题-->
+	<title></title>
+	<style>
+		html,body {
+			width: 100%;
+			height: 100%;
+			background-color: #7cadf6;
+			padding: 0;
+			margin: 0;
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="gallery-canvas" style="width: 100%"></canvas>
+</body>
+<script src="easeljs.min.js"></script>
+<script src="time-gallery.2.0.0.min.js"></script>
+<script type="text/javascript">
+		var timeGallery = new TimeGallery({
+			id: 'gallery-canvas',
+			width: 750,
+			resourcesPath: 'http://n.sinaimg.cn/gd/2019/0307/zhujiang0du/',
+			resources: [
+				{src: 'p1-title1.png', id: 'scene_p1-title1'},
+				{src: 'p1-kuai1_03.png', id: 'scene_p1-kuai1_03'},
+				{src: 'p1-kuai2_03.png', id: 'scene_p1-kuai2_03'},
+				{src: 'p1-kuai3_044.png', id: 'scene_p1-kuai3_04'},
+				{src: 'p1-animate4.png', id: 'scene_kuai1_role'},
+				{src: 'p1-animate3_32.png', id: 'scene_kuai2_role'},
+				{src: 'p1-star.png', id: 'scene_p1-star'},
+				{src: 'p1-title2.png', id: 'scene_p2-title'},
+				{src: 'p2-bg1.png', id: 'scene_p2-bg1'},
+				{src: 'p2-girlm3.png', id: 'scene_p2-girlm'},
+				{src: 'p3-part1.png', id: 'scene_p3-part1'},
+				{src: 'p3-part2.png', id: 'scene_p3-part2'},
+				{src: 'p3-part3.png', id: 'scene_p3-part3'},
+				{src: 'p3-title.png', id: 'scene_p3-title'},
+				{src: 'p3-part1_man1.png', id: 'scene_p3-part1_man1'},
+				{src: 'p3-part1_man2.png', id: 'scene_p3-part1_man2'},
+				{src: 'p3-part1_zi1.png', id: 'scene_scene_p3-part1_zi1'},
+				{src: 'p3-part2_man1.png', id: 'scene_p3-part2_man1'},
+				{src: 'p3-part2_man2.png', id: 'scene_p3-part2_man2'},
+				{src: 'p3-part2_zi1.png', id: 'scene_scene_p3-part2_zi1'},
+				{src: 'p3-part3_man1.png', id: 'scene_p3-part3_man1'},
+				{src: 'p3-part3_man2.png', id: 'scene_p3-part3_man2'},
+				{src: 'p3-part3_zi1.png', id: 'scene_scene_p3-part3_zi1'},
+				{src: 'p4-title1.png', id: 'scene_p4-title'},
+				{src: 'p4-part1.png', id: 'scene_p4-part1'},
+				{src: 'p4-part1_man1.png', id: 'scene_p4-part1_man1'},
+				{src: 'p4-star.png', id: 'scene_p4-star'},
+				{src: 'p5-title1.png', id: 'scene_p5-title'},
+				{src: 'p5-girl.png', id: 'scene_p5-girl'},
+				{src: 'p5-man2.png', id: 'scene_p5-man2'},
+				{src: 'p5-star.png', id: 'scene_p5-star'},
+				{src: 'p5-man1.png', id: 'scene_p5-man1'},
+				{src: 'p5-part1.png', id: 'scene_p5-part1'},
+			],
+			delayTime: -23,
+			data: canvasData,
+			autoPlay: true,			// 定义自动播放
+			autoSpeed: 2,			// 定义自动播放速度
+			isTouch: false,			// 关闭滑动事件
+		});
+
+        timeGallery.play();
+
+		function canvasData(gallery) {
+			return [
+			    {
+					id: 'scene_p1-title1',
+					type: 'bitmap',
+					image: gallery.getImage('scene_p1-title1'),
+					prop: {
+						x: (gallery.width - gallery.getImage('scene_p1-title1').width) / 2,
+						y: 0
+					},
+				},
+				{
+					id: 'scene_1_container',
+					prop: {
+						y: 171
+					},
+					children: [{
+							id: 'scene_1_kuai1',
+							prop: {
+								y: 10
+							},
+							children: [{
+									id: 'scene_p1-kuai1_03',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p1-kuai1_03'),
+									prop: {
+										y: 0,
+
+									}
+								},
+								{
+									id: 'scene_kuai1_role',
+									type: 'sprite',
+									sheet: {
+										images: [gallery.getImage('scene_kuai1_role')], //图片路径
+										frames: {
+											height: 460,
+											width: 480,
+											count: 4,
+										},
+										animations: {
+											role: [0, 3, 'role', 0.05],
+										}
+									},
+									method: {
+										gotoAndPlay: ['role']
+									},
+									prop: {
+										y: -55,
+										x: -25,
+									},
+								},
+							]
+						},
+						{
+							id: 'scene_1_kuai3',
+							prop: {
+								y: 33
+							},
+							children: [{
+									id: 'scene_p1-kuai3_04',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p1-kuai3_04'),
+									prop: {
+										y: 0,
+										x: gallery.width - gallery.getImage('scene_p1-kuai3_04').width
+									}
+								},
+								{
+									id: 'scene_p1-star',
+									type: 'sprite',
+									sheet: {
+										images: [gallery.getImage('scene_p1-star')], //图片路径
+										frames: {
+											height: 140,
+											width: 140,
+											count: 4,
+										},
+										animations: {
+											role2: [0, 3, 'role2', 0.05],
+										}
+									},
+									method: {
+										gotoAndPlay: ['role2']
+									},
+									prop: {
+										y: 510,
+										x: gallery.width - 348,
+									},
+								},
+
+
+							]
+						},
+						{
+							id: 'scene_1_kuai2',
+							prop: {
+								y: 300
+							},
+							children: [{
+									id: 'scene_p1-kuai2_03',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p1-kuai2_03'),
+									prop: {
+										y: 0,
+									}
+								},
+								{
+									id: 'scene_kuai2_role',
+									type: 'sprite',
+									sheet: {
+										images: [gallery.getImage('scene_kuai2_role')], //图片路径
+										frames: {
+											height: 480,
+											width: 450,
+											count: 6,
+										},
+										animations: {
+											role2: [0, 5, 'role2', 0.05],
+										}
+									},
+									method: {
+										gotoAndPlay: ['role2']
+									},
+									prop: {
+										y: 153,
+										x: -26,
+									},
+								},
+							]
+						}
+
+					]
+				},
+				{
+					id: 'scene_2_container',
+					prop: {
+						y: 919
+					},
+					children: [{
+							id: 'scene_p2-title',
+							type: 'bitmap',
+							image: gallery.getImage('scene_p2-title'),
+							prop: {
+								y: 33,
+								x: (gallery.width - gallery.getImage('scene_p2-title').width) / 2
+							},
+						},
+						{
+							id: 'scene_p2_contain',
+							prop: {
+								y: 224
+							},
+							children: [{
+									id: 'scene_p2-bg1',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p2-bg1'),
+									prop: {
+										y: 38,
+									},
+								},
+								{
+									id: 'scene_p2-girlm',
+									type: 'sprite',
+									sheet: {
+										images: [gallery.getImage('scene_p2-girlm')], //图片路径
+										frames: {
+											height: 900,
+											width: 400,
+											count: 6,
+										},
+										animations: {
+											role: [0, 5, 'role', 0.05],
+										}
+									},
+									method: {
+										gotoAndPlay: ['role']
+									},
+									prop: {
+										y: 57,
+										x: (gallery.width - 445) / 2
+									},
+								},
+
+							]
+						}
+					]
+				},
+				{
+					id: 'scene_3_container',
+					prop: {
+						y: 2150
+					},
+					children: [{
+							id: 'scene_p3-title',
+							type: 'bitmap',
+							image: gallery.getImage('scene_p3-title'),
+							prop: {
+								y: 33,
+								x: -gallery.getImage('scene_p2-title').width
+							},
+							animation: {
+								top: -200,
+								x: (gallery.width - gallery.getImage('scene_p2-title').width) / 2,
+								duration: gallery.height / 4
+							}
+						},
+						{
+							id: 'scene_part1block',
+							prop: {
+								y: 200
+							},
+							children: [{
+									id: 'scene_p3-part1',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p3-part1'),
+									prop: {
+										y: 0,
+										x: -gallery.getImage('scene_p3-part1').width
+									},
+									animation: {
+										y: -30,
+										top: -800,
+										x: (gallery.width - gallery.getImage('scene_p3-part1').width) / 2,
+										duration: 200
+									}
+								},
+								{
+									id: 'scene_scene_p3-part1_zi1',
+									type: 'bitmap',
+									image: gallery.getImage('scene_scene_p3-part1_zi1'),
+									prop: {
+										y: 300,
+										x: 50,
+										alpha: 0
+									},
+									animation: {
+										top: -1000,
+										alpha: 1,
+										y: 300,
+										x: 60,
+										duration: 100
+									}
+								},
+								{
+									id: 'scene_p3-part1_man2',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p3-part1_man2'),
+									prop: {
+										y: 80,
+										x: -gallery.getImage('scene_p3-part1_man2').width,
+										alpha: 0
+									},
+									animation: {
+										top: -1100,
+										alpha: 1,
+										y: 80,
+										x: 40,
+										duration: 200
+									}
+								},
+								{
+									id: 'scene_p3-part1_man1',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p3-part1_man1'),
+									prop: {
+										y: 80,
+										x: -gallery.getImage('scene_p3-part1_man1').width,
+										alpha: 0
+									},
+									animation: {
+										top: -1000,
+										alpha: 1,
+										y: 80,
+										x: 100,
+										duration: 200
+									}
+								},
+
+							]
+						},
+						{
+							id: 'scene_part2block',
+							prop: {
+								y: 780
+							},
+							children: [{
+									id: 'scene_p3-part2',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p3-part2'),
+									prop: {
+										y: 0,
+										x: gallery.width
+									},
+									animation: {
+										y: -30,
+										top: -600,
+										x: (gallery.width - gallery.getImage('scene_p3-part2').width) / 2,
+										duration: 200
+									}
+								},
+								{
+									id: 'scene_scene_p3-part2_zi1',
+									type: 'bitmap',
+									image: gallery.getImage('scene_scene_p3-part2_zi1'),
+									prop: {
+										y: 200,
+										x: gallery.width - gallery.getImage('scene_scene_p3-part2_zi1').width + 30,
+										alpha: 0
+									},
+									animation: {
+										top: -650,
+										alpha: 1,
+										y: 200,
+										x: gallery.width - gallery.getImage('scene_scene_p3-part2_zi1').width - 30,
+										duration: 100
+									}
+								},
+								{
+									id: 'scene_p3-part2_man2',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p3-part2_man2'),
+									prop: {
+										y: 175,
+										x: gallery.width,
+										alpha: 0
+									},
+									animation: {
+										top: -700,
+										alpha: 1,
+										x: 300,
+										duration: 200
+									}
+								},
+								{
+									id: 'scene_p3-part2_man1',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p3-part2_man1'),
+									prop: {
+										y: 175,
+										x: gallery.width,
+										alpha: 0
+									},
+									animation: {
+										top: -600,
+										alpha: 1,
+										y: 175,
+										x: 260,
+										duration: 200
+									}
+								},
+							],
+						},
+						{
+							id: 'scene_part3block',
+							prop: {
+								y: 1450
+							},
+							children: [{
+									id: 'scene_p3-part3',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p3-part3'),
+									prop: {
+										y: 0,
+										x: -gallery.getImage('scene_p3-part3').width
+									},
+									animation: {
+										y: -30,
+										top: -400,
+										x: (gallery.width - gallery.getImage('scene_p3-part3').width) / 2,
+										duration: 100
+									}
+								},
+								{
+									id: 'scene_scene_p3-part3_zi1',
+									type: 'bitmap',
+									image: gallery.getImage('scene_scene_p3-part3_zi1'),
+									prop: {
+										y: 150,
+										x: (gallery.width - gallery.getImage('scene_scene_p3-part3_zi1').width) / 2 + 150,
+										alpha: 0
+									},
+									animation: {
+										top: -500,
+										alpha: 1,
+										y: 150,
+										x: (gallery.width - gallery.getImage('scene_scene_p3-part3_zi1').width) / 2 + 100,
+										duration: 100
+									}
+								},
+								{
+									id: 'scene_p3-part3_man2',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p3-part3_man2'),
+									prop: {
+										y: 40,
+										x: gallery.width,
+										alpha: 0
+									},
+									animation: {
+										top: -550,
+										alpha: 1,
+										x: 120,
+										y: 30,
+										duration: 100
+									}
+								},
+								{
+									id: 'scene_p3-part3_man1',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p3-part3_man1'),
+									prop: {
+										y: 40,
+										x: gallery.width,
+										alpha: 0
+									},
+									animation: {
+										top: -450,
+										alpha: 1,
+										y: 30,
+										x: 80,
+										duration: 200
+									}
+								},
+
+							],
+						},
+					]
+				},
+				{
+					id: 'scene_4_container',
+					prop: {
+						y: 4090
+					},
+					children: [{
+							id: 'scene_p4-title',
+							type: 'bitmap',
+							image: gallery.getImage('scene_p4-title'),
+							prop: {
+								x: -gallery.getImage('scene_p4-title').width
+							},
+							animation: {
+								top: -200,
+								x: (gallery.width - gallery.getImage('scene_p4-title').width) / 2,
+								duration: gallery.height / 4
+							}
+						},
+						{
+							id: 'scene_p4_contain',
+							prop: {
+								y: 150
+							},
+							children: [{
+									id: 'scene_p4-part1',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p4-part1'),
+									prop: {
+										x: -gallery.getImage('scene_p4-part1').width
+									},
+									animation: {
+										top: -500,
+										x: (gallery.width - gallery.getImage('scene_p4-title').width) / 2,
+										duration: gallery.height / 4
+									}
+								},
+								{
+									id: 'scene_p4-part1_man1',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p4-part1_man1'),
+									prop: {
+										y: 80,
+										x: -gallery.getImage('scene_p4-part1_man1').width,
+										alpha: 0
+									},
+									animation: {
+										top: -700,
+										alpha: 1,
+										y: 40,
+										x: (gallery.width - gallery.getImage('scene_p4-part1_man1').width) / 2,
+										duration: 100
+									}
+								},
+								{
+									id: 'scene_p4-star',
+									type: 'sprite',
+									sheet: {
+										images: [gallery.getImage('scene_p4-star')], //图片路径
+										frames: {
+											height: 150,
+											width: 200,
+											count: 4,
+										},
+										animations: {
+											rolestar: [0, 3, 'rolestar', 0.05],
+										}
+									},
+									method: {
+										gotoAndPlay: ['rolestar']
+									},
+									prop: {
+										y: 30,
+										x: (gallery.width - 200) / 2,
+										alpha: 0,
+									},
+									animation: {
+										top: -750,
+										alpha: 1,
+										duration: 100
+									}
+								},
+							]
+						},
+
+					]
+				},
+				{
+					id: 'scene_5_container',
+					prop: {
+						y: 4685
+					},
+					children: [{
+							id: 'scene_p5-title',
+							type: 'bitmap',
+							image: gallery.getImage('scene_p5-title'),
+							prop: {
+								x: -gallery.getImage('scene_p5-title').width
+							},
+							animation: {
+								top: -500,
+								x: (gallery.width - gallery.getImage('scene_p5-title').width) / 2,
+								duration: 200
+							}
+						},
+						{
+							id: 'scene_p5_contain',
+							prop: {
+								y: 150,
+							},
+							// 							animation:{
+							// 								top:-500,
+							// 								y:150+1000,
+							// 								duration:gallery.height
+							// 							},
+							children: [{
+									id: 'scene_p5-part1',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p5-part1'),
+									prop: {
+										x: gallery.width,
+										y: 50
+									},
+									animation: {
+										top: -400,
+										y: 100,
+										x: (gallery.width - gallery.getImage('scene_p5-title').width) / 2,
+										duration: gallery.height / 4
+									}
+								},
+								{
+									id: 'scene_p5-man1',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p5-man1'),
+									prop: {
+										x: (gallery.width - gallery.getImage('scene_p5-man1').width) / 2,
+										y: 400,
+										alpha: 0
+									},
+									animation: {
+										top: -400,
+										y: 350,
+										alpha: 1,
+										duration: 100
+									}
+								},
+								{
+									id: 'scene_p5-girl',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p5-girl'),
+									prop: {
+										x: (gallery.width - gallery.getImage('scene_p5-girl').width) / 2,
+										y: 450,
+										alpha: 0
+									},
+									animation: {
+										top: -400,
+										y: 400,
+										alpha: 1,
+										duration: 100
+									}
+								},
+								{
+									id: 'scene_p5-star',
+									type: 'sprite',
+									sheet: {
+										images: [gallery.getImage('scene_p5-star')], //图片路径
+										frames: {
+											height: 300,
+											width: 700,
+											count: 4,
+										},
+										animations: {
+											rolestar: [0, 3, 'rolestar', 0.05],
+										}
+									},
+									method: {
+										gotoAndPlay: ['rolestar']
+									},
+									prop: {
+										y: 250,
+										x: (gallery.width - 700) / 2,
+										alpha: 0,
+									},
+									animation: {
+										top: -600,
+										alpha: 1,
+										duration: 100
+									}
+								},
+								{
+									id: 'scene_p5-man2',
+									type: 'bitmap',
+									image: gallery.getImage('scene_p5-man2'),
+									prop: {
+										x: 20,
+										y: 600,
+										alpha: 0
+									},
+									animation: {
+										top: -200,
+										y: 550,
+										alpha: 1,
+										duration: 200
+									}
+								},
+							]
+						},
+					],
+				},
+			]
+		}
+	</script>
+</html>
