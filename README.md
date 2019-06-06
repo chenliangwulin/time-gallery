@@ -1,8 +1,8 @@
 # Time-Gallery 2X
-基于 CreateJs 实现长图绘制加动画的效果，整段长图可想象成是一段时间轴，在时间轴上自定义各种动画，通过滑动或其他交互控制时间轴播放。
+基于 CreateJs 实现长图滑动加动画的效果，整段长图可想象成是一段时间轴，在时间轴上自定义各种动画，通过滑动或自定义交互控制时间轴播放。
 
 ## 前言
-之前公司要开发一个长图加动画的H5项目，我看到很多类似的案例是基于白鹭来开发，但因为本人没接触过白鹭，于是自己就基于 CreateJs 扩展开发一个长图加动画的框架。
+之前公司要开发一个长图加动画的H5项目，我看到很多类似的案例是基于白鹭来开发，但因为本人没接触过白鹭，于是自己就基于 CreateJs 扩展开发一个长图滑动加动画的框架。
 
 因为后来很多同事问我拿源码开发类似的项目，所以就决定把源码分享出来一起学习。
 
@@ -12,10 +12,10 @@
 
 ## 案例参考
 
-![](http://news.gd.sina.com.cn/staff/zt2/qrcode/yzf_gallery.png)
-![](http://news.gd.sina.com.cn/staff/zt2/qrcode/chunsheng.png)
-![](http://news.gd.sina.com.cn/staff/zt2/qrcode/picc_69.png)
-![](http://news.gd.sina.com.cn/staff/zt2/qrcode/nfdw.png)
+![](http://news.gd.sina.com.cn/staff/zt2/qrcode/yzf_gallery.png?v=0.1)
+![](http://news.gd.sina.com.cn/staff/zt2/qrcode/chunsheng.png?v=0.1)
+![](http://news.gd.sina.com.cn/staff/zt2/qrcode/picc_69.png?v=0.1)
+![](http://news.gd.sina.com.cn/staff/zt2/qrcode/nfdw.png?v=0.1)
 
 ## 使用
 
@@ -26,7 +26,7 @@ HTML
 </body>
 
 <script src="easeljs.min.js"></script>
-<script src="time-gallery.2.0.1.min.js"></script>
+<script src="time-gallery.2.0.0.min.js"></script>
 ```
 JS
 ```
@@ -120,9 +120,9 @@ timeGallery.play();
         visible: true,      // 定义元素是否可见
     },
 
-    // 可定义基础方法
+    // 可定义方法
     methods: {
-      cache: [x, y, width, height]
+      cache: [x, y, width, height] // 为定义的对象定义缓存区域，有效提供渲染性能, 特别是 Bitmap 用到大图情况
     }
 
     // 可定义动画属性
@@ -274,7 +274,7 @@ timeGallery.play();
 - `canvas`                        获取 Canvas 对象
 - `sprites`                       获取 sprites 定义信息
 - `autoSpeed`                     获取或定义 autoPlay 的播放速度
-- `autoUpdate`                    获取或定义是否自定义更新
+- `autoUpdate`                    获取或定义是否自动更新
 
 ## CallBack
 - `onInit()`                      渲染完成后的回调
