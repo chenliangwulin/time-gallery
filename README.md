@@ -12,9 +12,10 @@
 
 ## 案例参考
 
-![](http://news.gd.sina.com.cn/staff/zt2/works/images/qrcode/chunsheng.png)
-![](http://news.gd.sina.com.cn/staff/zt2/works/images/qrcode/picc_69.png)
-![](http://news.gd.sina.com.cn/staff/zt2/works/images/qrcode/nfdw.png)
+![](http://news.gd.sina.com.cn/staff/zt2/yzf_gallery.png)
+![](http://news.gd.sina.com.cn/staff/zt2/qrcode/chunsheng.png)
+![](http://news.gd.sina.com.cn/staff/zt2/qrcode/picc_69.png)
+![](http://news.gd.sina.com.cn/staff/zt2/nfdw.png)
 
 ## 使用
 
@@ -198,7 +199,7 @@ timeGallery.play();
         images:[timeGallery.getImage('demo')], // [图片路径]
         frames: {'height': 292, 'width': 165, 'count': 64, 'regX': 0,  'regY': 0}, // 每帧的尺寸，count是总帧数
         animations: {
-            run: [0, 5, 'jump', 0.05],  //[开始帧，结束帧，动画完成后的动作，速度]
+            run: [0, 5, 'jump', 0.05],  // [开始帧，结束帧，动画完成后的动作，速度]
             jump: [26]
         }
     },
@@ -296,3 +297,14 @@ timeGallery.play();
 - `getImage(id)`                  获取 Resources 定义的图片资源信息
 - `getSprite(id)`                 获取 Sprites 定义的精灵图数据信息
 - `timeTo(number, time, callback)`滑动到指定位置，可传绝对位置 number、相对位置 '+number'、'-number'。time(单位ms) 可选，默认是 0
+
+## NPM
+
+```
+npm install
+```
+
+```
+gulp
+```
+
