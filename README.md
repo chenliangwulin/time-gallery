@@ -13,9 +13,9 @@
 ## 案例参考
 
 ![](http://news.gd.sina.com.cn/staff/zt2/qrcode/yzf_gallery.png)
-![](http://news.gd.sina.com.cn/staff/zt2/qrcode/chunsheng.png?v=0.1)
-![](http://news.gd.sina.com.cn/staff/zt2/qrcode/picc_69.png?v=0.1)
-![](http://news.gd.sina.com.cn/staff/zt2/qrcode/nfdw.png?v=0.1)
+![](http://news.gd.sina.com.cn/staff/zt2/qrcode/chunsheng.png)
+![](http://news.gd.sina.com.cn/staff/zt2/qrcode/picc_69.png)
+![](http://news.gd.sina.com.cn/staff/zt2/qrcode/nfdw.png)
 
 ## 使用
 
