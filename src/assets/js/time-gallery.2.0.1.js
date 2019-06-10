@@ -688,19 +688,24 @@ class TimeGallery {
 
         if (obj.prop) {
             for (let propKey of Object.keys(obj.prop)) {
-                // 判断属性类型
-                if (displayObject[propKey] instanceof Object) {
-                    for (let key of Object.keys(obj.prop[propKey])) {
-                        if (typeof displayObject[propKey][key] === 'function') {
-                            displayObject[propKey][key](...obj.prop[propKey][key]);
+                switch (propKey) {
+                    case 'index':
+                        break;
+                    default:
+                        // 判断属性类型
+                        if (displayObject[propKey] instanceof Object) {
+                            for (let key of Object.keys(obj.prop[propKey])) {
+                                if (typeof displayObject[propKey][key] === 'function') {
+                                    displayObject[propKey][key](...obj.prop[propKey][key]);
+                                } else {
+                                    displayObject[propKey][key] = obj.prop[propKey][key];
+                                }
+                            }
+                        } else if (typeof displayObject[propKey] === 'function') {
+                            displayObject[propKey](...obj.prop[propKey]);
                         } else {
-                            displayObject[propKey][key] = obj.prop[propKey][key];
+                            displayObject[propKey] = obj.prop[propKey];
                         }
-                    }
-                } else if (typeof displayObject[propKey] === 'function') {
-                    displayObject[propKey](...obj.prop[propKey]);
-                } else {
-                    displayObject[propKey] = obj.prop[propKey];
                 }
             }
 
@@ -777,9 +782,7 @@ class TimeGallery {
 
     _render(data = [], parent_id, custom = () => {}) {
 
-        if (data instanceof Object) {
-            data = Array.from(data)
-        }
+        if (data instanceof Object) data = Array.from(data);
 
         data.map((obj, index) => {
 
@@ -828,6 +831,23 @@ class TimeGallery {
                 console.groupEnd();
             }
 
+        });
+
+        data.map(obj => {
+            if (parent_id) {
+                if (obj.prop && obj.prop.index) {
+                    let index = obj.prop.index;
+                    let number = this._objects[parent_id].numChildren;
+
+                    if (index > number) {
+                        index = number - 1;
+                    }
+
+                    this._objects[parent_id].setChildIndex(this._objects[obj.id], index);
+
+                    console.log(this._objects[parent_id].getChildIndex(this._objects[obj.id]));
+                }
+            }
         });
 
         this._stage.update();
