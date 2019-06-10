@@ -12,10 +12,10 @@
 
 ## 案例参考
 
-![](http://news.gd.sina.com.cn/staff/zt2/qrcode/yzf_gallery.png?v=0.1)
-![](http://news.gd.sina.com.cn/staff/zt2/qrcode/chunsheng.png?v=0.1)
-![](http://news.gd.sina.com.cn/staff/zt2/qrcode/picc_69.png?v=0.1)
-![](http://news.gd.sina.com.cn/staff/zt2/qrcode/nfdw.png?v=0.1)
+![](http://news.gd.sina.com.cn/staff/zt2/qrcode/yzf_gallery.png)
+![](http://news.gd.sina.com.cn/staff/zt2/qrcode/chunsheng.png)
+![](http://news.gd.sina.com.cn/staff/zt2/qrcode/picc_69.png)
+![](http://news.gd.sina.com.cn/staff/zt2/qrcode/nfdw.png)
 
 ## 使用
 
@@ -118,6 +118,7 @@ timeGallery.play();
         rotation: 0,        // 定义元素初始旋转度数
         alpha: 1,           // 定义元素初始透明度（0-1）
         visible: true,      // 定义元素是否可见
+        index: 0            // 定义元素在当前父元素层次位置
     },
 
     // 可定义方法
