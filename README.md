@@ -301,6 +301,11 @@ timeGallery.play();
 
 ## NPM
 
+全局安装 **Gulp**
+```
+npm install --global gulp
+```
+
 ```
 npm install
 ```
