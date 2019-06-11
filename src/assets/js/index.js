@@ -364,7 +364,7 @@ const app = {
                                 role: [0, 5, 'role', 0.05],
                             }
                         },
-                        method: {
+                        methods: {
                             gotoAndPlay: ['role']
                         },
                         prop: {
@@ -395,7 +395,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_1_text'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
@@ -413,7 +413,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_1_text'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
@@ -439,7 +439,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_1_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_1']
                                 },
                                 prop: {
@@ -457,7 +457,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_1_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_2']
                                 },
                                 prop: {
@@ -475,7 +475,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_1_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_3']
                                 },
                                 prop: {
@@ -493,7 +493,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_1_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_4']
                                 },
                                 prop: {
@@ -511,7 +511,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_1_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_5']
                                 },
                                 prop: {
@@ -529,7 +529,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_1_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_6']
                                 },
                                 prop: {
@@ -547,7 +547,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_1_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_7']
                                 },
                                 prop: {
@@ -565,7 +565,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_1_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_8']
                                 },
                                 prop: {
@@ -583,7 +583,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_1_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_9']
                                 },
                                 prop: {
@@ -601,7 +601,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_1_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_10']
                                 },
                                 prop: {
@@ -655,7 +655,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_2_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_1']
                                 },
                                 prop: {
@@ -673,7 +673,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_2_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_2']
                                 },
                                 prop: {
@@ -691,7 +691,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_2_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_3']
                                 },
                                 prop: {
@@ -709,7 +709,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_2_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_4']
                                 },
                                 prop: {
@@ -727,7 +727,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_2_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_5']
                                 },
                                 prop: {
@@ -745,7 +745,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_2_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_6']
                                 },
                                 prop: {
@@ -763,7 +763,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_2_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_7']
                                 },
                                 prop: {
@@ -781,7 +781,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_2_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_8']
                                 },
                                 prop: {
@@ -799,7 +799,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_2_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_9']
                                 },
                                 prop: {
@@ -817,7 +817,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_2_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_10']
                                 },
                                 prop: {
@@ -856,7 +856,7 @@ const app = {
                                 role: [0, 5, 'role', 0.05],
                             }
                         },
-                        method: {
+                        methods: {
                             gotoAndPlay: ['role']
                         },
                         prop: {
@@ -874,7 +874,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_2_text'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
@@ -892,7 +892,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_2_text'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
@@ -910,7 +910,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_2_text'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
@@ -928,7 +928,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_2_text'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
@@ -982,7 +982,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_3_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_1']
                                 },
                                 prop: {
@@ -1000,7 +1000,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_3_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_2']
                                 },
                                 prop: {
@@ -1018,7 +1018,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_3_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_3']
                                 },
                                 prop: {
@@ -1036,7 +1036,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_3_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_4']
                                 },
                                 prop: {
@@ -1054,7 +1054,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_3_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_5']
                                 },
                                 prop: {
@@ -1072,7 +1072,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_3_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_6']
                                 },
                                 prop: {
@@ -1090,7 +1090,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_3_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_7']
                                 },
                                 prop: {
@@ -1108,7 +1108,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_3_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_8']
                                 },
                                 prop: {
@@ -1139,7 +1139,7 @@ const app = {
                                 role: [0, 5, 'role', 0.05],
                             }
                         },
-                        method: {
+                        methods: {
                             gotoAndPlay: ['role']
                         },
                         prop: {
@@ -1156,7 +1156,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_3_text_1'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
@@ -1174,7 +1174,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_3_text_1'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
@@ -1192,7 +1192,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_3_text_1'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
@@ -1210,7 +1210,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_3_text_1'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
@@ -1236,7 +1236,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_3_text_2'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
@@ -1254,7 +1254,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_3_text_2'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
@@ -1273,7 +1273,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_3_text_2'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
@@ -1318,7 +1318,7 @@ const app = {
                                 role: [0, 5, 'role', 0.05],
                             }
                         },
-                        method: {
+                        methods: {
                             gotoAndPlay: ['role']
                         },
                         prop: {
@@ -1349,7 +1349,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_1']
                                 },
                                 prop: {
@@ -1367,7 +1367,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_2']
                                 },
                                 prop: {
@@ -1385,7 +1385,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_3']
                                 },
                                 prop: {
@@ -1403,7 +1403,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_4']
                                 },
                                 prop: {
@@ -1421,7 +1421,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_5']
                                 },
                                 prop: {
@@ -1439,7 +1439,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_6']
                                 },
                                 prop: {
@@ -1457,7 +1457,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_7']
                                 },
                                 prop: {
@@ -1475,7 +1475,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_8']
                                 },
                                 prop: {
@@ -1493,7 +1493,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_9']
                                 },
                                 prop: {
@@ -1511,7 +1511,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_10']
                                 },
                                 prop: {
@@ -1529,7 +1529,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_11']
                                 },
                                 prop: {
@@ -1556,7 +1556,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_text_1'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
@@ -1574,7 +1574,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_text_1'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
@@ -1593,7 +1593,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_text_1'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
@@ -1612,7 +1612,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_text_1'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
@@ -1640,7 +1640,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_text_2'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
@@ -1658,7 +1658,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_text_2'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
@@ -1676,7 +1676,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_text_2'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
@@ -1694,7 +1694,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_4_text_2'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
@@ -1737,7 +1737,7 @@ const app = {
                                 role: [0, 5, 'role', 0.05],
                             }
                         },
-                        method: {
+                        methods: {
                             gotoAndPlay: ['role']
                         },
                         prop: {
@@ -1767,7 +1767,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_5_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_1']
                                 },
                                 prop: {
@@ -1785,7 +1785,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_5_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_2']
                                 },
                                 prop: {
@@ -1803,7 +1803,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_5_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_3']
                                 },
                                 prop: {
@@ -1822,7 +1822,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_5_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_4']
                                 },
                                 prop: {
@@ -1840,7 +1840,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_5_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_5']
                                 },
                                 prop: {
@@ -1858,7 +1858,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_5_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_6']
                                 },
                                 prop: {
@@ -1876,7 +1876,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_5_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_7']
                                 },
                                 prop: {
@@ -1894,7 +1894,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_5_notes'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['note_8']
                                 },
                                 prop: {
@@ -1921,7 +1921,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_5_text'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
@@ -1939,7 +1939,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_5_text'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
@@ -1957,7 +1957,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_5_text'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
@@ -1975,7 +1975,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_5_text'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {
@@ -1993,7 +1993,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_5_text'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_5']
                                 },
                                 prop: {
@@ -2035,7 +2035,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_6_text'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_1']
                                 },
                                 prop: {
@@ -2051,7 +2051,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_6_text'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_2']
                                 },
                                 prop: {
@@ -2067,7 +2067,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_6_text'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_3']
                                 },
                                 prop: {
@@ -2083,7 +2083,7 @@ const app = {
                             {
                                 type: 'sprite',
                                 sheet: gallery.getSprite('scene_6_text'),
-                                method: {
+                                methods: {
                                     gotoAndPlay:['text_4']
                                 },
                                 prop: {

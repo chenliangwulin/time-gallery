@@ -646,13 +646,15 @@ class TimeGallery {
 
                 displayObject = new createjs.Shape();
 
-                for (let key of Object.keys(obj.graphics)) {
-                    if (Array.isArray(obj.graphics[key])) {
-                        displayObject.graphics[key](...obj.graphics[key])
-                    } else if (obj.graphics[key] instanceof Object) {
-                        displayObject.graphics[key](obj.graphics[key])
-                    } else {
-                        displayObject.graphics[key](obj.graphics[key]);
+                if (obj.graphics) {
+                    for (let key of Object.keys(obj.graphics)) {
+                        if (Array.isArray(obj.graphics[key])) {
+                            displayObject.graphics[key](...obj.graphics[key])
+                        } else if (obj.graphics[key] instanceof Object) {
+                            displayObject.graphics[key](obj.graphics[key])
+                        } else {
+                            displayObject.graphics[key](obj.graphics[key]);
+                        }
                     }
                 }
 
@@ -684,7 +686,7 @@ class TimeGallery {
 
         if (obj.id) displayObject.name = obj.id;
 
-        if (obj.parent_id) displayObject.parentId = obj.parent_id;
+        if (obj.parent_id) displayObject.parent_id = obj.parent_id;
 
         if (obj.prop) {
             for (let propKey of Object.keys(obj.prop)) {
@@ -723,24 +725,24 @@ class TimeGallery {
             }
         }
 
-        if (obj.method) {
-            for (let key of Object.keys(obj.method)) {
-                displayObject[key](...obj.method[key]);
+        if (obj.methods) {
+            for (let key of Object.keys(obj.methods)) {
+                displayObject[key](...obj.methods[key]);
             }
         }
 
-        if (obj.event) {
-            if (obj.event.handle) {
-                let type = obj.event.type || 'click';
-                displayObject.addEventListener(type, obj.event.handle)
+        if (obj.events) {
+            if (obj.events.handle) {
+                let type = obj.events.type || 'click';
+                displayObject.addEventListener(type, obj.events.handle)
             }
         }
 
-        if (displayObject.getBounds()) {
-            let bounds = displayObject.getBounds();
-            displayObject.width = bounds.width;
-            displayObject.height = bounds.height;
-        }
+        // if (displayObject.getBounds()) {
+        //     let bounds = displayObject.getBounds();
+        //     displayObject.width = bounds.width;
+        //     displayObject.height = bounds.height;
+        // }
 
         return displayObject;
 
