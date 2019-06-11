@@ -147,7 +147,7 @@ timeGallery.play();
     },
 
     // 可定义事件
-    event: {
+    events: {
         type: 'click',
         handle: function(e) {
             console.log(e)
