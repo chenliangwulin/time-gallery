@@ -1,3 +1,6 @@
+
+document.body.addEventListener('touchmove', event => event.preventDefault(), { passive: false });
+
 const app = {
     init() {
         let height = window.innerHeight/window.innerWidth * 750;
@@ -2103,5 +2106,3 @@ const app = {
 };
 
 app.init();
-
-document.body.addEventListener('touchmove', event => event.preventDefault(), { passive: false });
