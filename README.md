@@ -119,10 +119,11 @@ timeGallery.play();
         alpha: 1,           // 定义元素初始透明度（0-1）
         visible: true,      // 定义元素是否可见
         index: 0            // 定义元素在当前父元素层次位置
+        mask: []            // 定义元素遮罩层，可接受3种遮罩方式，圆形[x, y, radius], 矩形[0, 0, width, height], 圆角矩形[0, 0, width, height，radius],
     },
 
     // 可定义方法
-    methods: {
+    method: {
       cache: [x, y, width, height] // 为定义的对象定义缓存区域，有效提供渲染性能, 特别是 Bitmap 用到大图情况
     }
 
@@ -148,7 +149,7 @@ timeGallery.play();
 
     // 可定义事件
     events: {
-        type: 'click',
+        type: 'click',      // 可自定义事件，默认'click'
         handle: function(e) {
             console.log(e)
         }
