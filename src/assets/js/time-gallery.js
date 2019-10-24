@@ -111,6 +111,7 @@ class TimeGallery {
         if (this._isTouch) this._initTouchEvent();
 
         this.init();
+
     }
 
     // 渲染实例
@@ -187,7 +188,7 @@ class TimeGallery {
                 if (this._isState) this._stats();
 
                 // 初始化成功的回调
-                if (this.onInit) this.onInit();
+                if (this.onInit) this.onInit(this);
             }
         });
 
@@ -233,6 +234,7 @@ class TimeGallery {
     // 删除 id 数据，包括 id 的子属性
     remove(id) {
         let displayObject = this._objects[id];
+
         let parent = displayObject.parent;
 
         parent.removeChild(displayObject);
@@ -317,9 +319,7 @@ class TimeGallery {
     }
 
     getSprite(id = '') {
-
         if (id === '') return this._sprites;
-
         return this._sprites[id];
     }
 
@@ -601,6 +601,7 @@ class TimeGallery {
                 src = file;
             }
 
+            image.crossOrigin = '*';
             image.src = path + src;
             image.onload = () => {
 
@@ -623,18 +624,6 @@ class TimeGallery {
                 }
             };
         }
-
-        // 基于 PreloadJs
-        // this._loadQueue = new createjs.LoadQueue(true, path);
-        //
-        // if (progress) this._loadQueue.on('progress', e => onProgress(e));
-        //
-        // this._loadQueue.on('complete', e => {
-        //     this._isLoading = false;
-        //     if (onComplete) onComplete(e);
-        // });
-        //
-        // this._loadQueue.loadManifest(loadManifest);
     }
 
     _addObject(obj = {}) {
@@ -643,7 +632,6 @@ class TimeGallery {
 
         switch (obj.type) {
             case 'shape':
-
                 displayObject = new createjs.Shape();
 
                 if (obj.graphics) {
@@ -686,12 +674,27 @@ class TimeGallery {
 
         if (obj.id) displayObject.name = obj.id;
 
-        if (obj.parent_id) displayObject.parent_id = obj.parent_id;
+        if (obj.parent_id) displayObject.parentId = obj.parent_id;
 
         if (obj.prop) {
             for (let propKey of Object.keys(obj.prop)) {
                 switch (propKey) {
                     case 'index':
+                        break;
+                    case 'mask':
+                        let shape = new createjs.Shape();
+                        switch (obj.prop[propKey].length) {
+                            case 3:
+                                shape.graphics.drawCircle(...obj.prop[propKey]);
+                                break;
+                            case 4:
+                                shape.graphics.drawRect(...obj.prop[propKey]);
+                                break;
+                            case 5:
+                                shape.graphics.drawRoundRect(...obj.prop[propKey]);
+                                break;
+                        }
+                        displayObject.mask = shape;
                         break;
                     default:
                         // 判断属性类型
@@ -725,24 +728,24 @@ class TimeGallery {
             }
         }
 
-        if (obj.methods) {
-            for (let key of Object.keys(obj.methods)) {
-                displayObject[key](...obj.methods[key]);
+        if (obj.method) {
+            for (let key of Object.keys(obj.method)) {
+                displayObject[key](...obj.method[key]);
             }
         }
 
-        if (obj.events) {
-            if (obj.events.handle) {
-                let type = obj.events.type || 'click';
-                displayObject.addEventListener(type, obj.events.handle)
+        if (obj.event) {
+            if (obj.event.handle) {
+                let type = obj.event.type || 'click';
+                displayObject.addEventListener(type, obj.event.handle)
             }
         }
 
-        // if (displayObject.getBounds()) {
-        //     let bounds = displayObject.getBounds();
-        //     displayObject.width = bounds.width;
-        //     displayObject.height = bounds.height;
-        // }
+        if (displayObject.getBounds()) {
+            let bounds = displayObject.getBounds();
+            displayObject.width = bounds.width;
+            displayObject.height = bounds.height;
+        }
 
         return displayObject;
 
@@ -784,7 +787,9 @@ class TimeGallery {
 
     _render(data = [], parent_id, custom = () => {}) {
 
-        if (data instanceof Object) data = Array.from(data);
+        if (data instanceof Object) {
+            data = Array.from(data)
+        }
 
         data.map((obj, index) => {
 
@@ -846,8 +851,6 @@ class TimeGallery {
                     }
 
                     this._objects[parent_id].setChildIndex(this._objects[obj.id], index);
-
-                    console.log(this._objects[parent_id].getChildIndex(this._objects[obj.id]));
                 }
             }
         });
@@ -986,6 +989,7 @@ class TimeGallery {
                 _animate(rate)
             },
             set(rate) {
+
                 if (isPlay) isPlay = false;
                 if (isMusic) isMusic = false;
 
