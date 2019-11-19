@@ -29,14 +29,15 @@ class TimeGallery {
 
     constructor (options) {
 
-        if (!options.id) return console.error('Canvas id not exist');
+        if (!options.id) return console.error('Canvas id is undefined');
 
         this._stage = new createjs.Stage(document.getElementById(options.id));
 
         this._loadQueue = null;
         this._isLoading = false;
         this._isEnd = false;
-        this._isState = options.isState || false;
+
+        this._isStats = options.isStats || false;
         this._isLog = options.isLog || false;
         this._isTouch = options.isTouch !== false;
 
@@ -55,7 +56,7 @@ class TimeGallery {
         this._delayTime = options.delayTime || 0;
 
         // 定义时间轴结束的位置
-        // 渲染完成后即获取动画组的动画长度与画布长度之间的最大值
+        // 渲染完成后默认获取动画组的动画结束位置与画布长度之间的最大值
         this._endTime = options.endTime || 0;
 
         // 定义时间轴开始的位置
@@ -72,6 +73,9 @@ class TimeGallery {
 
         // 执行动画的数组
         this._animatorsGroup = [];
+
+        // 执行循环动画的数组
+        this._loopGroup = [];
 
         // 定义资源默认路劲
         this._resourcesPath = options.resourcesPath || '';
@@ -108,14 +112,14 @@ class TimeGallery {
         // 定义动画播放线
         this.playLine = options.playLine || (this._isVertical? this.height : this.width);
 
+        // 启动
         if (this._isTouch) this._initTouchEvent();
 
-        this.init();
-
+        this._init();
     }
 
     // 渲染实例
-    init() {
+    _init() {
         this._preload(this._resources, {
             path: this._resourcesPath,
             onComplete: () => {
@@ -136,12 +140,23 @@ class TimeGallery {
                     }
                 ];
 
-                // 渲染图像数据
+                // 渲染数据
                 this._render(data, null, (displayObject, obj) => {
                     if (displayObject) {
                         if (obj.animation) {
                             displayObject.animation = this._createAnimate(displayObject, obj.animation);
-                            this._animatorsGroup.push(displayObject);
+                            if (obj.animation.loop) {
+                                displayObject.loop = {
+                                    speed: obj.animation.duration/100 * (obj.animation.loop.speed || 1),
+                                    reverse: obj.animation.loop.reverse || false,
+                                    dir: 1,
+                                    rate: 0,
+                                    duration: obj.animation.duration
+                                };
+                                this._loopGroup.push(displayObject)
+                            } else {
+                                this._animatorsGroup.push(displayObject);
+                            }
                         }
                     }
                 });
@@ -185,7 +200,7 @@ class TimeGallery {
                 this._stage.update();
 
                 // 是否打印 FPS 状态，依赖 state.js
-                if (this._isState) this._stats();
+                if (this._isStats) this._stats();
 
                 // 初始化成功的回调
                 if (this.onInit) this.onInit(this);
@@ -206,10 +221,6 @@ class TimeGallery {
 
     // 重新开始
     replay() {
-        this._touchData.touchstart = 0;
-        this._touchData.touchmove = 0;
-        this._touchData.isInertance = false;
-
         if (this._isVertical) {
             this._timeline.y = 0;
         } else {
@@ -223,6 +234,8 @@ class TimeGallery {
         this._stage.update();
 
         this.play();
+
+        this._initTouchData();
     }
 
     // 停止实例
@@ -239,8 +252,9 @@ class TimeGallery {
 
         parent.removeChild(displayObject);
 
-        this._stage.update();
         this._removeObject(id);
+
+        this._stage.update();
     }
 
     // 摧毁对象，移除所有 Data 对象
@@ -303,18 +317,12 @@ class TimeGallery {
             object.x = this._getObjectTime(displayObject)
         }
 
-        if (displayObject.animation) {
-            object.animation = displayObject.animation;
-        }
-
         return object;
     }
 
     // 获取图片资源信息
     getImage(id = '') {
-
         if (id === '') return this._loadQueue;
-
         return this._loadQueue[id];
     }
 
@@ -323,7 +331,7 @@ class TimeGallery {
         return this._sprites[id];
     }
 
-    timeTo(time, duration = 0, callback) {
+    timeTo(time, ms = 0, callback) {
 
         let timeToPos = 0;
 
@@ -348,7 +356,7 @@ class TimeGallery {
 
         if (this.onTimeToStart) this.onTimeToStart(this);
 
-        if (duration === 0) {
+        if (ms === 0) {
 
             this._activeTime = timeToPos;
 
@@ -385,7 +393,7 @@ class TimeGallery {
                 if (this.onTickStart) this.onTickStart(this);
 
                 activeDate = new Date().getTime();
-                timeToProgress = (activeDate - startDate)/duration;
+                timeToProgress = (activeDate - startDate)/ms;
                 timeToMove = Math.floor(timeToProgress * timeToDistance) * timeToDir;
 
                 if (timeToMove > timeToDistance) timeToMove = timeToDistance;
@@ -412,7 +420,7 @@ class TimeGallery {
 
                     this._isEnd = true;
 
-                    if (this.onEnd) this.onEnd();
+                    if (this.onEnd) this.onEnd(this);
 
                 } else if (timeToProgress >= 1) {
                     this._onTimeToEnd(callback);
@@ -446,13 +454,11 @@ class TimeGallery {
     _onTick() {
         if (!this._isLoading && this._timeline) {
 
-            if (this.autoUpdate && this.onTickStart) this.onTickStart(this);
+            if (this.onTickStart) this.onTickStart(this);
 
-            if (this._autoPlay || this._touchData.isMoving) {
+            if (this._touchData.isMoving || this.autoUpdate || this._autoPlay) {
 
-                if (!this.autoUpdate && this.onTickStart) this.onTickStart(this);
-
-                let activeTime;
+                let activeTime = this.getActiveTime();
 
                 if (this._touchData.isMoving) {
 
@@ -474,9 +480,7 @@ class TimeGallery {
                         activeTime = -this._timeline.x;
                     }
 
-                    this._updateTime(activeTime);
-
-                } else {
+                } else if (this._autoPlay) {
 
                     if (this._isVertical) {
                         this._timeline.y -= this.autoSpeed;
@@ -486,18 +490,19 @@ class TimeGallery {
                         activeTime = -this._timeline.x;
                     }
 
-                    this._updateTime(activeTime);
-
                 }
 
-                if (this.onTickEnd) this.onTickEnd(this);
+                this._updateTime(activeTime);
 
-                if (!this.autoUpdate) this._stage.update();
             }
 
-            if (this.autoUpdate) this._stage.update();
+            if (this.onTickEnd) this.onTickEnd(this);
 
-            if (this._isState) this.stats.update();
+            if (this.autoUpdate || (this._touchData.isMoving || this._autoPlay)) {
+                this._stage.update();
+            }
+
+            if (this._isStats) this.stats.update();
 
         }
     }
@@ -539,6 +544,8 @@ class TimeGallery {
         this._activeTime = activeTime;
 
         this._updateAnimators();
+
+        this._updateLoops();
     }
 
     _updateAnimators() {
@@ -556,8 +563,31 @@ class TimeGallery {
                 displayObject.animation.set(endPlayTime - startPlayTime);
             }
         });
+    }
 
-        if (this.onTickEnd) this.onTickEnd(this);
+    _updateLoops() {
+        this._loopGroup.map(displayObject => {
+
+            let rate = displayObject.loop.rate + displayObject.loop.speed * displayObject.loop.dir;
+
+            if (displayObject.loop.reverse) {
+                if (rate > displayObject.loop.duration) {
+                    rate = displayObject.loop.duration;
+                    displayObject.loop.dir *= -1;
+                } else if (rate < 0) {
+                    rate = 0;
+                    displayObject.loop.dir *= -1;
+                }
+            } else {
+                if (rate > displayObject.loop.duration) {
+                    rate = 0;
+                }
+            }
+
+            displayObject.loop.rate = rate;
+
+            displayObject.animation.set(rate);
+        });
     }
 
     _preload(manifest = [], { onComplete = () => {}, onProgress = () => {}, path = ''} = {}) {
@@ -626,6 +656,47 @@ class TimeGallery {
         }
     }
 
+    // 删除指定的 ID 对象
+    _removeObject(id) {
+        let displayObject = this._objects[id];
+
+        if (displayObject.animation) this._removeAnimator(displayObject.name);
+
+        // 判断是否存在 children,
+        // 若存在则遍历递归的删除
+        let children = displayObject.children;
+
+        if (children.length > 0) {
+            children.forEach(child => {
+                if (child.children) this._removeObject(child.name);
+
+                if (child.animation) this._removeAnimator(child.name);
+
+                delete this._objects[child.name];
+            })
+        }
+
+        delete this._objects[id];
+    }
+
+    // 删除动画组指定的 ID
+    _removeAnimator(id) {
+        for(let i = 0, len = this._animatorsGroup.length; i < len; i++) {
+            if (this._animatorsGroup[i].name === id) {
+                this._animatorsGroup.splice(i, 1);
+                return;
+            }
+        }
+
+        for(let i = 0, len = this._loopGroup.length; i < len; i++) {
+            if (this._loopGroup[i].name === id) {
+                this._loopGroup.splice(i, 1);
+                return;
+            }
+        }
+    }
+
+    // 创建数据对象
     _addObject(obj = {}) {
 
         let displayObject = null;
@@ -734,10 +805,12 @@ class TimeGallery {
             }
         }
 
-        if (obj.event) {
-            if (obj.event.handle) {
-                let type = obj.event.type || 'click';
-                displayObject.addEventListener(type, obj.event.handle)
+        if (obj.on) {
+            if (obj.on instanceof Array && obj.on.length >= 2) {
+                displayObject.addEventListener(obj.on[0], obj.on[1]);
+            } else if (obj.on.handle) {
+                let type = obj.on.event || 'click';
+                displayObject.addEventListener(type, obj.on.handle)
             }
         }
 
@@ -751,50 +824,17 @@ class TimeGallery {
 
     }
 
-    _removeObject(id) {
-        let displayObject = this._objects[id];
-
-        delete this._objects[id];
-
-        if (displayObject.animation) {
-            this._removeAnimator(displayObject.name)
-        }
-
-        let children = displayObject.children;
-
-        if (children) {
-            children.forEach(child => {
-                delete this._objects[child.name];
-                if (child.children) {
-                    this._removeObject(child);
-                }
-
-                if (child.animation) {
-                    this._removeAnimator(child.name)
-                }
-            })
-        }
-    }
-
-    _removeAnimator(id) {
-        for(let i = 0, len = this._animatorsGroup.length; i < len; i++ ){
-            if (this._animatorsGroup[i].name === id) {
-                this._animatorsGroup.splice(i, 1);
-                return;
-            }
-        }
-    }
-
+    // 渲染数据对象
     _render(data = [], parent_id, custom = () => {}) {
 
-        if (data instanceof Object) {
-            data = Array.from(data)
-        }
+        // 若 data 属性是对象，则转成数组，方便遍历
+        if (data instanceof Object) data = Array.from(data);
 
         data.map((obj, index) => {
 
             obj.parent_id = parent_id;
 
+            // 若ID 不存在则自动匹配ID
             if (obj.id === undefined) obj.id = `${parent_id}_${index}`;
 
             if (this._objects[obj.id]) {
@@ -858,6 +898,7 @@ class TimeGallery {
         this._stage.update();
     }
 
+    // 给数据对象创建动画
     _createAnimate(displayObject, {
         x = null,
         y = null,
@@ -867,7 +908,6 @@ class TimeGallery {
         skewY = null,
         rotation = null,
         alpha = 1,
-        top = 0,
         delay = 0,
         duration = 0,
         sprite = [],
@@ -895,10 +935,6 @@ class TimeGallery {
 
         let startPlayTime = 0;                          // 对象开始执行动画位置
         let endPlayTime = 0;                            // 对象结束执行动画位置
-
-        if (top) {
-            delay = -top;
-        }
 
         if (startById) {
             startPlayTime = this._objects[startById].animation.startPlayTime + delay;
@@ -998,6 +1034,7 @@ class TimeGallery {
         }
     }
 
+    // 获取数据对象的位置
     _getObjectTime(displayObject) {
         let sum = this._isVertical? displayObject.y : displayObject.x;
         let _this = this;
@@ -1016,7 +1053,7 @@ class TimeGallery {
         }
     }
 
-    // 初始化手势
+    // 初始化滑动事件
     _initTouchEvent() {
         this.canvas.addEventListener('touchstart', (e) => {
             if (this._isVertical) {
@@ -1045,6 +1082,7 @@ class TimeGallery {
         });
     }
 
+    // 初始化滑动事件属性
     _initTouchData() {
         this._touchData.touchstart = 0;
         this._touchData.touchmove = 0;
@@ -1052,9 +1090,10 @@ class TimeGallery {
         this._touchData.isMoving = false;
     }
 
-    _stats () {
+    // 启动 Stats.js
+    _stats (index = 0) {
         this.stats = new Stats();
-        this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+        this.stats.showPanel(index); // 0: fps, 1: ms, 2: mb, 3+: custom
         document.body.appendChild(this.stats.dom);
     }
 }
