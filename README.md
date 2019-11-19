@@ -1,4 +1,8 @@
 # Time-Gallery 2X
+
+## 1. 新增 mask 基础属性
+## 2. 新增 loop 动画属性
+
 基于 CreateJs 实现长图滑动加动画的效果，整段长图可想象成是一段时间轴，在时间轴上自定义各种动画，通过滑动或自定义交互控制时间轴播放。
 
 ## 前言
@@ -102,7 +106,7 @@ timeGallery.play();
 数据类型分别有 **Container, Bitmap, Sprite, Shape, Text**，以下是各类型的基本属性:
 ```
 {
-    id: 'name',             // 为元素指定 ID
+    id: 'name',             // 为元素指定 ID，
     type: '',               // 为元素指定类型，默认是 Container
 
     // 可定义基础属性
@@ -144,13 +148,18 @@ timeGallery.play();
         rotation: 0,        // 动画结束后的旋转度数 
         alpha: 1,           // 动画结束后透明度
         sprite: [],         // 动画组，根据执行进度按索引替换图片
+        loop: true,         // 等同下面
+        // loop: {             // 定义循环播放，动画以 0% ~ 100% 区间循环执行动画
+            // speed: 1,       // 定义循环播放的速度
+            // reverse: false  // 是否来回循环播放
+        // },
         duration: 0,        // 动画执行长度
     },
 
     // 可定义事件
-    events: {
-        type: 'click',      // 可自定义事件，默认'click'
-        handle: function(e) {
+    on: {
+        event: 'click',     // 可自定义事件，默认'click'。 可以数组方式['click', () => {}]
+        handle: (e) => {
             console.log(e)
         }
     }
@@ -215,12 +224,12 @@ timeGallery.play();
     type: 'sprite',
     sheet: {
         images:[timeGallery.getImage('sprites')], // [图片路径]
-        frames: [                      // [x, y, width, height]
+        frames: [                                 // [x, y, width, height]
             [0, 1032, 489, 103],       
             [0, 944, 489, 67],
             [0, 817, 489, 48],
         ],
-        animations: {                  // 指定每组动作对应 frames 帧
+        animations: {                             // 指定每组动作对应 frames 帧
             sprite_1: [0],
             sprite_2: [1],
             sprite_3: [2],
@@ -238,8 +247,9 @@ timeGallery.play();
     type: 'text',
     prop: {
          text: '你输入的文字内容',
-         font: 'normal 36px Arial',  // '样式 大小 字体'
-         color: '#000',
+         font: 'normal 36px Arial',  // 定义文字样式，大小，字体，必须按顺序填写，空格隔开
+         color: '#000',              // 定义文字颜色
+         align: 'center'             // 定义文字对齐位置，可定义 'left', 'center', 'right'
     }
 }
 ```
@@ -253,7 +263,7 @@ timeGallery.play();
 - `width: window.innerWidth`      定义画布宽度
 - `height: window.innerHeight`    定义画布高度
 
-- `isState: false`                是否启动 **Stage.js** 用于测试FPS, 须引入 stage.js 文件
+- `isStats: false`                是否启动 **Stats.js** 用于测试FPS, 须引入 stage.js 文件
 - `isLog: false`                  是否打印 **data** 数据结构，方便了解
 - `isTouch: true`                 是否启动滑动事件, 若 **false** 你可通过获取 canvas 属性自定义事件
 
@@ -279,15 +289,14 @@ timeGallery.play();
 - `autoUpdate`                    获取或定义是否自动更新
 
 ## CallBack
-- `onInit()`                      渲染完成后的回调
-- `onEnd()`                       滑动到最底后的回调
-- `onTickStart(timeGallery)`      每一帧的开始前回调，可选 TimeGallery 实例作为参数
-- `onTickEnd(timeGallery)`        每一帧的结束后回调，可选 TimeGallery 实例作为参数
-- `onTimeToStart(timeGallery)`    onTimeTo 开始前回调，可选 TimeGallery 实例作为参数
-- `onTimeToEnd(timeGallery)`      onTimeTo 结束后回调，可选 TimeGallery 实例作为参数
+- `onInit()`                      渲染完成后的回调，接收 TimeGallery 实例作为参数
+- `onEnd()`                       滑动到最底后的回调，接收 TimeGallery 实例作为参数
+- `onTickStart(timeGallery)`      每一帧的开始前回调，接收 TimeGallery 实例作为参数
+- `onTickEnd(timeGallery)`        每一帧的结束后回调，接收 TimeGallery 实例作为参数
+- `onTimeToStart(timeGallery)`    onTimeTo 开始前回调，接收 TimeGallery 实例作为参数
+- `onTimeToEnd(timeGallery)`      onTimeTo 结束后回调，接收 TimeGallery 实例作为参数
 
 ## Methods
-- `init()`                        渲染实例
 - `play()`                        开始动画
 - `stop()`                        停止动画
 - `replay()`                      重新开始
