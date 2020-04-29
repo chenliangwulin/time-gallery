@@ -138,8 +138,8 @@ timeGallery.play();
         startById: '',      // 与指定 ID 元素同步执行动画，不能与 afterById、endById 共用，ID 元素必须已创建。
         endById: '',        // 与指定 ID 元素同步结束动画，不能与 afterById、startById 共用，ID 元素必须已创建。
         afterById: '',      // 在指定 ID 元素结束后执行动画，不能与 startById、endById 共用，ID 元素必须已创建。
-        musicById: '',      // 当动画开始执行时候，播放指定 ID <audio>
-        musicStopById: '',  // 当动画开始执行时候，停止播放指定 ID <audio>
+        musicById: '',      // 当动画开始执行时，播放指定 HTML 里音频ID <audio id="demo" src="demo.mp3" />
+        musicStopById: '',  // 当动画开始执行时，停止指定 HTML 里音频ID <audio id="demo" src="demo.mp3" />
         x: 0,               // 动画结束后的 X 位置
         y: 0,               // 动画结束后的 Y 位置
         delay: 0,           // 延迟动画播放，例如 delay:100, 则元素在执行动画的时候延迟 100 像素
