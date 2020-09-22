@@ -18,8 +18,9 @@
 
 ## 案例参考
 
-![](http://o.gd.sina.com.cn/staff/zt2/qrcode/yzf_gallery.png)
-![](http://o.gd.sina.com.cn/staff/zt2/qrcode/chunsheng.png)
+![](http://o.gd.sina.com.cn/staff/zt2/qrcode/5.jpg)
+![](http://o.gd.sina.com.cn/staff/zt2/qrcode/4.jpg)
+![](http://o.gd.sina.com.cn/staff/zt2/qrcode/3.jpg)
 ![](http://o.gd.sina.com.cn/staff/zt2/qrcode/2.jpg)
 ![](http://o.gd.sina.com.cn/staff/zt2/qrcode/1.jpg)
 
