@@ -21,7 +21,7 @@
 ![](http://o.gd.sina.com.cn/staff/zt2/qrcode/yzf_gallery.png)
 ![](http://o.gd.sina.com.cn/staff/zt2/qrcode/chunsheng.png)
 ![](http://o.gd.sina.com.cn/staff/zt2/qrcode/picc_69.png)
-![](http://o.gd.sina.com.cn/staff/zt2/qrcode/nfdw.png)
+![](http://o.gd.sina.com.cn/staff/zt2/qrcode/1.png)
 
 ## 使用
 
@@ -265,7 +265,7 @@ timeGallery.play();
 - `width: window.innerWidth`      定义画布宽度
 - `height: window.innerHeight`    定义画布高度
 
-- `isStats: false`                是否启动 **Stats.js** 用于测试FPS, 须引入 stage.js 文件
+- `isStats: false`                是否启动 **Stats.js** 用于测试FPS, 须引入 stats.js 文件
 - `isLog: false`                  是否打印 **data** 数据结构，方便了解
 - `isTouch: true`                 是否启动滑动事件, 若 **false** 你可通过获取 canvas 属性自定义事件
 
