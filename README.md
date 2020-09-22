@@ -21,7 +21,7 @@
 ![](http://o.gd.sina.com.cn/staff/zt2/qrcode/yzf_gallery.png)
 ![](http://o.gd.sina.com.cn/staff/zt2/qrcode/chunsheng.png)
 ![](http://o.gd.sina.com.cn/staff/zt2/qrcode/picc_69.png)
-![](http://o.gd.sina.com.cn/staff/zt2/qrcode/1.png)
+![](http://o.gd.sina.com.cn/staff/zt2/qrcode/1.jpg)
 
 ## 使用
 
